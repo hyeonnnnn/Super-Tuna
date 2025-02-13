@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 public class HungerSystem : MonoBehaviour
 {
-    public float currentHunger;
-    public float maxHunger = 100f;
-    public float hungerDecreaseAmount = 5f;
-    public float hungerDecreaseInterval = 1f; 
-    public Slider hungerBarSlider;
-    public GameObject hpBar;
-    public bool radioactivity = false;
-    public GameObject gameOverUI;
+    private float currentHunger;
+    private float maxHunger = 100f;
+    private float hungerDecreaseAmount = 5f;
+    private float hungerDecreaseInterval = 1f; 
+    [SerializeField] public Slider hungerBarSlider;
+    [SerializeField] public GameObject hpBar;
+    [SerializeField] public bool radioactivity = false;
+    [SerializeField] public GameObject gameOverUI;
     
     private void Start()
     {

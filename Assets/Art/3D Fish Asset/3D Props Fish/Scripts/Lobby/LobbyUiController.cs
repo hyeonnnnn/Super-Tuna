@@ -1,16 +1,18 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyUiController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void OnClickPlayButton()
     {
-        
+        Debug.Log("∞‘¿” æ¿ ¿Ãµø");
+        //SceneManager.LoadScene("GameScene");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickExitButton()
     {
-        
+        Application.Quit();
     }
 }

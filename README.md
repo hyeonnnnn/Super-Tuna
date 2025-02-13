@@ -18,3 +18,8 @@ Init: Create Ajou-swift project
 이렇게 이렇게 개발해서 이러이러한 결과물이 나옴  
 - 어떠한 문제가 발생하여 무엇을 해결  
 - 왜 이러한 방법을 사용하여 개발
+
+## [브랜치 생성 룰]
+
+Tag Type
+feature : 기능, 시스템 구현

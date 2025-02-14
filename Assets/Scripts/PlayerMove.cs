@@ -1,53 +1,55 @@
+using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
     private float maxSpeed;
     private Vector2 targetVelocity;
     private Vector3 targetRotation;
-    private bool isDash;
-    private float dashGuage;
+    public bool isDash { get; private set; }
+    private float _dashGuage;
+    public float DashGuage {
+        get
+        {
+            return _dashGuage;
+        }
+        private set
+        {
+            if (value < 0) value = 0;
+            if(value > 100 ) value = 100;
+            _dashGuage = value;
+        } 
+    }
+    private Coroutine currentDashCoroutine;
+    private bool isDashKeyDown = false;
+    private bool isDead = false;
 
     [SerializeField] private GameObject tunaPrefab;
-    private bool isDead = false;
-    
     private Rigidbody rigid;
+
+    [SerializeField] Slider debugSlider;
+
+    public Action ZeroDashGuageAction;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
+        ZeroDashGuageAction += TryDash;
         maxSpeed = 3f;
+        currentDashCoroutine = StartCoroutine(RecoverCoroutine());
     }
 
     private void Update()
     {
-        if(isDead) return;
+        DebugFunc();
+        if (isDead) return;
         Move();
         Rotate();
-    }
-
-    private void Move()
-    {
-        Vector2 currentVelocity = rigid.linearVelocity;
-
-        if (currentVelocity == targetVelocity) return;
-
-        Vector2 lerpedVector = Vector2.Lerp(currentVelocity, targetVelocity, 0.5f);
-
-        currentVelocity = (lerpedVector - currentVelocity) * Time.deltaTime * 10 + currentVelocity;
-
-        if (Mathf.Abs((currentVelocity - targetVelocity).sqrMagnitude) <= 0.1f)
-        {
-            currentVelocity = targetVelocity;
-        }
-        rigid.linearVelocity = currentVelocity;
-    }
-
-    private void Rotate()
-    {
-
+        TryDash();
     }
 
     public void OnMove(InputValue input)
@@ -57,10 +59,33 @@ public class PlayerMove : MonoBehaviour
         ChangeTargetRotation(inputDir);
     }
 
+    private void Move()
+    {
+        Vector2 currentVelocity = rigid.linearVelocity;
+        Vector2 applyVelocity = targetVelocity;
+
+        if (isDash) applyVelocity *= 2;
+        if (currentVelocity == applyVelocity) return;
+
+        Vector2 lerpedVector = Vector2.Lerp(currentVelocity, applyVelocity, 0.5f);
+        currentVelocity = (lerpedVector - currentVelocity) * Time.deltaTime * 10 + currentVelocity;
+
+        if (Mathf.Abs((currentVelocity - applyVelocity).sqrMagnitude) <= 0.1f)
+        {
+            currentVelocity = applyVelocity;
+        }
+
+        rigid.linearVelocity = currentVelocity;
+    }
+
+    private void Rotate()
+    {
+
+    }
+
     private void ChangeTargetVelocity(Vector2 input)
     {
         targetVelocity = input * maxSpeed;
-        Debug.Log(targetVelocity);
     }
 
     private void ChangeTargetRotation(Vector2 input)
@@ -86,28 +111,57 @@ public class PlayerMove : MonoBehaviour
 
     public void OnSprint(InputValue input)
     {
-        bool tryDash;
-        if(input.Get() != null)
+        if (input.Get() != null)
         {
-            tryDash = true;
+            isDashKeyDown = true;
         }
         else
         {
-            tryDash = false;
+            isDashKeyDown = false;
         }
-        Dash(tryDash);
-
     }
 
-    private void Dash(bool isTryingDash)
+
+    private void TryDash()
     {
-        if(isTryingDash && dashGuage > 0)
+        if(!isDash && isDashKeyDown && DashGuage > 0)
         {
             isDash = true;
+            StopCoroutine(currentDashCoroutine);
+            currentDashCoroutine = StartCoroutine(DashCoroutine());
         }
-        else
+        else if(isDash && (!isDashKeyDown || DashGuage <= 0))
         {
             isDash = false;
+            StopCoroutine(currentDashCoroutine);
+            currentDashCoroutine = StartCoroutine(RecoverCoroutine());
         }
     }
+
+    IEnumerator DashCoroutine()
+    {
+        while(!isDead)
+        {
+            DashGuage -= 2;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator RecoverCoroutine()
+    {
+        while (!isDead)
+        {
+            yield return new WaitForSeconds(0.1f);
+            DashGuage += 1;
+        }
+    }
+
+    public void DebugFunc()
+    {
+        debugSlider.value = DashGuage;
+    }
+
+    
+
+
 }

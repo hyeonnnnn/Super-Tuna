@@ -3,10 +3,9 @@ using System;
 
 public class Growth : MonoBehaviour
 {
-
-    private static readonly int[] expTable = { 0, 300, 1000 };
-    private static readonly int MAX_EXP = expTable[expTable.Length - 1];
-    private static readonly int MAX_LEVEL = expTable.Length;
+    private readonly int[] expTable;
+    private readonly int MAX_EXP;
+    private readonly int MAX_LEVEL;
 
     public int CurrentExp { get; private set; } = 0;
     public int CurrentLevel { get; private set; } = 1;
@@ -14,6 +13,13 @@ public class Growth : MonoBehaviour
     [SerializeField] private GameObject[] characterPrefabs;
     private GameObject currentCharacterInstance;
     private Vector3 baseScale = Vector3.one;
+
+    public Growth()
+    {
+        expTable = new int[] { 0, 300, 1000 };
+        MAX_EXP = expTable[expTable.Length - 1];
+        MAX_LEVEL = expTable.Length;
+    }
 
     private void Start()
     {
@@ -28,11 +34,7 @@ public class Growth : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.K))
         {
-            AddExp(50);
-        }
-        else if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddExp(60);
+            AddExp(80);
         }
     }
 
@@ -56,12 +58,12 @@ public class Growth : MonoBehaviour
     {
         if(CurrentExp >= expTable[CurrentLevel])
         {
-            ApplyLevelUP();
+            ApplyLevelUp();
         }
     }
 
     // 레벨 업 적용
-    private void ApplyLevelUP()
+    private void ApplyLevelUp()
     {
         CurrentLevel += 1;
         ChangePrefab();

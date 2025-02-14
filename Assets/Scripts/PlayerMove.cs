@@ -27,18 +27,17 @@ public class PlayerMove : MonoBehaviour
     private Coroutine currentDashCoroutine;
     private bool isDashKeyDown = false;
     private bool isDead = false;
+    private int rotationLerpCount;
 
     [SerializeField] private GameObject tunaPrefab;
     private Rigidbody rigid;
 
     [SerializeField] Slider debugSlider;
 
-    public Action ZeroDashGuageAction;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
-        ZeroDashGuageAction += TryDash;
         maxSpeed = 3f;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
     }
@@ -52,6 +51,7 @@ public class PlayerMove : MonoBehaviour
         TryDash();
     }
 
+    //playerInput event함수
     public void OnMove(InputValue input)
     {
         Vector2 inputDir = input.Get<Vector2>();
@@ -68,6 +68,7 @@ public class PlayerMove : MonoBehaviour
         if (currentVelocity == applyVelocity) return;
 
         Vector2 lerpedVector = Vector2.Lerp(currentVelocity, applyVelocity, 0.5f);
+        //(계산된 보간값) - (계산전 값)으로 보간해서 나온 차이를 deltatime*10을 곱해서 0.1초에 0.5f만큼의 보간이 이루어 지도록 계산
         currentVelocity = (lerpedVector - currentVelocity) * Time.deltaTime * 10 + currentVelocity;
 
         if (Mathf.Abs((currentVelocity - applyVelocity).sqrMagnitude) <= 0.1f)

@@ -164,9 +164,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1404052625}
     m_Modifications:
+    - target: {fileID: 4499322407774119632, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499322407774119632, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499322407774119632, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8634997229322126282, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
       propertyPath: m_Name
       value: BluefinTuna
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634997229322126282, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8979751691793078640, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979751691793078640, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8979751691793078640, guid: 130d78ab495c9fe498c8900ffda3e822, type: 3}
       propertyPath: m_LocalRotation.w
@@ -268,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ray
       objectReference: {fileID: 0}
+    - target: {fileID: 6439925127594159161, guid: e5d5ed8e6c911db44a5acf6fc87a0e6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -302,6 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 548849745e287c143931be1717c48640, type: 2}
+  player: {fileID: 0}
 --- !u!95 &192630885
 Animator:
   serializedVersion: 7
@@ -375,6 +396,10 @@ PrefabInstance:
     - target: {fileID: 6088561685214893345, guid: ab7b043e8208ca8439a2a569396c9172, type: 3}
       propertyPath: m_Name
       value: Seahorse
+      objectReference: {fileID: 0}
+    - target: {fileID: 6088561685214893345, guid: ab7b043e8208ca8439a2a569396c9172, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -454,7 +479,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -536,6 +561,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turtle
       objectReference: {fileID: 0}
+    - target: {fileID: 8409655310289590181, guid: e589c5d99f2d1e34a99e3e3810a37e73, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -596,6 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 11030c093c955c1498c9eb9cc58bc3a8, type: 2}
+  player: {fileID: 0}
 --- !u!95 &773152495
 Animator:
   serializedVersion: 7
@@ -641,6 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 21c191f83a4c46e4689303eac4873be6, type: 2}
+  player: {fileID: 0}
 --- !u!95 &902668404
 Animator:
   serializedVersion: 7
@@ -686,6 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 35c0cd1f01d513b40a226e2d97f723b9, type: 2}
+  player: {fileID: 0}
 --- !u!95 &916812399
 Animator:
   serializedVersion: 7
@@ -869,6 +901,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shark
       objectReference: {fileID: 0}
+    - target: {fileID: 4537395876302560931, guid: 9b045b96453f42744bb572646ab55e85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -895,7 +931,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3398991861887387729, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0.8451243
       objectReference: {fileID: 0}
     - target: {fileID: 3398991861887387729, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       propertyPath: m_LocalPosition.y
@@ -903,7 +939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3398991861887387729, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0052914033
       objectReference: {fileID: 0}
     - target: {fileID: 3398991861887387729, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       propertyPath: m_LocalRotation.w
@@ -936,6 +972,10 @@ PrefabInstance:
     - target: {fileID: 7381117547312873960, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       propertyPath: m_Name
       value: Dolphin
+      objectReference: {fileID: 0}
+    - target: {fileID: 7381117547312873960, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -971,6 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e54d35265e4d34140adbbfb7cc50e6d1, type: 2}
+  player: {fileID: 0}
 --- !u!95 &1243784281
 Animator:
   serializedVersion: 7
@@ -1018,7 +1059,7 @@ Transform:
   m_GameObject: {fileID: 1404052624}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000029802322, y: 0.00693506, z: -0.079325795}
+  m_LocalPosition: {x: 9.44, y: -1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1033,9 +1074,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 84074645}
     m_Modifications:
+    - target: {fileID: 353874416818544225, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7491376573653238077, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
       propertyPath: m_Name
       value: SmallFish
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491376573653238077, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8912726938653015988, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1128,6 +1177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 27a94edc6daf55044a82679b2efb719c, type: 2}
+  player: {fileID: 0}
 --- !u!1 &1930389851
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: SeaHorese
   m_EditorClassIdentifier: 
   level: 1
-  speed: 1
+  sightRange: 1
+  speed: 1.8
   exp: 10

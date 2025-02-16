@@ -14,6 +14,7 @@ public class EnemyIdle : EnemyState
         Move();
     }
 
+    // ¿Ãµø
     private void Move()
     {
         enemy.transform.Translate(Vector3.forward * enemy.enemyData.speed * Time.deltaTime);

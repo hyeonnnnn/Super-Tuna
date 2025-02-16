@@ -7,12 +7,11 @@ public class EnemyDie : EnemyState
     public override void OnStateEnter()
     {
         Debug.Log("Enemy entered Die state");
-        GameObject.Destroy(enemy.gameObject);
     }
 
     public override void OnStateUpdate()
     {
-        
+        GameObject.Destroy(enemy.gameObject);
     }
     
     public override void OnStateExit()

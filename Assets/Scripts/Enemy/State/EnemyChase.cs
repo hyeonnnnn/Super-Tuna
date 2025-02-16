@@ -3,15 +3,17 @@ using System.Collections;
 
 public class EnemyChase : EnemyState
 {
-    public EnemyChase(Enemy enemy) : base(enemy) { }
     private const float chaseBoost = 2f;
     private const float detectionTime = 5f;
+
+    public EnemyChase(Enemy enemy) : base(enemy) { }
 
     public override void OnStateEnter()
     {
         Debug.Log("Enemy entered Chase state");
     }
 
+    // 플레이어 추격
     public override void OnStateUpdate()
     {
         if (enemy.Player == null) return;
@@ -25,6 +27,7 @@ public class EnemyChase : EnemyState
         enemy.StartCoroutine(ChangeToIdle());
     }
 
+    // 탐지 시간 후에 플레이어가 시야각에 없으면 기본 상태로 전환
     IEnumerator ChangeToIdle()
     {
         yield return new WaitForSeconds(detectionTime);

@@ -8,23 +8,25 @@ public class Enemy : MonoBehaviour
 
     public int PlayerLevel { get; set; } = 2;
 
-    Color _blue = new Color(0f, 0f, 1f, 0.2f);
-    Color _red = new Color(1f, 0f, 0f, 0.2f);
-
     public Transform player;
     public Transform Player => player;
-
     private EnemyState currentState;
+
+    private Camera mainCamera;
+    private float outOfScreenTime = 0f;
+    private float outOfScreenDelay = 1f;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player")?.transform;
+        mainCamera = Camera.main;
         ChangeState(new EnemyIdle(this));
     }
 
     private void Update()
     {
         currentState?.OnStateUpdate();
+        isOutScreen();
     }
 
     // 상태 변경
@@ -39,7 +41,7 @@ public class Enemy : MonoBehaviour
         currentState.OnStateEnter();
     }
 
-    // 플레이어 감지
+    // 플레이어가 감지되는지 확인
     public bool IsPlayerDetected()
     {
         if (player == null) return false;
@@ -60,9 +62,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // 화면 밖에 있으면 비활성화
+    private void isOutScreen()
+    {
+        Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
+
+        if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
+        {
+            outOfScreenTime += Time.deltaTime;
+
+            if (outOfScreenTime >= outOfScreenDelay)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            outOfScreenTime = 0f;
+        }
+    }
+
     // 시야각을 기즈모로 그림
     private void OnDrawGizmos()
     {
+        Color _blue = new Color(0f, 0f, 1f, 0.2f);
+        Color _red = new Color(1f, 0f, 0f, 0.2f);
+
         Handles.color = IsPlayerDetected() ? _red : _blue;
         Handles.DrawSolidArc(transform.position, transform.right, transform.forward, fovAngle / 2, enemyData.sightRange);
         Handles.DrawSolidArc(transform.position, transform.right, transform.forward, -fovAngle / 2, enemyData.sightRange);

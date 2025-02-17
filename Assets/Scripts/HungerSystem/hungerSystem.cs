@@ -1,41 +1,37 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HungerSystem : MonoBehaviour
 {
     private const float MaxHunger = 100f;
-    private const float HungerDecreaseAmount = 5f;
+    private const float BaseHungerDecreaseAmount = 5f;
     private const float HungerDecreaseInterval = 1f;
 
-    [SerializeField] private Slider hungerBarSlider;
-    [SerializeField] private GameObject hpBar;
-    [SerializeField] private GameObject gameOverUI;
+    private float currentHunger;
+    private float hungerDecreaseAmount = BaseHungerDecreaseAmount;
     [SerializeField] private bool isRadioactive = false;
 
-    private float currentHunger;
-
-    public bool IsRadioactive
-    {
-        get => isRadioactive;
-        set => isRadioactive = value;
-    }
+    public event Action<float, float> OnHungerChanged;
+    public event Action OnDeath;
 
     private void Start()
     {
         currentHunger = MaxHunger;
-
-        if (hungerBarSlider != null)
-        {
-            hungerBarSlider.maxValue = 1;
-            UpdateHungerUI();
-        }
-
         InvokeRepeating(nameof(ReduceHungerOverTime), HungerDecreaseInterval, HungerDecreaseInterval);
+        NotifyHungerChanged();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            IncreaseHunger(5f);
+        }
     }
 
     private void ReduceHungerOverTime()
     {
-        DecreaseHunger(HungerDecreaseAmount);
+        DecreaseHunger(isRadioactive ? hungerDecreaseAmount * 2 : hungerDecreaseAmount);
     }
 
     public void DecreaseHunger(float amount)
@@ -46,34 +42,33 @@ public class HungerSystem : MonoBehaviour
             return;
         }
 
-        if (isRadioactive) amount *= 2;
-
         currentHunger = Mathf.Max(currentHunger - amount, 0);
-        UpdateHungerUI();
-    }
+        NotifyHungerChanged();
 
-    public void RecoverHunger(float amount)
-    {
-        currentHunger = Mathf.Min(currentHunger + amount, MaxHunger);
-        UpdateHungerUI();
-    }
-
-    private void UpdateHungerUI()
-    {
-        if (hungerBarSlider != null)
+        if (currentHunger <= 0)
         {
-            hungerBarSlider.value = currentHunger / MaxHunger;
+            TriggerDeath();
         }
     }
 
-    private void TriggerDeath()
+    public void IncreaseHunger(float hunger)
     {
-        HandleGameOverUI();
+        currentHunger = Mathf.Min(currentHunger + hunger, MaxHunger);
+        NotifyHungerChanged();
     }
 
-    private void HandleGameOverUI()
+    public void AddHungerDecrease(float x)
     {
-        if (hpBar) hpBar.SetActive(false);
-        if (gameOverUI) gameOverUI.SetActive(true);
+        currentHunger = Mathf.Max(currentHunger - x, 0);
+    }
+
+    public void TriggerDeath()
+    {
+        OnDeath?.Invoke();
+    }
+
+    private void NotifyHungerChanged()
+    {
+        OnHungerChanged?.Invoke(currentHunger, MaxHunger);
     }
 }

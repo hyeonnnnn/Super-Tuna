@@ -6,8 +6,9 @@ public class HungerSystem : MonoBehaviour
     private const float MaxHunger = 100f;
     private const float BaseHungerDecreaseAmount = 5f;
     private const float HungerDecreaseInterval = 1f;
+    private const float RadioactiveHungerIncrease = 5f;
 
-    private float currentHunger;
+    [SerializeField]private float currentHunger;
     private float hungerDecreaseAmount = BaseHungerDecreaseAmount;
     [SerializeField] private bool isRadioactive = false;
 
@@ -27,11 +28,20 @@ public class HungerSystem : MonoBehaviour
         {
             IncreaseHunger(5f);
         }
+
+        if (isRadioactive)
+        {
+            AddHungerDecrease(RadioactiveHungerIncrease);
+        }
+        else
+        {
+            hungerDecreaseAmount = BaseHungerDecreaseAmount;
+        }
     }
 
     private void ReduceHungerOverTime()
     {
-        DecreaseHunger(isRadioactive ? hungerDecreaseAmount * 2 : hungerDecreaseAmount);
+        DecreaseHunger(hungerDecreaseAmount);
     }
 
     public void DecreaseHunger(float amount)
@@ -56,10 +66,10 @@ public class HungerSystem : MonoBehaviour
         currentHunger = Mathf.Min(currentHunger + hunger, MaxHunger);
         NotifyHungerChanged();
     }
-
+    
     public void AddHungerDecrease(float x)
     {
-        currentHunger = Mathf.Max(currentHunger - x, 0);
+        hungerDecreaseAmount = Mathf.Max(BaseHungerDecreaseAmount + x, 10f);
     }
 
     public void TriggerDeath()

@@ -31,7 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject tunaPrefab;
     private Rigidbody rigid;
-    private PlayerHunger hunger;
+    private HungerSystem hunger;
 
     [SerializeField] Slider dashDebugSlider;
 
@@ -42,7 +42,7 @@ public class PlayerMove : MonoBehaviour
         maxSpeed = 3f;
         targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
-        hunger = GetComponent<PlayerHunger>();
+        hunger = GetComponent<HungerSystem>();
         hunger.OnDeath += DeathMove;
     }
 

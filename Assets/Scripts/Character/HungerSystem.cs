@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHunger : MonoBehaviour
+public class HungerSystem : MonoBehaviour
 {
     private const float MaxHunger = 100f;
     private const float BaseHungerDecreaseAmount = 5f;

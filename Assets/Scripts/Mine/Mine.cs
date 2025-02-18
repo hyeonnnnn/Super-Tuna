@@ -7,21 +7,13 @@ public class Mine : MonoBehaviour
     public GameObject explosionEffect;
     private bool isTriggered = false;
 
-    [SerializeField] private HungerSystem hungerSystem;
-
-    void Start()
-    {
-        hungerSystem = FindFirstObjectByType<HungerSystem>();
-    }
-
     void OnCollisionEnter(Collision collision)
     {
-        if (!isTriggered && collision.gameObject.CompareTag("Player"))
-        {
-            Explode();
-            ApplyDamageAndPush(collision.gameObject);
-            isTriggered = true;
-        }
+        if (isTriggered || !collision.gameObject.CompareTag("Player")) return;
+
+        isTriggered = true;
+        Explode();
+        ApplyDamageAndPush(collision.gameObject);
     }
 
     void Explode()
@@ -32,6 +24,7 @@ public class Mine : MonoBehaviour
 
     void ApplyDamageAndPush(GameObject player)
     {
+        HungerSystem hungerSystem = player.GetComponent<HungerSystem>();
         if (hungerSystem != null)
         {
             hungerSystem.DecreaseHunger(damage);

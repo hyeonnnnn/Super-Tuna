@@ -97,15 +97,20 @@ public class PlayerMove : MonoBehaviour
     private void ChangeTargetRotation(Vector2 input)
     {
         Vector3 changedRotation = targetRotation.eulerAngles;
+
+        float maxRightRotateAngle = 90.1f;
+        float maxLeftRoateAngle = 269.9f;
+        float maxVerticalRotateAngle = 30;
+
         lerpTimeCount = 0;
         if (input.x != 0)
         {
-            changedRotation.y = Mathf.Sign(input.x) == 1 ? 90.1f : 269.9f;
+            changedRotation.y = Mathf.Sign(input.x) == 1 ? maxRightRotateAngle : maxLeftRoateAngle;
         }
 
         if(input.y != 0)
         {
-            changedRotation.x = Mathf.Sign(input.y) * -30;
+            changedRotation.x = Mathf.Sign(input.y) * -maxVerticalRotateAngle;
         }
         else
         {

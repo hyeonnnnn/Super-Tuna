@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    private float maxSpeed;
+    [SerializeField] private float maxSpeed;
     private Vector2 targetVelocity;
-    private Vector3 targetRotation;
+    private Quaternion targetRotation;
     public bool isDash { get; private set; }
     private float _dashGuage;
     public float DashGuage {
@@ -27,18 +27,19 @@ public class PlayerMove : MonoBehaviour
     private Coroutine currentDashCoroutine;
     private bool isDashKeyDown = false;
     private bool isDead = false;
-    private int rotationLerpCount;
+    private float lerpTimeCount = 0f;
 
     [SerializeField] private GameObject tunaPrefab;
     private Rigidbody rigid;
 
-    [SerializeField] Slider debugSlider;
+    [SerializeField] Slider dashDebugSlider;
 
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
         maxSpeed = 3f;
+        targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
     }
 
@@ -81,7 +82,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Rotate()
     {
+        Quaternion applyRotation = tunaPrefab.transform.localRotation;
+        applyRotation = Quaternion.Slerp(applyRotation, targetRotation, lerpTimeCount);
+        lerpTimeCount += Time.deltaTime * 0.07f;
 
+        tunaPrefab.transform.localRotation = applyRotation;
     }
 
     private void ChangeTargetVelocity(Vector2 input)
@@ -91,25 +96,32 @@ public class PlayerMove : MonoBehaviour
 
     private void ChangeTargetRotation(Vector2 input)
     {
-        Vector3 targetEulerAngle = tunaPrefab.transform.rotation.eulerAngles;
-
-        float VerticalRotation = targetEulerAngle.y;
-        float HorizontalRotation = targetEulerAngle.x;
-
-        if(input.x != 0)
+        Vector3 changedRotation = targetRotation.eulerAngles;
+        lerpTimeCount = 0;
+        if (input.x != 0)
         {
-            VerticalRotation = Mathf.Sign(input.y) == 1 ? 0 : 180;
+            changedRotation.y = Mathf.Sign(input.x) == 1 ? 90.1f : 269.9f;
         }
 
         if(input.y != 0)
         {
-            HorizontalRotation = Mathf.Sign(input.x) * 30;
+            changedRotation.x = Mathf.Sign(input.y) * -30;
+        }
+        else
+        {
+            changedRotation.x = tunaPrefab.transform.localRotation.eulerAngles.x;
         }
 
-        targetEulerAngle.y = VerticalRotation;
-        targetEulerAngle.x = HorizontalRotation;
+        if(input.x != 0 && input.y == 0)
+        {
+            changedRotation.x = 0;
+        }
+
+        Debug.Log(changedRotation);
+        targetRotation = Quaternion.Euler(changedRotation);
     }
 
+    //playerInput eventÇÔ¼ö
     public void OnSprint(InputValue input)
     {
         if (input.Get() != null)
@@ -122,16 +134,15 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
     private void TryDash()
     {
-        if(!isDash && isDashKeyDown && DashGuage > 0)
+        if(!isDash && isDashKeyDown && DashGuage > 0 && targetVelocity.sqrMagnitude != 0)
         {
             isDash = true;
             StopCoroutine(currentDashCoroutine);
             currentDashCoroutine = StartCoroutine(DashCoroutine());
         }
-        else if(isDash && (!isDashKeyDown || DashGuage <= 0))
+        else if(isDash && (!isDashKeyDown || DashGuage <= 0 || targetVelocity.sqrMagnitude == 0))
         {
             isDash = false;
             StopCoroutine(currentDashCoroutine);
@@ -159,7 +170,7 @@ public class PlayerMove : MonoBehaviour
 
     public void DebugFunc()
     {
-        debugSlider.value = DashGuage;
+        dashDebugSlider.value = DashGuage;
     }
 
     

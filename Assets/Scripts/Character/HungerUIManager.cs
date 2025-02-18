@@ -6,7 +6,7 @@ public class HungerUIManager : MonoBehaviour
     [SerializeField] private Slider hungerBarSlider;
     [SerializeField] private GameObject hpBar;
     [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private HungerSystem hungerSystem;
+    [SerializeField] private PlayerHunger hungerSystem;
 
     private void Start()
     {

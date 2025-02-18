@@ -31,6 +31,7 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private GameObject tunaPrefab;
     private Rigidbody rigid;
+    private PlayerHunger hunger;
 
     [SerializeField] Slider dashDebugSlider;
 
@@ -41,13 +42,14 @@ public class PlayerMove : MonoBehaviour
         maxSpeed = 3f;
         targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
+        hunger = GetComponent<PlayerHunger>();
+        hunger.OnDeath += DeathMove;
     }
 
     private void Update()
     {
-        DebugFunc();
-        if (isDead) return;
         Move();
+        if (isDead) return;
         Rotate();
         TryDash();
     }
@@ -55,6 +57,7 @@ public class PlayerMove : MonoBehaviour
     //playerInput event함수
     public void OnMove(InputValue input)
     {
+        if(isDead) return;
         Vector2 inputDir = input.Get<Vector2>();
         ChangeTargetVelocity(inputDir);
         ChangeTargetRotation(inputDir);
@@ -122,13 +125,13 @@ public class PlayerMove : MonoBehaviour
             changedRotation.x = 0;
         }
 
-        Debug.Log(changedRotation);
         targetRotation = Quaternion.Euler(changedRotation);
     }
 
     //playerInput event함수
     public void OnSprint(InputValue input)
     {
+        if (isDead) return;
         if (input.Get() != null)
         {
             isDashKeyDown = true;
@@ -173,9 +176,18 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    private void DeathMove()
+    {
+        isDead = true;
+        targetVelocity = Vector2.zero;
+        //float deathRotationZAngle = 179.9f;
+        
+        
+    }
+
     public void DebugFunc()
     {
-        dashDebugSlider.value = DashGuage;
+        //dashDebugSlider.value = DashGuage;
     }
 
     

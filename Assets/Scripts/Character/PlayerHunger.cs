@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HungerSystem : MonoBehaviour
+public class PlayerHunger : MonoBehaviour
 {
     private const float MaxHunger = 100f;
     private const float BaseHungerDecreaseAmount = 5f;
@@ -41,7 +41,10 @@ public class HungerSystem : MonoBehaviour
 
     private void ReduceHungerOverTime()
     {
-        DecreaseHunger(hungerDecreaseAmount);
+        if(currentHunger > 0)
+        {
+            DecreaseHunger(hungerDecreaseAmount);
+        }
     }
 
     public void DecreaseHunger(float amount)
@@ -74,6 +77,7 @@ public class HungerSystem : MonoBehaviour
 
     public void TriggerDeath()
     {
+        Debug.Log("die");
         OnDeath?.Invoke();
     }
 

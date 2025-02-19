@@ -18,8 +18,9 @@ public class Mine : MonoBehaviour
 
     void Explode()
     {
-        Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Destroy(explosion, 3f);
+        gameObject.SetActive(false);
     }
 
     void ApplyDamageAndPush(GameObject player)
@@ -37,5 +38,11 @@ public class Mine : MonoBehaviour
             pushDirection.Normalize();
             playerRb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
         }
+    }
+    
+    public void ResetMine()
+    {
+        isTriggered = false;
+        gameObject.SetActive(true);
     }
 }

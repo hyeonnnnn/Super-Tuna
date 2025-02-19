@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Mine : MonoBehaviour
 {
@@ -6,6 +7,8 @@ public class Mine : MonoBehaviour
     public float pushForce = 10f;
     public GameObject explosionEffect;
     private bool isTriggered = false;
+    
+    public event Action ExplodeEvent;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -19,6 +22,7 @@ public class Mine : MonoBehaviour
     void Explode()
     {
         GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        ExplodeEvent?.Invoke();
         Destroy(explosion, 3f);
         gameObject.SetActive(false);
     }

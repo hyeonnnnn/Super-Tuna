@@ -10,7 +10,6 @@ public class HungerSystem : MonoBehaviour
 
     [SerializeField]private float currentHunger;
     private float hungerDecreaseAmount = BaseHungerDecreaseAmount;
-    [SerializeField] private bool isRadioactive = false;
 
     public event Action<float, float> OnHungerChanged;
     public event Action OnDeath;
@@ -27,15 +26,6 @@ public class HungerSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             IncreaseHunger(5f);
-        }
-
-        if (isRadioactive)
-        {
-            AddHungerDecrease(RadioactiveHungerIncrease);
-        }
-        else
-        {
-            hungerDecreaseAmount = BaseHungerDecreaseAmount;
         }
     }
 
@@ -72,7 +62,7 @@ public class HungerSystem : MonoBehaviour
     
     public void AddHungerDecrease(float x)
     {
-        hungerDecreaseAmount = Mathf.Max(BaseHungerDecreaseAmount + x, 10f);
+        hungerDecreaseAmount = x + BaseHungerDecreaseAmount;
     }
 
     public void TriggerDeath()

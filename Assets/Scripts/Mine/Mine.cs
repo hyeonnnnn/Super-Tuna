@@ -4,7 +4,7 @@ using System;
 public class Mine : MonoBehaviour
 {
     public float damage = 30f;
-    public float pushForce = 50f;
+    public float pushForce = 10f;
     public GameObject explosionEffect;
     private bool isTriggered = false;
     

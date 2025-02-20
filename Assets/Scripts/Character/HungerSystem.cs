@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HungerSystem : MonoBehaviour
 {
-    private const float MaxHunger = 100000f;
+    private const float MaxHunger = 100f;
     private const float BaseHungerDecreaseAmount = 5f;
     private const float HungerDecreaseInterval = 1f;
     private const float RadioactiveHungerIncrease = 5f;

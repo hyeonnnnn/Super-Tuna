@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee09c9fd422b8484a847138f0c3bee75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMineCount: 4
+  maxMineCount: 3
   currentspawnedMine: []
   DisabledMinePoint: []
 --- !u!1001 &1100589417

@@ -78,7 +78,7 @@ public class MineSpawner : MonoBehaviour
     {
         Camera playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Camera>();
         Vector3 screenPosition = playerCamera.WorldToViewportPoint(position);
-        bool onScreen = screenPosition.z > 0.1f && screenPosition.x > 0.1f && screenPosition.y > 0.1f && screenPosition.x < 1.1f && screenPosition.y < 1.1f;
+        bool onScreen = screenPosition.z > -0.1f && screenPosition.x > -0.1f && screenPosition.y > -0.1f && screenPosition.x < 1.1f && screenPosition.y < 1.1f;
         
         return onScreen;
     }

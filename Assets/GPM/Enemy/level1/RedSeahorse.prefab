@@ -401,6 +401,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8564841923292047300}
+  - component: {fileID: 246704873705103921}
+  - component: {fileID: -9135783207389959564}
   m_Layer: 0
   m_Name: RedSeahorse
   m_TagString: Untagged
@@ -425,6 +427,33 @@ Transform:
   - {fileID: 4029228761832905758}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246704873705103921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114730887343381119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15138de0cac9d594c82fe8786770da2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: e54d35265e4d34140adbbfb7cc50e6d1, type: 2}
+  player: {fileID: 0}
+  stateManager: {fileID: 0}
+--- !u!114 &-9135783207389959564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4114730887343381119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4788347444362335085
 GameObject:
   m_ObjectHideFlags: 0

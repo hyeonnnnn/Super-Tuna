@@ -464,6 +464,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6682619121111937323}
+  - component: {fileID: -3957267675326539400}
+  - component: {fileID: -6009578244921633554}
   m_Layer: 0
   m_Name: HawksbillTurtle
   m_TagString: Untagged
@@ -488,6 +490,33 @@ Transform:
   - {fileID: 145184645167280190}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3957267675326539400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046068580029322797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15138de0cac9d594c82fe8786770da2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 21c191f83a4c46e4689303eac4873be6, type: 2}
+  player: {fileID: 0}
+  stateManager: {fileID: 0}
+--- !u!114 &-6009578244921633554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8046068580029322797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8174850904750951349
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,20 +17,28 @@ public class EnemyIdle : EnemyState
     // ÀÌµ¿
     private void Move()
     {
-        enemy.transform.Translate(Vector3.forward * enemy.enemyData.speed * Time.deltaTime);
+        Vector3 forward = enemy.transform.forward;
+        forward.y = 0;
+        forward.Normalize();
+
+        enemy.transform.position += forward * enemy.enemyData.speed * Time.deltaTime;
+
+        Quaternion targetRotation = Quaternion.Euler(0, enemy.transform.rotation.eulerAngles.y, 0);
+        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
         if (enemy.IsPlayerDetected())
         {
-            if(enemy.enemyData.level > enemy.PlayerLevel)
+            if (enemy.enemyData.level > enemy.PlayerLevel)
             {
-                enemy.ChangeState(new EnemyChase(enemy));
+                enemy.stateManager.ChangeState(enemy.stateManager.chaseState);
             }
             else
             {
-                enemy.ChangeState(new EnemyRunaway(enemy));
+                enemy.stateManager.ChangeState(enemy.stateManager.runawayState);
             }
         }
     }
+
 
     public override void OnStateExit()
     {

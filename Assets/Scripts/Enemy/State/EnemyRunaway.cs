@@ -34,7 +34,7 @@ public class EnemyRunaway : EnemyState
 
         if (!enemy.IsPlayerDetected())
         {
-            enemy.ChangeState(new EnemyIdle(enemy));
+            enemy.stateManager.ChangeState(enemy.stateManager.idleState);
         }
     }
 

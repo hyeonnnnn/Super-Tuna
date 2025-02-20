@@ -5,44 +5,34 @@ public class Enemy : MonoBehaviour
 {
     public EnemyData enemyData;
     public const float fovAngle = 120f;
-
     public int PlayerLevel { get; set; } = 2;
 
     public Transform player;
     public Transform Player => player;
-    private EnemyState currentState;
 
     private Camera mainCamera;
     private float outOfScreenTime = 0f;
     private float outOfScreenDelay = 3f;
 
+    public EnemyStateManager stateManager;
+
     private void Start()
     {
         player = GameObject.FindWithTag("Player")?.transform;
+        stateManager = GetComponent<EnemyStateManager>();
         mainCamera = Camera.main;
 
-        ChangeState(new EnemyIdle(this));
+        if (player != null)
+        {
+            LookAtPlayer();
+        }
     }
 
     private void Update()
     {
-        currentState?.OnStateUpdate();
         isOutScreen();
     }
 
-    // 상태 변경
-    public void ChangeState(EnemyState newState)
-    {
-        if (currentState != null)
-        {
-            currentState.OnStateExit();
-        }
-
-        currentState = newState;
-        currentState.OnStateEnter();
-    }
-
-    // 플레이어가 감지되는지 확인
     public bool IsPlayerDetected()
     {
         if (player == null) return false;
@@ -51,19 +41,9 @@ public class Enemy : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         float verticalAngle = Vector3.Angle(transform.forward, directionToPlayer);
 
-        bool isPlayerDetected = distanceToPlayer <= enemyData.sightRange && verticalAngle <= Enemy.fovAngle / 2;
-
-        if (isPlayerDetected)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return distanceToPlayer <= enemyData.sightRange && verticalAngle <= Enemy.fovAngle / 2;
     }
 
-    // 화면 밖에 있으면 비활성화
     private void isOutScreen()
     {
         Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
@@ -83,18 +63,37 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // 충돌 확인
     private void OnTriggerEnter(Collider other)
     {
-        currentState?.OnTriggerEnter(other);
+        if (other.CompareTag("Player"))
+        {
+            HungerSystem playerHungerSystem = other.GetComponent<HungerSystem>();
+
+            if (playerHungerSystem != null)
+            {
+                playerHungerSystem.TriggerDeath();
+            }
+        }
     }
 
-    // 시야각을 기즈모로 그림
+    private void LookAtPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0;
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    public void OnTriggerDeath()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnDrawGizmos()
     {
         Color _blue = new Color(0f, 0f, 1f, 0.2f);
         Color _red = new Color(1f, 0f, 0f, 0.2f);
 
+        if (enemyData == null) return;
         Handles.color = IsPlayerDetected() ? _red : _blue;
         Handles.DrawSolidArc(transform.position, transform.right, transform.forward, fovAngle / 2, enemyData.sightRange);
         Handles.DrawSolidArc(transform.position, transform.right, transform.forward, -fovAngle / 2, enemyData.sightRange);

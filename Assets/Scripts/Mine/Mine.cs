@@ -8,7 +8,7 @@ public class Mine : MonoBehaviour
     public GameObject explosionEffect;
     private bool isTriggered = false;
     
-    public event Action ExplodeEvent;
+    public event Action<Mine> ExplodeEvent;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -22,9 +22,9 @@ public class Mine : MonoBehaviour
     void Explode()
     {
         GameObject explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        ExplodeEvent?.Invoke();
         Destroy(explosion, 3f);
         gameObject.SetActive(false);
+        ExplodeEvent?.Invoke(this);
     }
 
     void ApplyDamageAndPush(GameObject player)

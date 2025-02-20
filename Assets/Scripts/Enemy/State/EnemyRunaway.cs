@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyRunaway : EnemyState
 {
     private const float runawayBoost = 1.7f;
-    private const float detectionTime = 5f;
+    private const float detectionTime = 2f;
 
     public EnemyRunaway(Enemy enemy) : base(enemy) { }
 

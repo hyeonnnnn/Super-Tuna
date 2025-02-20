@@ -11,7 +11,7 @@ public class EnemyDie : EnemyState
 
     public override void OnStateUpdate()
     {
-        GameObject.Destroy(enemy.gameObject);
+        enemy.gameObject.SetActive(false);
     }
     
     public override void OnStateExit()

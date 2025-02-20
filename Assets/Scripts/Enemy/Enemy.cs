@@ -14,12 +14,13 @@ public class Enemy : MonoBehaviour
 
     private Camera mainCamera;
     private float outOfScreenTime = 0f;
-    private float outOfScreenDelay = 1f;
+    private float outOfScreenDelay = 3f;
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player")?.transform;
         mainCamera = Camera.main;
+
         ChangeState(new EnemyIdle(this));
     }
 
@@ -80,6 +81,12 @@ public class Enemy : MonoBehaviour
         {
             outOfScreenTime = 0f;
         }
+    }
+
+    // 충돌 확인
+    private void OnTriggerEnter(Collider other)
+    {
+        currentState?.OnTriggerEnter(other);
     }
 
     // 시야각을 기즈모로 그림

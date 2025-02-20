@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyChase : EnemyState
 {
-    private const float chaseBoost = 2f;
+    private const float chaseBoost = 1.7f;
     private const float detectionTime = 5f;
 
     public EnemyChase(Enemy enemy) : base(enemy) { }
@@ -25,6 +25,15 @@ public class EnemyChase : EnemyState
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
         enemy.StartCoroutine(ChangeToIdle());
+    }
+
+    // 플레이어와 충돌 시 사냥
+    public override void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            enemy.ChangeState(new EnemyAttack(enemy));
+        }
     }
 
     // 탐지 시간 후에 플레이어가 시야각에 없으면 기본 상태로 전환

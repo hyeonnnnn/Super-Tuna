@@ -485,10 +485,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: mine
       objectReference: {fileID: 0}
-    - target: {fileID: 3731799538118954089, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -669,11 +665,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.13
+      value: -8.2
       objectReference: {fileID: 0}
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.52
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.z
@@ -801,7 +797,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.28
+      value: -11.94
       objectReference: {fileID: 0}
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1116,11 +1112,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.22
+      value: -4.32
       objectReference: {fileID: 0}
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.76
+      value: 8.09
       objectReference: {fileID: 0}
     - target: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1214,8 +1210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee09c9fd422b8484a847138f0c3bee75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMineCount: 0
-  mineSpawnPoint: []
+  maxMineCount: 4
+  currentspawnedMine: []
+  DisabledMinePoint: []
 --- !u!1001 &1100589417
 PrefabInstance:
   m_ObjectHideFlags: 0

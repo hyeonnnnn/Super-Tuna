@@ -6,47 +6,44 @@ using UnityEngine;
 public class MineSpawner : MonoBehaviour
 {
     [SerializeField] int maxMineCount;
-    int currentSpawnedMineCount = 0;
+    [SerializeField] List<Mine> currentspawnedMine = new List<Mine>();
+    [SerializeField] List<Mine> DisabledMinePoint = new List<Mine>();
+
     bool isMineSpawning = false;
     private float spawnCoolTime = 0.5f;
 
-    [SerializeField] List<Mine> mineSpawnPoint = new List<Mine>();
-
-    private void Awake()
+    private void Start()
     {
         Mine[] mines = GetComponentsInChildren<Mine>();
 
         for (int i = 0; i < mines.Length; i++)
         {
-            mineSpawnPoint.Add(mines[i]);
-            mines[i].enabled = false;
-            //mines[i].explodedEvent += TryMineSpawn();
+            DisabledMinePoint.Add(mines[i]);
+            mines[i].gameObject.SetActive(false);
+            mines[i].ExplodeEvent += TryMineSpawn;
         }
-    }
 
-    private void Start()
-    {
         int[] initMineSpawn = new int[maxMineCount];
-        while (maxMineCount > currentSpawnedMineCount)
+
+        while (maxMineCount > currentspawnedMine.Count)
         {
-            int randNum = Random.Range(0, mineSpawnPoint.Count);
-            if(initMineSpawn.Contains(randNum))
-            {
-                continue;
-            }
-            initMineSpawn[currentSpawnedMineCount] = randNum;
-            currentSpawnedMineCount++;
+            int randNum = Random.Range(0, DisabledMinePoint.Count);
+
+            currentspawnedMine.Add(DisabledMinePoint[randNum]);
+            DisabledMinePoint.RemoveAt(randNum);
         }
         for (int i = 0; i < maxMineCount; i++)
         {
-            mineSpawnPoint[i].enabled = true;
+            currentspawnedMine[i].ResetMine();
         }
     }
 
-    private void TryMineSpawn()
+    private void TryMineSpawn(Mine mine)
     {
-        currentSpawnedMineCount--;
-        if(!isMineSpawning && maxMineCount > currentSpawnedMineCount)
+        currentspawnedMine.Remove(mine);
+        DisabledMinePoint.Add(mine);
+
+        if (!isMineSpawning && maxMineCount > currentspawnedMine.Count)
         {
             isMineSpawning = true;
             StartCoroutine(SpawnMine());
@@ -57,16 +54,20 @@ public class MineSpawner : MonoBehaviour
     {
         while(isMineSpawning)
         {
-            int randMine = Random.Range(0, mineSpawnPoint.Count);
-            while(mineSpawnPoint[randMine].enabled == true || CheckMineInCamera(mineSpawnPoint[randMine].transform.position))
+            int randMine = Random.Range(0, DisabledMinePoint.Count);
+
+            while (CheckMineInCamera(DisabledMinePoint[randMine].transform.position))
             {
-                yield return new WaitForSeconds(spawnCoolTime);
-                randMine = Random.Range(0, mineSpawnPoint.Count);
+                yield return null;
+                randMine = Random.Range(0, DisabledMinePoint.Count);
             }
 
-            mineSpawnPoint[randMine].enabled = true;
-            currentSpawnedMineCount++;
-            if(currentSpawnedMineCount ==  maxMineCount)
+            DisabledMinePoint[randMine].ResetMine();
+            //Debug.Log(DisabledMinePoint[randMine]);
+            currentspawnedMine.Add(DisabledMinePoint[randMine]);
+            DisabledMinePoint.RemoveAt(randMine);
+
+            if(currentspawnedMine.Count >= maxMineCount)
             {
                 isMineSpawning = false;
             }
@@ -77,7 +78,7 @@ public class MineSpawner : MonoBehaviour
     {
         Camera playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Camera>();
         Vector3 screenPosition = playerCamera.WorldToViewportPoint(position);
-        bool onScreen = screenPosition.z > 0 && screenPosition.x > 0 && screenPosition.y > 0 && screenPosition.x < 1 && screenPosition.y < 1;
+        bool onScreen = screenPosition.z > 0.1f && screenPosition.x > 0.1f && screenPosition.y > 0.1f && screenPosition.x < 1.1f && screenPosition.y < 1.1f;
         
         return onScreen;
     }

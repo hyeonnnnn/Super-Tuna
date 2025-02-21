@@ -55,6 +55,8 @@ public class AudioManager : SingletonBehaviour<AudioManager>
         }
     }
 
+    public float GetAllVolume() { return _audioSources[0].volume; }
+
     public void SetPitch(AudioType audioType, float pitch) => _audioSources[(int)audioType].pitch = pitch;
 
     public void SetVolume(AudioType audioType, float volume) => _audioSources[(int)audioType].volume = volume;

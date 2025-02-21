@@ -66,8 +66,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 
         _frontUI = ui;
         _openUIPool[uiType] = ui;
-
-        AudioManager.Instance.Play(AudioType.SFX, "ui_button_click");
     }
 
     public void CloseUI(BaseUI ui)

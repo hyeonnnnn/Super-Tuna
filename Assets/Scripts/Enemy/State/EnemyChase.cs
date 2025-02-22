@@ -31,11 +31,11 @@ public class EnemyChase : EnemyState
     }
 
     // 플레이어와 충돌 시 사냥
-    public override void OnTriggerEnter(Collider other)
+    public override void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            HungerSystem playerHungerSystem = other.GetComponent<HungerSystem>();
+            HungerSystem playerHungerSystem = other.gameObject.GetComponent<HungerSystem>();
 
             if (playerHungerSystem != null)
             {

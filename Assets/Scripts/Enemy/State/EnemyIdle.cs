@@ -30,7 +30,7 @@ public class EnemyIdle : EnemyState
 
         if (enemy.IsPlayerDetected())
         {
-            if (enemy.enemyData.level > enemy.PlayerLevel)
+            if (enemy.enemyData.level > enemy.growth.CurrentLevel)
             {
                 enemy.stateManager.ChangeState(enemy.stateManager.chaseState);
             }

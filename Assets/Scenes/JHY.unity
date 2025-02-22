@@ -227,9 +227,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6439925127594159161, guid: e5d5ed8e6c911db44a5acf6fc87a0e6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 192630886}
-    - targetCorrespondingSourceObject: {fileID: 6439925127594159161, guid: e5d5ed8e6c911db44a5acf6fc87a0e6d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 192630887}
   m_SourcePrefab: {fileID: 100100000, guid: e5d5ed8e6c911db44a5acf6fc87a0e6d, type: 3}
 --- !u!1 &192630882 stripped
 GameObject:
@@ -256,6 +253,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 548849745e287c143931be1717c48640, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 192630886}
+  growth: {fileID: 0}
 --- !u!95 &192630885
 Animator:
   serializedVersion: 7
@@ -290,29 +288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &192630887
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192630882}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.12
-  m_Height: 1.87
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &645265757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -582,6 +557,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 11030c093c955c1498c9eb9cc58bc3a8, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 773152496}
+  growth: {fileID: 0}
 --- !u!95 &773152495
 Animator:
   serializedVersion: 7
@@ -616,29 +592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &773152497
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773152492}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.23
-  m_Height: 1.76
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &815570974
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +709,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 21c191f83a4c46e4689303eac4873be6, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 902668405}
+  growth: {fileID: 0}
 --- !u!95 &902668404
 Animator:
   serializedVersion: 7
@@ -809,9 +763,9 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.28
-  m_Height: 1.15
-  m_Direction: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &916812396 stripped
 GameObject:
@@ -838,6 +792,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 35c0cd1f01d513b40a226e2d97f723b9, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 916812401}
+  growth: {fileID: 0}
 --- !u!95 &916812399
 Animator:
   serializedVersion: 7
@@ -872,29 +827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &916812402
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 916812396}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Height: 2.94
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &944909803 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2302951475939547965, guid: ecde82488a1bb46a0a32214c833b4495, type: 3}
@@ -987,9 +919,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4537395876302560931, guid: 9b045b96453f42744bb572646ab55e85, type: 3}
       insertIndex: -1
       addedObject: {fileID: 916812401}
-    - targetCorrespondingSourceObject: {fileID: 4537395876302560931, guid: 9b045b96453f42744bb572646ab55e85, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 916812402}
   m_SourcePrefab: {fileID: 100100000, guid: 9b045b96453f42744bb572646ab55e85, type: 3}
 --- !u!4 &1098183985 stripped
 Transform:
@@ -1106,7 +1035,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1217,6 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hungerSystem: {fileID: 1178107140}
+  growth: {fileID: 1178107146}
 --- !u!1001 &1220773554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1288,9 +1218,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7381117547312873960, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
       insertIndex: -1
       addedObject: {fileID: 773152496}
-    - targetCorrespondingSourceObject: {fileID: 7381117547312873960, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 773152497}
   m_SourcePrefab: {fileID: 100100000, guid: 193688239c8ded04e96f7d714af2a685, type: 3}
 --- !u!1 &1243784278 stripped
 GameObject:
@@ -1317,6 +1244,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: e54d35265e4d34140adbbfb7cc50e6d1, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 1243784282}
+  growth: {fileID: 0}
 --- !u!95 &1243784281
 Animator:
   serializedVersion: 7
@@ -1426,9 +1354,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7491376573653238077, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1497666394}
-    - targetCorrespondingSourceObject: {fileID: 7491376573653238077, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1497666395}
   m_SourcePrefab: {fileID: 100100000, guid: a8ef82b95df73ed45b082becda672fd3, type: 3}
 --- !u!1 &1497666390 stripped
 GameObject:
@@ -1472,6 +1397,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 27a94edc6daf55044a82679b2efb719c, type: 2}
   player: {fileID: 0}
   stateManager: {fileID: 1497666394}
+  growth: {fileID: 0}
 --- !u!114 &1497666394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,29 +1410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0ab233abb2f56439832a7aac32d8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &1497666395
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497666390}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.06
-  m_Height: 0.3
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1572660014414731943
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Hunting : MonoBehaviour
     private const float huntingTime = 0.1f;
 
     [SerializeField] HungerSystem hungerSystem;
+    [SerializeField] Growth growth;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -13,7 +14,10 @@ public class Hunting : MonoBehaviour
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-            AttemptHunt(enemy);
+            if(growth.CurrentLevel >= enemy.enemyData.level)
+            {
+                AttemptHunt(enemy);
+            }
         }
     }
 
@@ -32,7 +36,7 @@ public class Hunting : MonoBehaviour
         if (target != null)
         {
             Debug.Log("사냥에 성공했습니다.");
-            hungerSystem.IncreaseHunger(100);
+            hungerSystem.IncreaseHunger(target.enemyData.exp);
             target.gameObject.SetActive(false);
             Invoke(nameof(ResetIsHunting), huntingTime);
         }

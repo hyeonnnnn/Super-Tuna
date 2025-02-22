@@ -6,9 +6,11 @@ public class EnemyIdle : EnemyState
 
     public override void OnStateEnter()
     {
-
+        float rotationY = (enemy.transform.rotation.eulerAngles.y >= 0 && enemy.transform.rotation.eulerAngles.y <= 180) ? 90f : -90f;
+        Quaternion targetRotation = Quaternion.Euler(0, rotationY, 0);
+        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
-    
+
     public override void OnStateUpdate()
     {
         Move();
@@ -18,7 +20,7 @@ public class EnemyIdle : EnemyState
     private void Move()
     {
         Vector3 forward = enemy.transform.forward;
-        forward.y = 0;
+        forward.z = 0;
         forward.Normalize();
 
         enemy.transform.position += forward * enemy.enemyData.speed * Time.deltaTime;

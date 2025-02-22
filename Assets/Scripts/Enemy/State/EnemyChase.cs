@@ -24,6 +24,8 @@ public class EnemyChase : EnemyState
         enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.Player.position, chaseBoost * enemy.enemyData.speed * Time.deltaTime);
 
         Vector3 direction = (enemy.Player.position - enemy.transform.position).normalized;
+        direction.z = 0;
+
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }

@@ -46,41 +46,64 @@ public class Enemy : MonoBehaviour
 
     private void isOutScreen()
     {
-        Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
+        Vector3[] corners = new Vector3[8];
+        Collider collider = GetComponent<Collider>();
 
-        if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1)
+        if (collider != null)
         {
-            outOfScreenTime += Time.deltaTime;
+            Bounds bounds = collider.bounds;
 
-            if (outOfScreenTime >= outOfScreenDelay)
+            corners[0] = bounds.min;
+            corners[1] = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
+            corners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+            corners[3] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
+            corners[4] = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
+            corners[5] = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
+            corners[6] = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
+            corners[7] = bounds.max;
+
+            bool isVisible = false;
+
+            foreach (Vector3 corner in corners)
             {
-                gameObject.SetActive(false);
+                Vector3 viewPos = mainCamera.WorldToViewportPoint(corner);
+                if (viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)
+                {
+                    isVisible = true;
+                    break;
+                }
             }
-        }
-        else
-        {
-            outOfScreenTime = 0f;
+
+            if (!isVisible)
+            {
+                outOfScreenTime += Time.deltaTime;
+
+                if (outOfScreenTime >= outOfScreenDelay)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                outOfScreenTime = 0f;
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            HungerSystem playerHungerSystem = other.GetComponent<HungerSystem>();
-
-            if (playerHungerSystem != null)
-            {
-                playerHungerSystem.TriggerDeath();
-            }
-        }
-    }
 
     private void LookAtPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
         direction.y = 0;
         transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (stateManager != null && stateManager.currentState != null)
+        {
+            stateManager.currentState.OnTriggerEnter(other);
+        }
     }
 
     public void OnTriggerDeath()

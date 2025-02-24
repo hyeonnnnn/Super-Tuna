@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyStateManager : MonoBehaviour
 {
-    private EnemyState currentState;
+    public EnemyState currentState;
     public EnemyIdle idleState;
     public EnemyChase chaseState;
     public EnemyRunaway runawayState;

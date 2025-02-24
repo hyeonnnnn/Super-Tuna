@@ -20,7 +20,7 @@ public class HungerSystem : MonoBehaviour
     private int hungerDecreaseAmount = BaseHungerDecreaseAmount;
 
     public static event Action<int, int> OnHungerChanged;
-    public event Action OnDeath;
+    public static event Action<DyingReason> OnDeath;
 
     private void Start()
     {
@@ -40,22 +40,22 @@ public class HungerSystem : MonoBehaviour
     {
         if(CurrentHunger > 0)
         {
-            DecreaseHunger(hungerDecreaseAmount);
+            DecreaseHunger(hungerDecreaseAmount, DyingReason.Hunger);
         }
     }
 
-    public void DecreaseHunger(int amount)
+    public void DecreaseHunger(int amount, DyingReason dyingReason)
     {
         if (CurrentHunger <= 0)
         {
-            TriggerDeath();
+            TriggerDeath(dyingReason);
             return;
         }
 
         CurrentHunger = CurrentHunger - amount > 0 ? CurrentHunger - amount : 0;
 
         if (CurrentHunger <= 0)
-            TriggerDeath();
+            TriggerDeath(dyingReason);
     }
 
     public void IncreaseHunger(int hunger)
@@ -68,9 +68,9 @@ public class HungerSystem : MonoBehaviour
         hungerDecreaseAmount = x + BaseHungerDecreaseAmount;
     }
 
-    public void TriggerDeath()
+    public void TriggerDeath(DyingReason dyingReason)
     {
         Debug.Log("die");
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(dyingReason);
     }
 }

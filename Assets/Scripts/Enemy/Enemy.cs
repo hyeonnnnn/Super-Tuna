@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
 
             if (playerHungerSystem != null)
             {
-                playerHungerSystem.TriggerDeath();
+                playerHungerSystem.TriggerDeath(DyingReason.Enemy);
             }
         }
     }

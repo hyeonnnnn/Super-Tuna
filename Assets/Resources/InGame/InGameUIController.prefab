@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 8529114602276126465}
   - component: {fileID: 2071583579618250462}
   m_Layer: 0
-  m_Name: Growth Gauge
+  m_Name: Exp Gauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1409,7 +1409,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 626408680832275974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4673602718797677077}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
+        m_MethodName: OnClickGameOverLobby
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4686331089955589901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,7 +1667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8517906059786334328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4673602718797677077}
+        m_TargetAssemblyTypeName: InGameUIController, Assembly-CSharp
+        m_MethodName: OnCliCkGameOverRestart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4953193637269268357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1939,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 1888796727131954630}
   HungerGauge: {fileID: 4275949316430318341}
+  ExpGauge: {fileID: 2071583579618250462}
+  levelText: {fileID: 552303628366513347}
   DashGauge: {fileID: 6026349414217236242}
+  GameOverInfo: {fileID: 4496469006224150959}
+  DyingReasonText: {fileID: 477646933184656693}
+  GameOverTimerText: {fileID: 7528123553080836078}
 --- !u!1 &5696899203470007763
 GameObject:
   m_ObjectHideFlags: 0

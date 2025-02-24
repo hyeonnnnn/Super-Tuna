@@ -855,6 +855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1358148516712357654, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5693426273747258967, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -895,9 +899,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6100878328587935968, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_Name
+      value: Parallax Background (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 6617130359389879128, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 7256416603125543573, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505841856109119805, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

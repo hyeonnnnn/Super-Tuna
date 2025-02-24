@@ -24,20 +24,24 @@ public class EnemyChase : EnemyState
         enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.Player.position, chaseBoost * enemy.enemyData.speed * Time.deltaTime);
 
         Vector3 direction = (enemy.Player.position - enemy.transform.position).normalized;
+        direction.z = 0;
+
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
 
     // 플레이어와 충돌 시 사냥
-    public override void OnTriggerEnter(Collider other)
+    public override void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            HungerSystem playerHungerSystem = other.GetComponent<HungerSystem>();
+            HungerSystem playerHungerSystem = other.gameObject.GetComponent<HungerSystem>();
 
             if (playerHungerSystem != null)
             {
                 playerHungerSystem.TriggerDeath();
+                enemy.stateManager.ChangeState(enemy.stateManager.idleState);
+                Hunting.isPlayerDead = true;
             }
         }
     }

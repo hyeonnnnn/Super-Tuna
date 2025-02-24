@@ -19,6 +19,7 @@ public class EnemyRunaway : EnemyState
         if (enemy.Player == null) return;
 
         Vector3 fleeDirection = (enemy.transform.position - enemy.Player.position).normalized;
+        fleeDirection.z = 0;
         enemy.transform.position += runawayBoost * fleeDirection * enemy.enemyData.speed * Time.deltaTime;
 
         Quaternion targetRotation = Quaternion.LookRotation(fleeDirection);

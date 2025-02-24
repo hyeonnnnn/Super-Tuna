@@ -8,5 +8,5 @@ public class EnemyData : ScriptableObject
     public float sightRange;
     public float speed;
     public int exp;
-    public GameObject[] prefabs;
+    public int hungerValue;
 }

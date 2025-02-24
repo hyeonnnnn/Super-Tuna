@@ -6,9 +6,12 @@ public class EnemyIdle : EnemyState
 
     public override void OnStateEnter()
     {
-
+        Debug.Log("Enemy entered Idle state");
+        float rotationY = (enemy.transform.rotation.eulerAngles.y >= 0 && enemy.transform.rotation.eulerAngles.y <= 180) ? 90f : -90f;
+        Quaternion targetRotation = Quaternion.Euler(0, rotationY, 0);
+        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
-    
+
     public override void OnStateUpdate()
     {
         Move();
@@ -18,7 +21,7 @@ public class EnemyIdle : EnemyState
     private void Move()
     {
         Vector3 forward = enemy.transform.forward;
-        forward.y = 0;
+        forward.z = 0;
         forward.Normalize();
 
         enemy.transform.position += forward * enemy.enemyData.speed * Time.deltaTime;
@@ -26,9 +29,9 @@ public class EnemyIdle : EnemyState
         Quaternion targetRotation = Quaternion.Euler(0, enemy.transform.rotation.eulerAngles.y, 0);
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
-        if (enemy.IsPlayerDetected())
+        if (enemy.IsPlayerDetected() && !Hunting.isPlayerDead)
         {
-            if (enemy.enemyData.level > enemy.PlayerLevel)
+            if (enemy.enemyData.level > enemy.growth.CurrentLevel)
             {
                 enemy.stateManager.ChangeState(enemy.stateManager.chaseState);
             }

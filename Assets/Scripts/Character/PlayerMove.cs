@@ -47,8 +47,7 @@ public class PlayerMove : MonoBehaviour
         maxSpeed = 3f;
         targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
-        hunger = GetComponent<HungerSystem>();
-        hunger.OnDeath += DeathMove;
+        HungerSystem.OnDeath += DeathMove;
     }
 
     private void Update()
@@ -181,7 +180,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void DeathMove()
+    private void DeathMove(DyingReason dyingReason)
     {
         isDead = true;
         targetVelocity = Vector2.zero;

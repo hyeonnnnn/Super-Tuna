@@ -35,6 +35,7 @@ public class InGameSettingUI : BaseUI
 
     public void OnClickGoToLobbyButton()
     {
+        Close(false);
         SceneLoader.Instance.LoadScene(ESceneType.Lobby);
     }
 }

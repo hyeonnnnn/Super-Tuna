@@ -5,18 +5,28 @@ public class Hunting : MonoBehaviour
     private bool isHunting;
     private const float huntingTime = 0.1f;
 
-    [SerializeField] HungerSystem hungerSystem;
-    [SerializeField] Growth growth;
+    public static bool isPlayerDead = false;
+
+    private HungerSystem hungerSystem;
+    private Growth growth;
+
+    private void Start()
+    {
+        hungerSystem = GetComponent<HungerSystem>();
+        growth = GetComponent<Growth>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("충돌했습니다.");
-        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        if (enemy != null)
+        if (!isPlayerDead)
         {
-            if(growth.CurrentLevel >= enemy.enemyData.level)
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            if (enemy != null)
             {
-                AttemptHunt(enemy);
+                if (growth.CurrentLevel >= enemy.enemyData.level)
+                {
+                    AttemptHunt(enemy);
+                }
             }
         }
     }
@@ -25,7 +35,6 @@ public class Hunting : MonoBehaviour
     {
         if (!isHunting)
         {
-            Debug.Log("사냥을 시도합니다.");
             isHunting = true;
             ExecuteHunt(target);
         }
@@ -36,7 +45,8 @@ public class Hunting : MonoBehaviour
         if (target != null)
         {
             Debug.Log("사냥에 성공했습니다.");
-            hungerSystem.IncreaseHunger(target.enemyData.exp);
+            growth.AddExp(target.enemyData.exp);
+            hungerSystem.IncreaseHunger(target.enemyData.hungerValue);
             target.gameObject.SetActive(false);
             Invoke(nameof(ResetIsHunting), huntingTime);
         }

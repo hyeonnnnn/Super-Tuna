@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02732d5e93c05a7449ad789d0d6535e6, type: 3}
   m_Name: Dolphin
   m_EditorClassIdentifier: 
-  enemyType: 
+  enemyType: Dolphin
   level: 2
   sightRange: 3
   speed: 1.4
   exp: 15
-  prefabs: []
+  hungerValue: 15

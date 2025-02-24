@@ -40,6 +40,8 @@ public class EnemyChase : EnemyState
             if (playerHungerSystem != null)
             {
                 playerHungerSystem.TriggerDeath();
+                enemy.stateManager.ChangeState(enemy.stateManager.idleState);
+                Hunting.isPlayerDead = true;
             }
         }
     }

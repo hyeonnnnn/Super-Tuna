@@ -101,11 +101,11 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (stateManager != null && stateManager.currentState != null)
         {
-            stateManager.currentState.OnCollisionEnter(other);
+            stateManager.currentState.OnTriggerEnter(other);
         }
     }
 

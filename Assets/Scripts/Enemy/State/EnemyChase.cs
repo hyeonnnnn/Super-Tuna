@@ -31,7 +31,7 @@ public class EnemyChase : EnemyState
     }
 
     // 플레이어와 충돌 시 사냥
-    public override void OnCollisionEnter(Collision other)
+    public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {

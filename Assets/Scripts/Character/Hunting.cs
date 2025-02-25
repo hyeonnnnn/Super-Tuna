@@ -7,20 +7,15 @@ public class Hunting : MonoBehaviour
 
     public static bool isPlayerDead = false;
 
-    private HungerSystem hungerSystem;
-    private Growth growth;
+    [SerializeField] private HungerSystem hungerSystem;
+    [SerializeField] private Growth growth;
 
-    private void Start()
-    {
-        hungerSystem = GetComponent<HungerSystem>();
-        growth = GetComponent<Growth>();
-    }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (!isPlayerDead)
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 if (growth.CurrentLevel >= enemy.enemyData.level)

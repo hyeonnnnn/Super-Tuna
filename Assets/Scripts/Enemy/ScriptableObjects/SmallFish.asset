@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02732d5e93c05a7449ad789d0d6535e6, type: 3}
   m_Name: SmallFish
   m_EditorClassIdentifier: 
+  enemyType: SmallFish
   level: 1
   sightRange: 1
-  speed: 2
-  exp: 5
+  speed: 1.5
+  exp: 305
+  hungerValue: 5

@@ -16,5 +16,5 @@ MonoBehaviour:
   level: 1
   sightRange: 1
   speed: 1.5
-  exp: 5
+  exp: 305
   hungerValue: 5

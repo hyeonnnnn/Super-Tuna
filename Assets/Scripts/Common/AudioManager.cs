@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -65,6 +66,8 @@ public class AudioManager : SingletonBehaviour<AudioManager>
     {
         SetVolume(AudioType.BGM, volume);
         SetVolume(AudioType.SFX, volume);
+        UserDataManager.Instance.GetUserData<UserSettingData>().CurrentVolume = volume;
+        UserDataManager.Instance.GetUserData<UserSettingData>().SaveData();
     }
 
     public void Pause(AudioType audioType) => _audioSources[(int)audioType].Pause();
@@ -84,11 +87,15 @@ public class AudioManager : SingletonBehaviour<AudioManager>
     public void ChangeBGMState()
     {
         _audioSources[0].mute = !_audioSources[0].mute;
+        UserDataManager.Instance.GetUserData<UserSettingData>().IsBGMEnable = !UserDataManager.Instance.GetUserData<UserSettingData>().IsBGMEnable;
+        UserDataManager.Instance.GetUserData<UserSettingData>().SaveData();
     }
 
     public void ChangeSFXState()
     {
         _audioSources[1].mute = !_audioSources[1].mute;
+        UserDataManager.Instance.GetUserData<UserSettingData>().IsSFXEnable = !UserDataManager.Instance.GetUserData<UserSettingData>().IsSFXEnable;
+        UserDataManager.Instance.GetUserData<UserSettingData>().SaveData();
     }
 
     public void SyncUserSettings()
@@ -96,12 +103,11 @@ public class AudioManager : SingletonBehaviour<AudioManager>
         var userSettingsData = UserDataManager.Instance.GetUserData<UserSettingData>();
 
         if (userSettingsData.IsBGMEnable == false)
-            ChangeBGMState();
+            _audioSources[0].mute = true;
         if(userSettingsData.IsSFXEnable == false)
-            ChangeSFXState();
+            _audioSources[1].mute = true;
 
         SetAllVolume(userSettingsData.CurrentVolume);
-
     }
 
     private const string AUDIO_PATH = "Audio";
@@ -114,19 +120,5 @@ public class AudioManager : SingletonBehaviour<AudioManager>
 
         _clips[fileName] = Resources.Load<AudioClip>($"{AUDIO_PATH}/{fileName}");
         return _clips[fileName];
-    }
-
-    //오류 체크용
-    public void ErrorCheckPlaySound()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            Play(AudioType.BGM, "lobby");
-        }
-    }
-
-    private void Update()
-    {
-        ErrorCheckPlaySound();
     }
 }

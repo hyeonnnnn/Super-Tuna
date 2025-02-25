@@ -32,7 +32,7 @@ public class Mine : MonoBehaviour
         HungerSystem hungerSystem = player.GetComponent<HungerSystem>();
         if (hungerSystem != null)
         {
-            hungerSystem.DecreaseHunger(damage);
+            hungerSystem.DecreaseHunger(damage, DyingReason.Mine);
         }
 
         Rigidbody playerRb = player.GetComponent<Rigidbody>();

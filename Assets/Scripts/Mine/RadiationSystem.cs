@@ -46,7 +46,7 @@ public class RadiationSystem : MonoBehaviour
             HungerSystem playerHunger = other.GetComponent<HungerSystem>();
             if (playerHunger != null)
             {
-                playerHunger.AddHungerDecrease(0f);
+                playerHunger.AddHungerDecrease((int)0f);
             }
         }
     }
@@ -55,7 +55,7 @@ public class RadiationSystem : MonoBehaviour
     { 
         while (isPlayerInRadiation) 
         { 
-            playerHunger.AddHungerDecrease(currentRadiationDamage);
+            playerHunger.AddHungerDecrease((int)currentRadiationDamage);
             OnRadiationDamage?.Invoke(currentRadiationDamage);
             yield return new WaitForSeconds(1f);
         }

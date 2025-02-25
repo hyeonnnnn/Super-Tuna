@@ -3,7 +3,7 @@ using System;
 
 public class Mine : MonoBehaviour
 {
-    public float damage = 30f;
+    public int damage = 30;
     public float pushForce = 10f;
     public GameObject explosionEffect;
     private bool isTriggered = false;
@@ -32,7 +32,7 @@ public class Mine : MonoBehaviour
         HungerSystem hungerSystem = player.GetComponent<HungerSystem>();
         if (hungerSystem != null)
         {
-            hungerSystem.DecreaseHunger(damage);
+            hungerSystem.DecreaseHunger(damage, DyingReason.Mine);
         }
 
         Rigidbody playerRb = player.GetComponent<Rigidbody>();

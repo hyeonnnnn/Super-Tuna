@@ -37,7 +37,7 @@ public class EnemyChase : EnemyState
 
             if (playerHungerSystem != null)
             {
-                playerHungerSystem.TriggerDeath();
+                playerHungerSystem.TriggerDeath(DyingReason.Enemy);
             }
         }
     }

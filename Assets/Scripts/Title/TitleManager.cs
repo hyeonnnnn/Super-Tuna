@@ -8,9 +8,7 @@ using UnityEngine.SceneManagement;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] private Animation _logoAnim;
-
     [SerializeField] private Image _logoImg;
-
     [SerializeField] private GameObject _title;
     [SerializeField] private TextMeshProUGUI _progressText;
 

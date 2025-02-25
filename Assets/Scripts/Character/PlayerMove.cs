@@ -7,34 +7,39 @@ using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private float maxSpeed;
-    private Vector2 targetVelocity;
-    private Quaternion targetRotation;
+    private const float maxDashGauge = 100f;
+
+    private float maxSpeed;
+    private float _dashGauge;
+    private float lerpTimeCount = 0f;
     public bool isDash { get; private set; }
-    private float _dashGuage;
+    private bool isDashKeyDown = false;
+    private bool isDead = false;
+
     public float DashGuage {
         get
         {
-            return _dashGuage;
+            return _dashGauge;
         }
         private set
         {
             if (value < 0) value = 0;
-            if(value > 100 ) value = 100;
-            _dashGuage = value;
+            if(value > 100 ) value = maxDashGauge;
+            _dashGauge = value;
+            OnDashGaugeChanged?.Invoke(value, maxDashGauge);
         } 
     }
-    private Coroutine currentDashCoroutine;
-    private bool isDashKeyDown = false;
-    private bool isDead = false;
-    private float lerpTimeCount = 0f;
 
-    [SerializeField] private GameObject tunaPrefab;
     private Rigidbody rigid;
     private HungerSystem hunger;
 
-    [SerializeField] Slider dashDebugSlider;
+    private Vector2 targetVelocity;
+    private Quaternion targetRotation;
 
+    public static event Action<float, float> OnDashGaugeChanged;
+    private Coroutine currentDashCoroutine;
+
+    [SerializeField] private GameObject tunaPrefab;
 
     private void Start()
     {
@@ -42,8 +47,7 @@ public class PlayerMove : MonoBehaviour
         maxSpeed = 3f;
         targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
-        hunger = GetComponent<HungerSystem>();
-        hunger.OnDeath += DeathMove;
+        HungerSystem.OnDeath += DeathMove;
     }
 
     private void Update()
@@ -176,21 +180,9 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void DeathMove()
+    private void DeathMove(DyingReason dyingReason)
     {
         isDead = true;
         targetVelocity = Vector2.zero;
-        //float deathRotationZAngle = 179.9f;
-        
-        
     }
-
-    public void DebugFunc()
-    {
-        //dashDebugSlider.value = DashGuage;
-    }
-
-    
-
-
 }

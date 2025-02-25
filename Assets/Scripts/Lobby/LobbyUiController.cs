@@ -9,6 +9,11 @@ public class LobbyUiController : MonoBehaviour
         //
     }
 
+    private void Update()
+    {
+        HandleInput();
+    }
+
     private void HandleInput()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -16,7 +21,7 @@ public class LobbyUiController : MonoBehaviour
             AudioManager.Instance.Play(AudioType.SFX, "ui_button_click");
 
             var frontUI = UIManager.Instance.GetFrontUI();
-            if(frontUI = null)
+            if(frontUI != null)
             {
                 frontUI.Close();
             }
@@ -29,10 +34,16 @@ public class LobbyUiController : MonoBehaviour
 
     private void ShowQuitConfirmUI()
     {
-        //var data = new ConfirmUIData()
+        var data = new ConfirmUIData()
         {
-
-        }
+            ConfirmType = EConfirmType.OK_CANCEL,
+            TitleText = "Quit",
+            DescriptionText = "Do you want to quit game?",
+            OkButtonText = "Quit",
+            CancelButtonText = "Cancel",
+            ActionOnClickOkButton = () => Application.Quit()
+        };
+        UIManager.Instance.OpenUI<ConfirmUI>(data);
     }
 
     public void OnClickSettingButton()
@@ -43,8 +54,7 @@ public class LobbyUiController : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        Debug.Log("∞‘¿” æ¿ ¿Ãµø");
-        //SceneManager.LoadScene("GameScene");
+        SceneLoader.Instance.LoadScene(ESceneType.InGame);
     }
 
     public void OnClickRankingButton()
@@ -61,6 +71,6 @@ public class LobbyUiController : MonoBehaviour
 
     public void OnClickExitButton()
     {
-        Application.Quit();
+        ShowQuitConfirmUI();
     }
 }

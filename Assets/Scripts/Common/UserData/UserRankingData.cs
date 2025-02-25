@@ -23,7 +23,7 @@ public class UserRankingData : IUserData
 
         try
         {
-            for (int i = 0; i <= RankCount; i++)
+            for (int i = 0; i < RankCount; i++)
             {
                 string key = "Ranking" + (i + 1);
                 SavedRanking[i] = PlayerPrefs.GetInt(key, 0);

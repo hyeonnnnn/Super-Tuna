@@ -16,7 +16,7 @@ public class EnemyChase : EnemyState
         enemy.StartCoroutine(ChangeToIdle());
     }
 
-    // ÇÃ·¹ÀÌ¾î Ãß°İ
+    // í”Œë ˆì´ì–´ ì¶”ê²©
     public override void OnStateUpdate()
     {
         if (enemy.Player == null) return;
@@ -30,7 +30,7 @@ public class EnemyChase : EnemyState
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
 
-    // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ ½Ã »ç³É
+    // í”Œë ˆì´ì–´ì™€ ì¶©ëŒ ì‹œ ì‚¬ëƒ¥
     public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -39,14 +39,15 @@ public class EnemyChase : EnemyState
 
             if (playerHungerSystem != null)
             {
-                playerHungerSystem.TriggerDeath();
+
+                playerHungerSystem.TriggerDeath(DyingReason.Enemy);
                 enemy.stateManager.ChangeState(enemy.stateManager.idleState);
                 Hunting.isPlayerDead = true;
             }
         }
     }
 
-    // Å½Áö ½Ã°£ ÈÄ¿¡ ÇÃ·¹ÀÌ¾î°¡ ½Ã¾ß°¢¿¡ ¾øÀ¸¸é ±âº» »óÅÂ·Î ÀüÈ¯
+    // íƒì§€ ì‹œê°„ í›„ì— í”Œë ˆì´ì–´ê°€ ì‹œì•¼ê°ì— ì—†ìœ¼ë©´ ê¸°ë³¸ ìƒíƒœë¡œ ì „í™˜
     IEnumerator ChangeToIdle()
     {
         if (isChangingState) yield break;

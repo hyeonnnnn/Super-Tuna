@@ -3,76 +3,74 @@ using UnityEngine;
 
 public class HungerSystem : MonoBehaviour
 {
-    private const float MaxHunger = 100f;
-    private const float BaseHungerDecreaseAmount = 5f;
+    private const int MaxHunger = 100;
+    private const int BaseHungerDecreaseAmount = 5;
     private const float HungerDecreaseInterval = 1f;
-    private const float RadioactiveHungerIncrease = 5f;
 
-    [SerializeField]private float currentHunger;
-    private float hungerDecreaseAmount = BaseHungerDecreaseAmount;
+    private int currentHunger;
+    public int CurrentHunger
+    {
+        get { return currentHunger; }
+        set
+        {
+            currentHunger = value;
+            OnHungerChanged?.Invoke(currentHunger, MaxHunger);
+        }
+    }
+    private int hungerDecreaseAmount = BaseHungerDecreaseAmount;
 
-    public event Action<float, float> OnHungerChanged;
-    public event Action OnDeath;
+    public static event Action<int, int> OnHungerChanged;
+    public static event Action<DyingReason> OnDeath;
 
     private void Start()
     {
-        currentHunger = MaxHunger;
+        CurrentHunger = MaxHunger;
         InvokeRepeating(nameof(ReduceHungerOverTime), HungerDecreaseInterval, HungerDecreaseInterval);
-        NotifyHungerChanged();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            IncreaseHunger(5f);
+            IncreaseHunger(5);
         }
     }
 
     private void ReduceHungerOverTime()
     {
-        if(currentHunger > 0)
+        if(CurrentHunger > 0)
         {
-            DecreaseHunger(hungerDecreaseAmount);
+            DecreaseHunger(hungerDecreaseAmount, DyingReason.Hunger);
         }
     }
 
-    public void DecreaseHunger(float amount)
+    public void DecreaseHunger(int amount, DyingReason dyingReason)
     {
-        if (currentHunger <= 0)
+        if (CurrentHunger <= 0)
         {
-            TriggerDeath();
+            TriggerDeath(dyingReason);
             return;
         }
 
-        currentHunger = Mathf.Max(currentHunger - amount, 0);
-        NotifyHungerChanged();
+        CurrentHunger = CurrentHunger - amount > 0 ? CurrentHunger - amount : 0;
 
-        if (currentHunger <= 0)
-        {
-            TriggerDeath();
-        }
+        if (CurrentHunger <= 0)
+            TriggerDeath(dyingReason);
     }
 
-    public void IncreaseHunger(float hunger)
+    public void IncreaseHunger(int hunger)
     {
-        currentHunger = Mathf.Min(currentHunger + hunger, MaxHunger);
-        NotifyHungerChanged();
+        CurrentHunger = CurrentHunger + hunger > MaxHunger ? MaxHunger : CurrentHunger + hunger;
     }
     
-    public void AddHungerDecrease(float x)
+    public void AddHungerDecrease(int x)
     {
         hungerDecreaseAmount = x + BaseHungerDecreaseAmount;
     }
 
-    public void TriggerDeath()
+    public void TriggerDeath(DyingReason dyingReason)
     {
         Debug.Log("die");
-        OnDeath?.Invoke();
-    }
-
-    private void NotifyHungerChanged()
-    {
-        OnHungerChanged?.Invoke(currentHunger, MaxHunger);
+        OnDeath?.Invoke(dyingReason);
     }
 }

@@ -1,16 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public enum FishType
+    {
+        SmallFish,
+        SeaHorse,
+        Turtle,
+        Dolphin,
+        Ray,
+        Shark
+    }
+
     [SerializeField] int maxActivateSpawnPoint;
-    [SerializeField] Dictionary<Enemy, Vector3> activatedSpawnedPoint = new Dictionary<Enemy, Vector3>();
+    [SerializeField] Dictionary<GameObject, Vector3> activatedSpawnedPoint = new Dictionary<GameObject, Vector3>();
+    [SerializeField] List<Vector3> enabledSpawnPoint = new List<Vector3>();
     [SerializeField] List<Vector3> disabledSpawnPoint = new List<Vector3>();
-    [SerializeField] Dictionary<string, AnimatorController> EnemyTypeAnimatorControllerPair;
+    [SerializeField] public List<GameObject> enemyTypeList = new List<GameObject>();
+    
+    //타입 확률 테이블 넣기
 
     bool isSpawning = false;
+
+    const string prefabsDitectory = "EnemyPrefabs";
+
+    struct FishPrefabSet
+    {
+        public FishType fishType;
+        public GameObject[] prefabs;
+    }
+    FishPrefabSet[] fishPrefabsArray;
 
     private void Start()
     {
@@ -20,12 +41,37 @@ public class EnemySpawner : MonoBehaviour
         {
             disabledSpawnPoint.Add(spawnPoint[i].position);
         }
-
         isSpawning = true;
-        StartCoroutine(SpawnMine());
+
+        fishPrefabsArray = new FishPrefabSet[enemyTypeList.Count];
+        for (int i = 0;i < fishPrefabsArray.Length;i++)
+        {
+            fishPrefabsArray[i] = new FishPrefabSet();
+            fishPrefabsArray[i].fishType = (FishType)i;
+            string typeDitectory = prefabsDitectory + "/" + ((FishType)i).ToString();
+            fishPrefabsArray[i].prefabs = Resources.LoadAll<GameObject>(typeDitectory);
+        }
+#if UNITY_EDITOR
+        if (enemyTypeList.Count != System.Enum.GetValues(typeof(FishType)).Length)
+        {
+            Debug.LogError("enum의 갯수와 enemyTypeList의 갯수가 맞지 않습니다!");
+        }
+#endif
+
+
+        StartCoroutine(SpawnEnemy());
     }
 
-    private void TrySpawnEnemy(Enemy enemy)
+    private void Update()
+    {
+    #if UNITY_EDITOR
+        enabledSpawnPoint.Clear();
+        enabledSpawnPoint.AddRange(activatedSpawnedPoint.Values);
+    #endif
+
+    }
+
+    private void TrySpawnEnemy(GameObject enemy)
     {
         disabledSpawnPoint.Add(activatedSpawnedPoint[enemy]);
         activatedSpawnedPoint.Remove(enemy);
@@ -33,33 +79,45 @@ public class EnemySpawner : MonoBehaviour
         if (!isSpawning && maxActivateSpawnPoint > activatedSpawnedPoint.Count)
         {
             isSpawning = true;
-            StartCoroutine(SpawnMine());
+            StartCoroutine(SpawnEnemy());
         }
     }
 
-    private IEnumerator SpawnMine()
+    private IEnumerator SpawnEnemy()
     {
         while (isSpawning)
         {
-            int randIndex = Random.Range(0, disabledSpawnPoint.Count);
+            int randLocationIndex = Random.Range(0, disabledSpawnPoint.Count);
 
-            while (CheckInCamera(disabledSpawnPoint[randIndex]))
+            while (CheckInCamera(disabledSpawnPoint[randLocationIndex]))
             {
                 yield return null;
-                randIndex = Random.Range(0, disabledSpawnPoint.Count);
+                randLocationIndex = Random.Range(0, disabledSpawnPoint.Count);
             }
 
-            //Enemy newEnemy;
-            //newEnemy ~~;
-            //적 방향
-            float randRotate = Random.Range(0, 2);
-            if (randRotate == 0) randRotate = 90;
-            else randRotate = 270;
-            //activatedSpawnPoint.Add(newEnemy, disabledSpawnPoint[randIndex]);
-            //disabledSpawnPoint.RemoveAt(randIndex);
-            //
-            
+            FishType randomFishType = (FishType)Random.Range(0, enemyTypeList.Count);
 
+            //적 방향
+            float randomRotate = Random.Range(0, 2);
+            if (randomRotate == 0) randomRotate = 0;
+            else randomRotate = 180;
+            Quaternion randomRotateDir = Quaternion.Euler(new Vector3(0, randomRotate, 0));
+
+            GameObject newEnemy = Instantiate(enemyTypeList[(int)randomFishType], disabledSpawnPoint[randLocationIndex], randomRotateDir);
+
+            GameObject randomSelectedFishStyle =  Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
+                disabledSpawnPoint[randLocationIndex],
+                randomRotateDir);
+
+            for (int i = 1; i >= 0; i--)
+            {
+                randomSelectedFishStyle.transform.GetChild(0).parent = newEnemy.transform;
+            }
+            Destroy(randomSelectedFishStyle);
+            newEnemy.GetComponent<Animator>().Rebind();
+            activatedSpawnedPoint.Add(newEnemy, disabledSpawnPoint[randLocationIndex]);
+            disabledSpawnPoint.RemoveAt(randLocationIndex);
+            
             if (activatedSpawnedPoint.Count >= maxActivateSpawnPoint)
             {
                 isSpawning = false;

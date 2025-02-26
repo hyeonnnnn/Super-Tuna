@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        isOutScreen();
+        //isOutScreen();
     }
 
     // �÷��̾ Ž�� �Ǵ��� Ȯ���ϱ�

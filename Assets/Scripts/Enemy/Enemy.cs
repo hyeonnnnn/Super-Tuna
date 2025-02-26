@@ -9,9 +9,7 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform Player => player;
 
-    private Camera mainCamera;
-    private float outOfScreenTime = 0f;
-    private float outOfScreenDelay = 3f;
+    private bool isOutOfBoundary = false;
 
     public EnemyStateManager stateManager;
     public Growth growth;
@@ -20,7 +18,6 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player")?.transform;
         stateManager = GetComponent<EnemyStateManager>();
-        mainCamera = Camera.main;
 
         if (player != null)
         {
@@ -29,12 +26,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //isOutScreen();
-    }
-
-    // �÷��̾ Ž�� �Ǵ��� Ȯ���ϱ�
     public bool IsPlayerDetected()
     {
         if (player == null) return false;
@@ -46,54 +37,6 @@ public class Enemy : MonoBehaviour
         return distanceToPlayer <= enemyData.sightRange && verticalAngle <= Enemy.fovAngle / 2;
     }
 
-    // ȭ�� �ۿ� ������ ��Ȱ��ȭ�ϱ�
-    private void isOutScreen()
-    {
-        Vector3[] corners = new Vector3[8];
-        Collider collider = GetComponent<Collider>();
-
-        if (collider != null)
-        {
-            Bounds bounds = collider.bounds;
-
-            corners[0] = bounds.min;
-            corners[1] = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
-            corners[2] = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
-            corners[3] = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
-            corners[4] = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
-            corners[5] = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
-            corners[6] = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
-            corners[7] = bounds.max;
-
-            bool isVisible = false;
-
-            foreach (Vector3 corner in corners)
-            {
-                Vector3 viewPos = mainCamera.WorldToViewportPoint(corner);
-                if (viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1 && viewPos.z > 0)
-                {
-                    isVisible = true;
-                    break;
-                }
-            }
-
-            if (!isVisible)
-            {
-                outOfScreenTime += Time.deltaTime;
-
-                if (outOfScreenTime >= outOfScreenDelay)
-                {
-                    gameObject.SetActive(false);
-                }
-            }
-            else
-            {
-                outOfScreenTime = 0f;
-            }
-        }
-    }
-
-    // �÷��̾� �ٶ󺸱�
     private void LookAtPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
@@ -109,13 +52,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // �ױ�
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Boundary"))
+        {
+            if (!isOutOfBoundary)
+            {
+                isOutOfBoundary = true;
+                Invoke(nameof(OnTriggerDeath), 3f);
+            }
+        }
+    }
+
     public void OnTriggerDeath()
     {
         gameObject.SetActive(false);
     }
 
-    // �þ߰� �׸���
     private void OnDrawGizmos()
     {
         Color _blue = new Color(0f, 0f, 1f, 0.2f);

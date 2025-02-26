@@ -661,6 +661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radiation
       objectReference: {fileID: 0}
+    - target: {fileID: 8436732271425760505, guid: be739bc23c9efcf4fac7470552f3bc0a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

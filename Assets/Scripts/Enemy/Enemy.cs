@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        isOutScreen();
+        //isOutScreen();
     }
 
     // 플레이어가 탐지 되는지 확인하기

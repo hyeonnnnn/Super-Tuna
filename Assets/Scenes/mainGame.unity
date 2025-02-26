@@ -2138,9 +2138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72020ef1f9853e24389f261b556dd9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
   tunaPrefab: {fileID: 1294780470}
-  dashDebugSlider: {fileID: 404105414}
 --- !u!114 &1301274697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2227,7 +2225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de5db6dd572c1a4ab0b80aa4b244e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHunger: 0
 --- !u!114 &1301274702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,6 +2431,7 @@ MonoBehaviour:
   - {fileID: 5389313520885184451, guid: fe201ddd53d02534b91e96939a66648f, type: 3}
   - {fileID: 4673800504941762983, guid: 0824d7f91e55a43479f202c508c9fc6f, type: 3}
   - {fileID: 6407704635455562300, guid: 658d5587b5b4da54b99638d01b9646dd, type: 3}
+  typeProbTable: 010000000200000003000000040000000500000006000000
 --- !u!1 &1434552393
 GameObject:
   m_ObjectHideFlags: 0

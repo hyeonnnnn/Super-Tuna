@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +20,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<Vector3> enabledSpawnPoint = new List<Vector3>();
     [SerializeField] List<Vector3> disabledSpawnPoint = new List<Vector3>();
     [SerializeField] public List<GameObject> enemyTypeList = new List<GameObject>();
-    
+
     //타입 확률 테이블 넣기
+
+    [SerializeField] int[] typeProbTable = new int[Enum.GetValues(typeof(FishType)).Length];
 
     bool isSpawning = false;
 
@@ -87,25 +90,25 @@ public class EnemySpawner : MonoBehaviour
     {
         while (isSpawning)
         {
-            int randLocationIndex = Random.Range(0, disabledSpawnPoint.Count);
+            int randLocationIndex = UnityEngine.Random.Range(0, disabledSpawnPoint.Count);
 
             while (CheckInCamera(disabledSpawnPoint[randLocationIndex]))
             {
                 yield return null;
-                randLocationIndex = Random.Range(0, disabledSpawnPoint.Count);
+                randLocationIndex = UnityEngine.Random.Range(0, disabledSpawnPoint.Count);
             }
 
-            FishType randomFishType = (FishType)Random.Range(0, enemyTypeList.Count);
+            FishType randomFishType = GetRandomFishType();
 
             //적 방향
-            float randomRotate = Random.Range(0, 2);
+            float randomRotate = UnityEngine.Random.Range(0, 2);
             if (randomRotate == 0) randomRotate = 0;
             else randomRotate = 180;
             Quaternion randomRotateDir = Quaternion.Euler(new Vector3(0, randomRotate, 0));
 
             GameObject newEnemy = Instantiate(enemyTypeList[(int)randomFishType], disabledSpawnPoint[randLocationIndex], randomRotateDir);
 
-            GameObject randomSelectedFishStyle =  Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
+            GameObject randomSelectedFishStyle =  Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
                 disabledSpawnPoint[randLocationIndex],
                 randomRotateDir);
 
@@ -124,6 +127,33 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+
+    private FishType GetRandomFishType()
+    {
+        int totalWeight = 0;
+        for (int i = 0; i < typeProbTable.Length; i++)
+        {
+            totalWeight += typeProbTable[i];
+        }
+        int randomType = UnityEngine.Random.Range(0, totalWeight);
+        Debug.Log(randomType);
+        int value = 0; //return Value
+        for (; value < typeProbTable.Length; value++)
+        {
+            if(randomType <= typeProbTable[value])
+            {
+                break;
+            }
+            else
+            {
+                randomType -= typeProbTable[value];
+            }
+        }
+        Debug.Log((FishType)value);
+        return (FishType)value;
+
+    }
+
 
     private bool CheckInCamera(Vector3 position)
     {

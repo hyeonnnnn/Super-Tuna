@@ -11,6 +11,8 @@ public class GradientChanger : MonoBehaviour {
 
     public enum DIRECTION { Vertical, Horizontal }
 
+    public float Z = 0;
+
     public bool isBuildOnAwake;
     public Vector2 size = Vector2.one;
     public ANCHOR anchor = ANCHOR.MiddleCenter;
@@ -80,7 +82,7 @@ public class GradientChanger : MonoBehaviour {
                 anchorPos = new Vector3(w, (panels.Count - 1) * h, 0F);
                 break;
             case ANCHOR.MiddleCenter : 
-                anchorPos = new Vector3(0F, (panels.Count - 1) * h, -1.1F);
+                anchorPos = new Vector3(0F, (panels.Count - 1) * h, Z);
                 break;
             case ANCHOR.MiddleRight : 
                 anchorPos = new Vector3(-w, (panels.Count - 1) * h, 0F);
@@ -124,7 +126,7 @@ public class GradientChanger : MonoBehaviour {
                 anchorPos = new Vector3(-((panels.Count - 1) * w), -h, 0F);
                 break;
             case ANCHOR.MiddleCenter : 
-                anchorPos = new Vector3(-((panels.Count - 1) * w), 0F, -1.1F);
+                anchorPos = new Vector3(-((panels.Count - 1) * w), 0F, Z);
                 break;
             case ANCHOR.BottomCenter : 
                 anchorPos = new Vector3(-((panels.Count - 1) * w), h, 0F);

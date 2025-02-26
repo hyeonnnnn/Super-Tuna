@@ -6,7 +6,7 @@ public class InGameManager : SingletonBehaviour<InGameManager>
 
     protected override void Init()
     {
-        IsDestroyOnLoad = false;
+        IsDestroyOnLoad = true;
 
         base.Init();
     }

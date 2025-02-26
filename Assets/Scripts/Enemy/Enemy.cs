@@ -89,7 +89,6 @@ public class Enemy : MonoBehaviour
             else
             {
                 outOfScreenTime = 0f;
-                playerHungerSystem.TriggerDeath(DyingReason.Enemy);
             }
         }
     }

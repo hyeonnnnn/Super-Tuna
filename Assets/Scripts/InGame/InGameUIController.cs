@@ -154,7 +154,7 @@ public class InGameUIController : MonoBehaviour
 
     public void OnClickGameOverLobby()
     {
-        SceneLoader.Instance.LoadScene(ESceneType.Lobby);
+        SceneLoader.Instance.LoadSceneAsync(ESceneType.Lobby);
     }
 
     public void OnCliCkGameOverRestart()

@@ -54,7 +54,7 @@ public class LobbyUiController : MonoBehaviour
 
     public void OnClickPlayButton()
     {
-        SceneLoader.Instance.LoadScene(ESceneType.InGame);
+        SceneLoader.Instance.LoadSceneAsync(ESceneType.InGame);
     }
 
     public void OnClickRankingButton()

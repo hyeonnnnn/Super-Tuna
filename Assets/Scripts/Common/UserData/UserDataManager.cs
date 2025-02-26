@@ -63,19 +63,4 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
     {
         return UserDataList.OfType<T>().FirstOrDefault();
     }
-
-    //오류 수정용
-    private void Update()
-    {
-        CheckErrSaveData();
-    }
-
-    public void CheckErrSaveData()
-    {
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            GetUserData<UserRankingData>().SetTempData();
-            SaveUserData();
-        }
-    }
 }

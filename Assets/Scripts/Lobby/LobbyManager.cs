@@ -6,7 +6,7 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
 
     protected override void Init()
     {
-        IsDestroyOnLoad = false;
+        IsDestroyOnLoad = true;
 
         base.Init();
     }
@@ -17,12 +17,10 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
         
         if(LobbyUIController != null )
         {
+            AudioManager.Instance.Play(AudioType.BGM, "Lobby");
             return;
         }
 
         LobbyUIController.Init();
-        //브금 소리 재생
     }
-
-
 }

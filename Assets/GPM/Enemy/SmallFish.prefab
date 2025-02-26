@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8348577337085017007}
   - component: {fileID: 287500813940894257}
   - component: {fileID: 2057296016710345390}
+  - component: {fileID: 6122831429108274454}
   m_Layer: 0
   m_Name: SmallFish
   m_TagString: Untagged

@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         //isOutScreen();
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ Å½Áö µÇ´ÂÁö È®ÀÎÇÏ±â
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ Å½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï±ï¿½
     public bool IsPlayerDetected()
     {
         if (player == null) return false;
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         return distanceToPlayer <= enemyData.sightRange && verticalAngle <= Enemy.fovAngle / 2;
     }
 
-    // È­¸é ¹Û¿¡ ÀÖÀ¸¸é ºñÈ°¼ºÈ­ÇÏ±â
+    // È­ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½Ï±ï¿½
     private void isOutScreen()
     {
         Vector3[] corners = new Vector3[8];
@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î ¹Ù¶óº¸±â
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ù¶óº¸±ï¿½
     private void LookAtPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
@@ -101,21 +101,21 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (stateManager != null && stateManager.currentState != null)
         {
-            stateManager.currentState.OnCollisionEnter(other);
+            stateManager.currentState.OnTriggerEnter(other);
         }
     }
 
-    // Á×±â
+    // ï¿½×±ï¿½
     public void OnTriggerDeath()
     {
         gameObject.SetActive(false);
     }
 
-    // ½Ã¾ß°¢ ±×¸®±â
+    // ï¿½Ã¾ß°ï¿½ ï¿½×¸ï¿½ï¿½ï¿½
     private void OnDrawGizmos()
     {
         Color _blue = new Color(0f, 0f, 1f, 0.2f);

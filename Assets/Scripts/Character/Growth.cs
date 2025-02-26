@@ -14,11 +14,20 @@ public class Growth : MonoBehaviour
     private int characterPrefabsInx = 0;
     private Vector3 baseScale = Vector3.one;
 
+    public static event Action<int, int> OnExpGaugeChanged;
+    public static event Action<int> OnLevelChanged;
+
     public Growth()
     {
         expTable = new int[] { 0, 300, 1000 };
         MaxExp = expTable[expTable.Length - 1];
         MaxLevel = expTable.Length;
+    }
+
+    private void Start()
+    {
+        OnExpGaugeChanged?.Invoke(CurrentExp, MaxExp);
+        OnLevelChanged?.Invoke(CurrentLevel);
     }
 
     private void Update()
@@ -33,7 +42,6 @@ public class Growth : MonoBehaviour
         }
     }
 
-    // 경험치 증가
     public void AddExp(int expAmount)
     {
         if (CurrentLevel >= MaxLevel)
@@ -43,12 +51,11 @@ public class Growth : MonoBehaviour
         else
         {
             CurrentExp = Math.Min(MaxExp, CurrentExp + expAmount);
-            Debug.Log("Exp: " + CurrentExp);
+            OnExpGaugeChanged?.Invoke(CurrentExp, MaxExp);
             CheckLevelUp();
         }
     }
 
-    // 레벨 업 조건 확인
     private void CheckLevelUp()
     {
         if(CurrentExp >= expTable[CurrentLevel])
@@ -57,15 +64,13 @@ public class Growth : MonoBehaviour
         }
     }
 
-    // 레벨 업 적용
     private void ApplyLevelUp()
     {
         CurrentLevel += 1;
+        OnLevelChanged?.Invoke(CurrentLevel);
         ChangePrefab();
-        Debug.Log("Level: " + CurrentLevel);
     }
 
-    // 캐릭터 진화 (프리팹 변경)
     private void ChangePrefab()
     {
         characterPrefabs[characterPrefabsInx].SetActive(false);
@@ -74,7 +79,6 @@ public class Growth : MonoBehaviour
         IncreaseScale();
     }
 
-    // 캐릭터 크기 증가
     private void IncreaseScale()
     {
         float scaleMultiplier = 1 + (CurrentLevel * 0.8f);

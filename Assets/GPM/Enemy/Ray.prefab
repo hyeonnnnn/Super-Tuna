@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6658633716565647952}
   - component: {fileID: 242109005306728735}
   - component: {fileID: 1661301350273730389}
+  - component: {fileID: -1539592692350100939}
   m_Layer: 0
   m_Name: Ray
   m_TagString: Untagged

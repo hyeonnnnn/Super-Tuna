@@ -23,3 +23,4 @@ Init: Create Ajou-swift project
 
 Tag Type
 feature : 기능, 시스템 구현
+테스트 해보는 것

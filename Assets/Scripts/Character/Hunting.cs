@@ -9,6 +9,7 @@ public class Hunting : MonoBehaviour
 
     [SerializeField] private HungerSystem hungerSystem;
     [SerializeField] private Growth growth;
+    [SerializeField] private Enemy enemy;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class Hunting : MonoBehaviour
             Debug.Log("사냥에 성공했습니다.");
             growth.AddExp(target.enemyData.exp);
             hungerSystem.IncreaseHunger(target.enemyData.hungerValue);
-            target.gameObject.SetActive(false);
+            target.OnTriggerDeath();
             Invoke(nameof(ResetIsHunting), huntingTime);
         }
     }

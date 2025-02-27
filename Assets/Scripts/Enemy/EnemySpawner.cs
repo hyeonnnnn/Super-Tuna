@@ -49,6 +49,7 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < spawnPoint.Length; i++)
         {
+            if (spawnPoint[i].position == transform.position) { continue; }
             disabledSpawnPoint.Add(spawnPoint[i].position);
         }
         isSpawning = true;

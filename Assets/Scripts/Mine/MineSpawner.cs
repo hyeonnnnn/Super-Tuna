@@ -10,7 +10,7 @@ public class MineSpawner : MonoBehaviour
     [SerializeField] List<Mine> DisabledMinePoint = new List<Mine>();
 
     bool isMineSpawning = false;
-    private float spawnCoolTime = 0.5f;
+    //private float spawnCoolTime = 0.5f;
 
     private void Start()
     {

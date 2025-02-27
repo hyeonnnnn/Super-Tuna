@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     public EnemyStateManager stateManager;
     public Growth growth;
+
+    public event Action<GameObject> deathEvent;
 
     private void Start()
     {
@@ -66,7 +69,9 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerDeath()
     {
-        gameObject.SetActive(false);
+        deathEvent.Invoke(gameObject);
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

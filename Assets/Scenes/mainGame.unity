@@ -2403,10 +2403,10 @@ Transform:
   - {fileID: 1983053496}
   - {fileID: 1608804070}
   - {fileID: 1206807187}
-  - {fileID: 1662890818}
-  - {fileID: 1645837507}
   - {fileID: 262333965}
   - {fileID: 348525107}
+  - {fileID: 1645837507}
+  - {fileID: 1662890818}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1431185395
@@ -2431,7 +2431,7 @@ MonoBehaviour:
   - {fileID: 5389313520885184451, guid: fe201ddd53d02534b91e96939a66648f, type: 3}
   - {fileID: 4673800504941762983, guid: 0824d7f91e55a43479f202c508c9fc6f, type: 3}
   - {fileID: 6407704635455562300, guid: 658d5587b5b4da54b99638d01b9646dd, type: 3}
-  typeProbTable: 010000000200000003000000040000000500000006000000
+  typeProbTable: 060000000500000004000000030000000200000001000000
 --- !u!1 &1434552393
 GameObject:
   m_ObjectHideFlags: 0

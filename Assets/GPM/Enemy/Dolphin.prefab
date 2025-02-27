@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 41814125926082516}
   - component: {fileID: 3868635833022169617}
   - component: {fileID: 3783020361506286053}
-  - component: {fileID: -5291128564872823020}
   m_Layer: 0
   m_Name: Dolphin
   m_TagString: Untagged
@@ -79,7 +78,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

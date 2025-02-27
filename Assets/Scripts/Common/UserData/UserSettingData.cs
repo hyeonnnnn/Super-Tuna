@@ -41,6 +41,8 @@ public class UserSettingData : IUserData
             PlayerPrefs.SetInt(nameof(IsBGMEnable), IsBGMEnable ? 1 : 0);
             PlayerPrefs.SetInt(nameof(IsSFXEnable), IsBGMEnable ? 1 : 0);
             PlayerPrefs.SetFloat("CurrentVolume", CurrentVolume);
+
+            result = true;
         }
         catch (Exception e)
         {

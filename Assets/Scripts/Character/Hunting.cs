@@ -10,6 +10,11 @@ public class Hunting : MonoBehaviour
     [SerializeField] private HungerSystem hungerSystem;
     [SerializeField] private Growth growth;
 
+    private void Awake()
+    {
+        isPlayerDead = false;
+        Debug.Log("Game Restarted: isPlayerDead reset to " + isPlayerDead);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

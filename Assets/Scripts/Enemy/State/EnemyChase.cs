@@ -5,18 +5,15 @@ public class EnemyChase : EnemyState
 {
     private const float chaseBoost = 1.7f;
     private const float detectionTime = 5f;
-    private bool isChangingState = false;
 
     public EnemyChase(Enemy enemy) : base(enemy) { }
 
     public override void OnStateEnter()
     {
         Debug.Log("Enemy entered Chase state");
-        isChangingState = false;
         enemy.StartCoroutine(ChangeToIdle());
     }
 
-    // 플레이어 추격
     public override void OnStateUpdate()
     {
         if (enemy.Player == null) return;
@@ -30,7 +27,6 @@ public class EnemyChase : EnemyState
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
     }
 
-    // 플레이어와 충돌 시 사냥
     public override void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -47,20 +43,20 @@ public class EnemyChase : EnemyState
         }
     }
 
-    // 탐지 시간 후에 플레이어가 시야각에 없으면 기본 상태로 전환
     IEnumerator ChangeToIdle()
     {
-        if (isChangingState) yield break;
-        isChangingState = true;
+        float timer = 0f;
 
-        yield return new WaitForSeconds(detectionTime);
-
-        if (!enemy.IsPlayerDetected())
+        while (timer < detectionTime)
         {
-            enemy.stateManager.ChangeState(enemy.stateManager.idleState);
+            yield return new WaitForSeconds(1f);
+            timer += 1f;
+
+            if (enemy.IsPlayerDetected()) // 플레이어를 다시 감지하면 Chase 유지
+                yield break;
         }
 
-        isChangingState = false;
+        enemy.stateManager.ChangeState(enemy.stateManager.idleState);
     }
 
     public override void OnStateExit()

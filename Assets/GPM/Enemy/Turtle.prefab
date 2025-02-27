@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6367555888402245990}
   - component: {fileID: 6930788128505695551}
   - component: {fileID: 6140583775687920945}
-  - component: {fileID: -2729245158726522124}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -79,7 +78,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

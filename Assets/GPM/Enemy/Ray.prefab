@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6658633716565647952}
   - component: {fileID: 242109005306728735}
   - component: {fileID: 1661301350273730389}
-  - component: {fileID: -1539592692350100939}
   m_Layer: 0
   m_Name: Ray
   m_TagString: Untagged
@@ -79,7 +78,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

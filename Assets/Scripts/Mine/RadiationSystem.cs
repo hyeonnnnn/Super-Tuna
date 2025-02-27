@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class RadiationSystem : MonoBehaviour
 { 
-    private const float RadiationDamage = 5f;
-    [SerializeField] private float RadiationSpreadSpeed = 5f;
-    private const float RadiationSpreadDuration = 300f;
-        
-    [SerializeField] private bool isPlayerInRadiation;
-    [SerializeField] private float currentRadiationDamage = RadiationDamage;
-    private Coroutine _radiationCoroutine;
-        
-    public event Action<float> OnRadiationDamage;
+    private readonly float radiationDamage = 5f;
+    private readonly float radiationSpreadSpeed = 1f;
+    private readonly float radiationSpreadDuration = 300f;
+
+    public static event Action<bool> OnRadiationEnter;
 
     private void Start()
     {
@@ -23,50 +19,30 @@ public class RadiationSystem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRadiation = true; 
-            HungerSystem playerHunger = other.GetComponent<HungerSystem>();
-            if (playerHunger != null && _radiationCoroutine == null)
+            OnRadiationEnter?.Invoke(true);
+
+            if (other.TryGetComponent(out HungerSystem playerHunger))
             {
-                _radiationCoroutine = StartCoroutine(ApplyRadiationDamage(playerHunger));
+                playerHunger.AddHungerDecrease((int)radiationDamage);
             }
         }
     }
 
     private void OnTriggerExit(Collider other) 
-    { 
-        if (other.CompareTag("Player")) 
-        { 
-            isPlayerInRadiation = false; 
-            if (_radiationCoroutine != null) 
-            { 
-                StopCoroutine(_radiationCoroutine); 
-                _radiationCoroutine = null;
-            }
-            
-            HungerSystem playerHunger = other.GetComponent<HungerSystem>();
-            if (playerHunger != null)
-            {
-                playerHunger.AddHungerDecrease((int)0f);
-            }
+    {
+        if (other.CompareTag("Player") && other.TryGetComponent(out HungerSystem playerHunger))
+        {
+            OnRadiationEnter?.Invoke(false);
+            playerHunger.AddHungerDecrease(0);
         }
     }
-
-    private IEnumerator ApplyRadiationDamage(HungerSystem playerHunger) 
-    { 
-        while (isPlayerInRadiation) 
-        { 
-            playerHunger.AddHungerDecrease((int)currentRadiationDamage);
-            OnRadiationDamage?.Invoke(currentRadiationDamage);
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
+    
     private IEnumerator SpreadRadiation() 
     { 
-        float elapsedTime = 0f; 
-        while (elapsedTime < RadiationSpreadDuration) 
+        float elapsedTime = 0f;
+        while (elapsedTime < radiationSpreadDuration) 
         { 
-            transform.localScale += new Vector3(0, 0, RadiationSpreadSpeed) * Time.deltaTime; 
+            transform.localScale += new Vector3(0, 0, radiationSpreadSpeed) * Time.deltaTime; 
             elapsedTime += Time.deltaTime; 
             yield return null;
         }

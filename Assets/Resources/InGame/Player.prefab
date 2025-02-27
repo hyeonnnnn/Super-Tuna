@@ -338,6 +338,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6841120749978673783, guid: 084f5426751ef7e4eb076cd095327dff, type: 3}
+      propertyPath: m_Radius
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6841120749978673783, guid: 084f5426751ef7e4eb076cd095327dff, type: 3}
+      propertyPath: m_Center.z
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 7986830452458454490, guid: 084f5426751ef7e4eb076cd095327dff, type: 3}
       propertyPath: growth
       value: 
@@ -429,6 +437,18 @@ PrefabInstance:
       propertyPath: hungerSystem
       value: 
       objectReference: {fileID: 4124532231889154411}
+    - target: {fileID: 8802671378550513123, guid: 03955e4f01b89c5498e78f4d8aa87a9b, type: 3}
+      propertyPath: m_Radius
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671378550513123, guid: 03955e4f01b89c5498e78f4d8aa87a9b, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8802671378550513123, guid: 03955e4f01b89c5498e78f4d8aa87a9b, type: 3}
+      propertyPath: m_Center.z
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 8906227784017467517, guid: 03955e4f01b89c5498e78f4d8aa87a9b, type: 3}
       propertyPath: m_Name
       value: BluefinTuna
@@ -456,6 +476,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5141191768385027428}
     m_Modifications:
+    - target: {fileID: 3658110890065312162, guid: dd05c8903715e934393ff11a1a5cce92, type: 3}
+      propertyPath: m_Radius
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658110890065312162, guid: dd05c8903715e934393ff11a1a5cce92, type: 3}
+      propertyPath: m_Center.z
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 4425643307360172269, guid: dd05c8903715e934393ff11a1a5cce92, type: 3}
       propertyPath: m_Constraints
       value: 8

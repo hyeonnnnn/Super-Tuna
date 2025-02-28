@@ -25,6 +25,11 @@ public class EnemyChase : EnemyState
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
+
+        if(enemy.enemyData.level <= enemy.growth.CurrentLevel)
+        {
+            enemy.stateManager.ChangeState(enemy.stateManager.idleState);
+        }
     }
 
     public override void OnTriggerEnter(Collider other)

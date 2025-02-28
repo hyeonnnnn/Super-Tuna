@@ -63,24 +63,27 @@ public class EnemySpawner : MonoBehaviour
             fishPrefabsArray[i].prefabs = Resources.LoadAll<GameObject>(typeDitectory);
         }
 
+        StartCoroutine(SpawnEnemy());
+
 #if UNITY_EDITOR
         //enum의 갯수과 enumTypeList의 갯수가 맞지 않으면 출력하는 에러
         if (enemyTypeList.Count != System.Enum.GetValues(typeof(FishType)).Length)
         {
             Debug.LogError("enum의 갯수와 enemyTypeList의 갯수가 맞지 않습니다!");
         }
+        StartCoroutine(ShowInspectorSpawnPoint());
 #endif
-
-        StartCoroutine(SpawnEnemy());
     }
 
-    private void Update()
-    {
-    #if UNITY_EDITOR
-        enabledSpawnPoint.Clear();
-        enabledSpawnPoint.AddRange(activatedSpawnedPoint.Values);
-    #endif
 
+    IEnumerator ShowInspectorSpawnPoint()
+    {
+        while(true)
+        {
+            enabledSpawnPoint.Clear();
+            enabledSpawnPoint.AddRange(activatedSpawnedPoint.Values);
+            yield return new WaitForSeconds(1);
+        }
     }
 
     private void TrySpawnEnemy(GameObject enemy)
@@ -119,7 +122,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject newEnemy = Instantiate(enemyTypeList[(int)randomFishType], disabledSpawnPoint[randLocationIndex], randomRotateDir);
 
             //적 스타일 설정
-            GameObject randomSelectedFishStyle =  Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
+            GameObject randomSelectedFishStyle = Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
                 disabledSpawnPoint[randLocationIndex],
                 randomRotateDir);
 
@@ -128,6 +131,7 @@ public class EnemySpawner : MonoBehaviour
                 randomSelectedFishStyle.transform.GetChild(0).parent = newEnemy.transform;
             }
             Destroy(randomSelectedFishStyle);
+
             newEnemy.GetComponent<Animator>().Rebind();
             newEnemy.GetComponent<Enemy>().deathEvent += TrySpawnEnemy;
 

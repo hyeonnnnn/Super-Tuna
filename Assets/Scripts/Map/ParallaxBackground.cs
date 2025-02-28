@@ -6,6 +6,7 @@ public class ParallaxBackground : MonoBehaviour {
 
 	public float backgroundSize;
 	public float parallaxSpeed;
+	public float z = 0;
 
 	public Transform cameraTransform;
 	public Transform[] layers;
@@ -58,7 +59,7 @@ public class ParallaxBackground : MonoBehaviour {
 
 	private void ScrollLeft(){
  
-		layers [rightIndex].position = new Vector3(layers[leftIndex].position.x - backgroundSize, layers[leftIndex].position.y, -1f );
+		layers [rightIndex].position = new Vector3(layers[leftIndex].position.x - backgroundSize, layers[leftIndex].position.y, z );
 		leftIndex = rightIndex;
 		rightIndex--;
 		if(rightIndex < 0){
@@ -68,7 +69,7 @@ public class ParallaxBackground : MonoBehaviour {
 
 	private void ScrollRight(){
  
-		layers [leftIndex].position = new Vector3(layers[rightIndex].position.x + backgroundSize, layers[leftIndex].position.y, -1f );
+		layers [leftIndex].position = new Vector3(layers[rightIndex].position.x + backgroundSize, layers[leftIndex].position.y, z );
 		rightIndex = leftIndex;
 		leftIndex++;
 		if(leftIndex == layers.Length){

@@ -23,3 +23,5 @@ Init: Create Ajou-swift project
 
 Tag Type
 feature : 기능, 시스템 구현
+
+https://www.notion.so/197c7561c39780bb93a8c2a739524f70?pvs=4

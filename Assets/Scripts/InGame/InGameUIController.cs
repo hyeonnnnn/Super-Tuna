@@ -30,6 +30,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private Slider DashGauge;
     [SerializeField] private Image RadiationEffect;
+    [SerializeField] private TextMeshProUGUI mapText;
+    [SerializeField] private Animator MapInfoUI;
 
     //게임 오버시 UI
     [SerializeField] private GameObject GameOverInfo;
@@ -52,6 +54,7 @@ public class InGameUIController : MonoBehaviour
         Growth.OnExpGaugeChanged += UpdateExphGaugeUI;
         Growth.OnLevelChanged += UpdateLevelTextUI;
         RadiationSystem.OnRadiationEnter += RadiationUIChanged;
+        DepthTracker.OnLayerChanged += ShowMapText;
     }
 
     private void Update()
@@ -69,6 +72,7 @@ public class InGameUIController : MonoBehaviour
         Growth.OnExpGaugeChanged -= UpdateExphGaugeUI;
         Growth.OnLevelChanged -= UpdateLevelTextUI;
         RadiationSystem.OnRadiationEnter -= RadiationUIChanged;
+        DepthTracker.OnLayerChanged -= ShowMapText;
     }
 
     private void HandleInput()
@@ -224,5 +228,22 @@ public class InGameUIController : MonoBehaviour
     public void OnCliCkGameOverRestart()
     {
         SceneLoader.Instance.ReloadScene();
+    }
+
+    public void ShowMapText(string currentMap)
+    {
+        if (!IsAnimationPlaying(MapInfoUI, "MapUI_ComingDown"))
+        {
+            mapText.text = currentMap;
+            MapInfoUI.Play("MapUI_ComingDown",0, 0f);
+        }
+    }
+
+    bool IsAnimationPlaying(Animator animator, string animationName)
+    {
+        if (animator == null) return false;
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime < 1.0f;
     }
 }

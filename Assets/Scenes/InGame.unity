@@ -339,6 +339,22 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+      propertyPath: DeepLayerDepth
+      value: -190
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+      propertyPath: deepLayerDepth
+      value: -190
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+      propertyPath: MixedLayerDepth
+      value: -110
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+      propertyPath: mixedLayerDepth
+      value: -110
+      objectReference: {fileID: 0}
     - target: {fileID: 6175609580460040766, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -712,7 +728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8309263608995271867, guid: be739bc23c9efcf4fac7470552f3bc0a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8309263608995271867, guid: be739bc23c9efcf4fac7470552f3bc0a, type: 3}
       propertyPath: m_LocalPosition.z

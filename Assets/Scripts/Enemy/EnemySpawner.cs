@@ -9,7 +9,6 @@ using UnityEngine;
  그 타입에 맞는 TypeProbTable에 확률 테이블을 작성해야함. 단 이 테이블이 Enum값 기준으로 되어있으므로 Enum에 맞춰서 작성
  이후 자식객체로 스폰 포인트를 넣어주아야함
  단 당연히 MaxActivateSpawnPoint보다 자식객체로 지정된 SpawnPoint가 더 많아야함.
- 안그러면 코루틴 평생 돌아가서 메모리 잡아먹음.
  */
 
 public class EnemySpawner : MonoBehaviour
@@ -25,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     [SerializeField] int maxActivateSpawnPoint;
-    [SerializeField] Dictionary<GameObject, Vector3> activatedSpawnedPoint = new Dictionary<GameObject, Vector3>();
+    Dictionary<GameObject, Vector3> activatedSpawnedPoint = new Dictionary<GameObject, Vector3>();
     [SerializeField] List<Vector3> enabledSpawnPoint = new List<Vector3>();
     [SerializeField] List<Vector3> disabledSpawnPoint = new List<Vector3>();
     [SerializeField] public List<GameObject> enemyTypeList = new List<GameObject>();
@@ -33,6 +32,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] int[] typeProbTable = new int[Enum.GetValues(typeof(FishType)).Length];
 
     bool isSpawning = false;
+    bool isSpawnActive = true;
 
     const string prefabsDitectory = "EnemyPrefabs";
 
@@ -91,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
         disabledSpawnPoint.Add(activatedSpawnedPoint[enemy]);
         activatedSpawnedPoint.Remove(enemy);
 
-        if (!isSpawning && maxActivateSpawnPoint > activatedSpawnedPoint.Count)
+        if (isSpawnActive && !isSpawning && maxActivateSpawnPoint > activatedSpawnedPoint.Count)
         {
             isSpawning = true;
             StartCoroutine(SpawnEnemy());
@@ -179,4 +179,11 @@ public class EnemySpawner : MonoBehaviour
 
         return onScreen;
     }
+
+    public void DisableSpawner()
+    {
+        isSpawnActive = false;
+
+    }
+
 }

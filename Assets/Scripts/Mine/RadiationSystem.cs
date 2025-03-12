@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RadiationSystem : MonoBehaviour
@@ -25,6 +26,21 @@ public class RadiationSystem : MonoBehaviour
             {
                 playerHunger.AddHungerDecrease((int)radiationDamage);
             }
+            return;
+        }
+
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.OnTriggerDeath();
+            return;
+        }
+
+        EnemySpawnerBoundary enemyBoundary = other.GetComponent<EnemySpawnerBoundary>();
+        if (enemyBoundary != null)
+        {
+            enemyBoundary.StopSpawner();
+            return;
         }
     }
 

@@ -2362,7 +2362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
       propertyPath: maxActivateSpawnPoint
-      value: 7
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
       propertyPath: 'typeProbTable.Array.data[0]'
@@ -2715,7 +2715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6175609580460040766, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6175609580460040766, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8690,6 +8690,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -135.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4645210986072871593, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5296843702712663432, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_Name
       value: MixedLayer
@@ -8748,11 +8752,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5931092266842225940, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -145.47
+      value: -95.4
       objectReference: {fileID: 0}
     - target: {fileID: 6100878328587935968, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6197385475691936804, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6197385475691936804, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6197385475691936804, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -182
       objectReference: {fileID: 0}
     - target: {fileID: 6617130359389879128, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_Name
@@ -8761,6 +8777,18 @@ PrefabInstance:
     - target: {fileID: 6725580079746694689, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_Name
       value: Thermocline
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897680290675813363, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897680290675813363, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897680290675813363, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -182
       objectReference: {fileID: 0}
     - target: {fileID: 7185191560002012185, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_LocalScale.x
@@ -8812,7 +8840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9077442551647890677, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -195.308
+      value: -294.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9834,7 +9862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee09c9fd422b8484a847138f0c3bee75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMineCount: 15
+  maxMineCount: 40
   currentspawnedMine: []
   DisabledMinePoint: []
 --- !u!1 &2108637778

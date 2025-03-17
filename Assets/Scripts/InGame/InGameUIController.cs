@@ -23,7 +23,7 @@ public class InGameUIController : MonoBehaviour
     private static readonly float minAlpha = 0f;
     private static readonly float maxAlpha = 40f/255f;
 
-    //게임 플레이시 UI
+    #region GamePlayUIs
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private Slider HungerGauge;
     [SerializeField] private Slider ExpGauge;
@@ -32,11 +32,13 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private Image RadiationEffect;
     [SerializeField] private TextMeshProUGUI mapText;
     [SerializeField] private Animator MapInfoUI;
+    #endregion
 
-    //게임 오버시 UI
+    #region GameEndUIs
     [SerializeField] private GameObject GameOverInfo;
     [SerializeField] private TextMeshProUGUI DyingReasonText;
     [SerializeField] private TextMeshProUGUI GameOverTimerText;
+    #endregion
 
     private Coroutine RadiationEffectAlphaChange;
     private Coroutine Fading;
@@ -211,6 +213,7 @@ public class InGameUIController : MonoBehaviour
     {
         Time.timeScale = 0f;
         SetDyingReasonTextUI(dyingReason);
+        UserDataManager.Instance.GetUserData<UserRankingData>().SaveData((int)currentTime);
         SetGameOverTimerTextUI();
         GameOverInfo.SetActive(true);
     }

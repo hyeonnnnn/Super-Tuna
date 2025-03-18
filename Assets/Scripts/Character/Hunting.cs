@@ -17,11 +17,11 @@ public class Hunting : MonoBehaviour
         Debug.Log("Game Restarted: isPlayerDead reset to " + isPlayerDead);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
+    private void OnTriggerEnter(Collider other)
+    {   
         if (!isPlayerDead)
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 if (growth.CurrentLevel >= enemy.enemyData.level)

@@ -9,7 +9,8 @@ public class PlayerMove : MonoBehaviour
 {
     private const float maxDashGauge = 100f;
 
-    private float maxSpeed;
+    private float maxSpeed = 3f;
+    private float rotateSpeed = 0.3f;
     private float _dashGauge;
     private float lerpTimeCount = 0f;
     public bool isDash { get; private set; }
@@ -44,7 +45,6 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
-        maxSpeed = 3f;
         targetRotation = tunaPrefab.transform.rotation;
         currentDashCoroutine = StartCoroutine(RecoverCoroutine());
         HungerSystem.OnDeath += DeathMove;
@@ -91,7 +91,7 @@ public class PlayerMove : MonoBehaviour
     {
         Quaternion applyRotation = tunaPrefab.transform.localRotation;
         applyRotation = Quaternion.Slerp(applyRotation, targetRotation, lerpTimeCount);
-        lerpTimeCount += Time.deltaTime * 0.07f;
+        lerpTimeCount += Time.deltaTime * rotateSpeed;
 
         tunaPrefab.transform.localRotation = applyRotation;
     }

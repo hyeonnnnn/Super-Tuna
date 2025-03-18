@@ -2685,30 +2685,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3050112536643799586, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4117261902663138011, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: DeepLayerDepth
-      value: -190
-      objectReference: {fileID: 0}
-    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: deepLayerDepth
-      value: -190
-      objectReference: {fileID: 0}
-    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: MixedLayerDepth
-      value: -110
-      objectReference: {fileID: 0}
-    - target: {fileID: 4355688402855833666, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: mixedLayerDepth
-      value: -110
-      objectReference: {fileID: 0}
     - target: {fileID: 6175609580460040766, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2748,10 +2724,6 @@ PrefabInstance:
     - target: {fileID: 6175609580460040766, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7357076218626298157, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

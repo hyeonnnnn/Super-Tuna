@@ -60,7 +60,6 @@ public class EnemyChase : EnemyState
             if (enemy.IsPlayerDetected()) // 플레이어를 다시 감지하면 Chase 유지
             {
                 timer = 0f;
-                continue;
             }
         }
 

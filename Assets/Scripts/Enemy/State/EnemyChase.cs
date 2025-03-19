@@ -54,11 +54,14 @@ public class EnemyChase : EnemyState
 
         while (timer < detectionTime)
         {
-            yield return new WaitForSeconds(1f);
-            timer += 1f;
+            yield return null;
+            timer += Time.deltaTime;
 
             if (enemy.IsPlayerDetected()) // 플레이어를 다시 감지하면 Chase 유지
-                yield break;
+            {
+                timer = 0f;
+                continue;
+            }
         }
 
         enemy.stateManager.ChangeState(enemy.stateManager.idleState);

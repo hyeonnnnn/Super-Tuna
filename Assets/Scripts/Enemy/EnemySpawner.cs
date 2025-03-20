@@ -31,6 +31,8 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] int[] typeProbTable = new int[Enum.GetValues(typeof(FishType)).Length];
 
+    [SerializeField] Camera playerCamera;
+
     bool isSpawning = false;
     bool isSpawnActive = true;
 
@@ -173,7 +175,6 @@ public class EnemySpawner : MonoBehaviour
 
     private bool CheckInCamera(Vector3 position)
     {
-        Camera playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Camera>();
         Vector3 screenPosition = playerCamera.WorldToViewportPoint(position);
         bool onScreen = screenPosition.z > -0.1f && screenPosition.x > -0.1f && screenPosition.y > -0.1f && screenPosition.x < 1.1f && screenPosition.y < 1.1f;
 

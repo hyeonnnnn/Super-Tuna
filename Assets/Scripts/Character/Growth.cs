@@ -10,6 +10,7 @@ public class Growth : MonoBehaviour
     public int CurrentExp { get; private set; } = 0;
     public int CurrentLevel { get; private set; } = 1;
 
+    [SerializeField] private HungerSystem hungerSystem;
     [SerializeField] private GameObject[] characterPrefabs;
     private int characterPrefabsInx = 0;
     private Vector3 baseScale = Vector3.one;
@@ -76,6 +77,9 @@ public class Growth : MonoBehaviour
         characterPrefabs[characterPrefabsInx].SetActive(false);
         characterPrefabsInx++;
         characterPrefabs[characterPrefabsInx].SetActive(true);
+
+        ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
+        
         IncreaseScale();
     }
 
@@ -83,5 +87,10 @@ public class Growth : MonoBehaviour
     {
         float scaleMultiplier = 1 + (CurrentLevel * 0.8f);
         transform.localScale = baseScale * scaleMultiplier;
+    }
+
+    private void ChangePrefabAnimator(GameObject Prefab)
+    {
+        hungerSystem.ChangeAnimator(Prefab.GetComponent<Animator>());
     }
 }

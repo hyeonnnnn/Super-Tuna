@@ -51,7 +51,7 @@ public class InGameUIController : MonoBehaviour
     private void Start()
     {
         HungerSystem.OnHungerChanged += UpdateHungerGaugeUI;
-        HungerSystem.OnDeath += GameOver;
+        HungerSystem.ShowResult += GameOver;
         PlayerMove.OnDashGaugeChanged += UpdateDashGaugeUI;
         Growth.OnExpGaugeChanged += UpdateExphGaugeUI;
         Growth.OnLevelChanged += UpdateLevelTextUI;
@@ -69,7 +69,7 @@ public class InGameUIController : MonoBehaviour
     private void OnDestroy()
     {
         HungerSystem.OnHungerChanged -= UpdateHungerGaugeUI;
-        HungerSystem.OnDeath -= GameOver;
+        HungerSystem.ShowResult -= GameOver;
         PlayerMove.OnDashGaugeChanged -= UpdateDashGaugeUI;
         Growth.OnExpGaugeChanged -= UpdateExphGaugeUI;
         Growth.OnLevelChanged -= UpdateLevelTextUI;

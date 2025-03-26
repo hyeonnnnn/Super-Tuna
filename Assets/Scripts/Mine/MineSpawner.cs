@@ -9,6 +9,8 @@ public class MineSpawner : MonoBehaviour
     [SerializeField] List<Mine> currentspawnedMine = new List<Mine>();
     [SerializeField] List<Mine> DisabledMinePoint = new List<Mine>();
 
+    [SerializeField] Camera playerCamera;
+
     bool isMineSpawning = false;
     //private float spawnCoolTime = 0.5f;
 
@@ -76,7 +78,6 @@ public class MineSpawner : MonoBehaviour
 
     private bool CheckMineInCamera(Vector3 position)
     {
-        Camera playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Camera>();
         Vector3 screenPosition = playerCamera.WorldToViewportPoint(position);
         bool onScreen = screenPosition.z > -0.1f && screenPosition.x > -0.1f && screenPosition.y > -0.1f && screenPosition.x < 1.1f && screenPosition.y < 1.1f;
         

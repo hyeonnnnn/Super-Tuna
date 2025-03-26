@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class HungerSystem : MonoBehaviour
@@ -6,6 +8,8 @@ public class HungerSystem : MonoBehaviour
     private const int MaxHunger = 100;
     private const int BaseHungerDecreaseAmount = 5;
     private const float HungerDecreaseInterval = 1f;
+
+    [SerializeField] private Animator fishAnimator;
 
     private int currentHunger;
     public int CurrentHunger
@@ -20,7 +24,8 @@ public class HungerSystem : MonoBehaviour
     private int hungerDecreaseAmount = BaseHungerDecreaseAmount;
 
     public static event Action<int, int> OnHungerChanged;
-    public static event Action<DyingReason> OnDeath;
+    public static event Action OnDeath;
+    public static event Action<DyingReason> ShowResult;
 
     private void Start()
     {
@@ -70,7 +75,20 @@ public class HungerSystem : MonoBehaviour
 
     public void TriggerDeath(DyingReason dyingReason)
     {
-        Debug.Log("die");
-        OnDeath?.Invoke(dyingReason);
+        fishAnimator.SetTrigger("Dying");
+        OnDeath?.Invoke();
+        StartCoroutine(WaitForDeathAnimation(dyingReason));
+    }
+
+    public void ChangeAnimator(Animator fishAnimator)
+    {
+        this.fishAnimator = fishAnimator;
+    }
+
+    private IEnumerator WaitForDeathAnimation(DyingReason dyingReason)
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => fishAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        ShowResult?.Invoke(dyingReason);
     }
 }

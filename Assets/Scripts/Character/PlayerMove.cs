@@ -58,6 +58,11 @@ public class PlayerMove : MonoBehaviour
         TryDash();
     }
 
+    private void OnDestroy()
+    {
+        HungerSystem.OnDeath -= DeathMove;
+    }
+
     //playerInput eventÇÔ¼ö
     public void OnMove(InputValue input)
     {
@@ -180,9 +185,10 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void DeathMove(DyingReason dyingReason)
+    private void DeathMove()
     {
         isDead = true;
+        tunaPrefab.transform.localRotation = Quaternion.Euler(0f,90f, 0f);
         targetVelocity = Vector2.zero;
     }
 }

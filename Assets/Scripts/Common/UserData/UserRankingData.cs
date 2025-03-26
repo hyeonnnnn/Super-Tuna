@@ -68,7 +68,7 @@ public class UserRankingData : IUserData
             SavedRanking.Sort((a, b) => b.CompareTo(a));
             SavedRanking.RemoveAt(SavedRanking.Count - 1);
 
-            for (int i = 0; i <= RankCount; i++)
+            for (int i = 0; i < RankCount; i++)
             {
                 string key = "Ranking" + (i + 1);
                 PlayerPrefs.SetInt(key, SavedRanking[i]);

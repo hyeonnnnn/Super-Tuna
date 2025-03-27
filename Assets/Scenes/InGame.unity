@@ -230,6 +230,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 392201024}
+    - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
       propertyPath: maxActivateSpawnPoint
       value: 6
       objectReference: {fileID: 0}
@@ -263,28 +267,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1055994448316375371, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 990721402}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
---- !u!114 &60089762 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
-  m_PrefabInstance: {fileID: 60089761}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0c1dfc475ccb9e41820783904c271b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &60089763 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1055994448316375371, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
-  m_PrefabInstance: {fileID: 60089761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &277225703
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +302,7 @@ MonoBehaviour:
   maxMineCount: 5
   currentspawnedMine: []
   DisabledMinePoint: []
+  playerCamera: {fileID: 0}
 --- !u!4 &277225705
 Transform:
   m_ObjectHideFlags: 0
@@ -423,6 +409,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+--- !u!20 &392201024 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5901956897170825103, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+  m_PrefabInstance: {fileID: 392201023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &451844792
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1302,7 +1293,10 @@ PrefabInstance:
       value: Map
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6100878328587935968, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+    - {fileID: 2504080631072984419, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
+    - {fileID: 3339888631503746763, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2873c6f6cc3c47ab9e69f4e1c055330, type: 3}

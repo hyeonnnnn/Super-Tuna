@@ -38,7 +38,14 @@ public class DepthTracker : MonoBehaviour
         if (newLayer != currentLayer)
         {
             currentLayer = newLayer;
-            OnLayerChanged?.Invoke(currentLayer.ToString());
+            string layerNameInKorean = newLayer switch
+            {
+                Layer.Thermocline => "수온약층",
+                Layer.MixedLayer => "혼합층",
+                Layer.DeepLayer => "심해층",
+                _ => "알 수 없는 층"
+            };
+            OnLayerChanged?.Invoke(layerNameInKorean);
         }
     }
 }

@@ -230,6 +230,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1614273202}
+    - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
       propertyPath: maxActivateSpawnPoint
       value: 6
       objectReference: {fileID: 0}
@@ -298,6 +302,7 @@ MonoBehaviour:
   maxMineCount: 5
   currentspawnedMine: []
   DisabledMinePoint: []
+  playerCamera: {fileID: 0}
 --- !u!4 &277225705
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,6 +1045,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1248881963697088053, guid: 1a74fe99c29874e9db07dd4386503f19, type: 3}
   m_PrefabInstance: {fileID: 1312961144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1614273202 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5901956897170825103, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+  m_PrefabInstance: {fileID: 392201023}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1691670768
 GameObject:

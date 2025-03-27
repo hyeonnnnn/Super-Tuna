@@ -303,62 +303,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2030493761}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickGuideButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LobbyUiController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 1856718253663773110, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2030493761}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickSettingButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LobbyUiController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2796264068200275765, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5997027472185291282, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
       propertyPath: m_Name
       value: LobbyUiController
@@ -402,34 +346,6 @@ PrefabInstance:
     - target: {fileID: 8126007466397463023, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2030493761}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickRankingButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LobbyUiController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 8237470485687104909, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -528,17 +444,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2030493761 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2461237847078217981, guid: ece5437f779f87f47a9745a446d736c8, type: 3}
-  m_PrefabInstance: {fileID: 901093529}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5038f59b7aca12b4bbb53979d4ba997b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8536182253758860518
 PrefabInstance:
   m_ObjectHideFlags: 0

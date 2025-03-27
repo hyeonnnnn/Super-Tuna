@@ -166,8 +166,8 @@ public class InGameUIController : MonoBehaviour
 
         while (true)
         {
-            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // ���� �����
-            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // ���� ��ο���
+            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // 점점 밝아짐
+            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // 점점 어두워짐
         }
     }
 
@@ -185,7 +185,7 @@ public class InGameUIController : MonoBehaviour
             yield return null;
         }
 
-        color.a = targetAlpha; // ��Ȯ�� �� ����
+        color.a = targetAlpha; // 정확한 값 보정
         RadiationEffect.color = color;
     }
 
@@ -220,8 +220,18 @@ public class InGameUIController : MonoBehaviour
 
     public void SetDyingReasonTextUI(DyingReason dyingReason)
     {
-        DyingReasonText.text = $"Super Tuna died by {dyingReason.ToString()}..";
+        string reasonText = dyingReason switch
+        {
+            DyingReason.Hunger => "배고파",
+            DyingReason.Enemy => "적에게 먹혀",
+            DyingReason.Mine => "지뢰에 터져",
+            DyingReason.Radiation => "방사능에 피폭되어",
+            _ => "알 수 없는 이유로"
+        };
+    
+        DyingReasonText.text = $"슈퍼 참치는 {reasonText} 죽었습니다..";
     }
+
 
     public void OnClickGameOverLobby()
     {

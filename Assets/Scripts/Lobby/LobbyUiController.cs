@@ -37,10 +37,10 @@ public class LobbyUiController : MonoBehaviour
         var data = new ConfirmUIData()
         {
             ConfirmType = EConfirmType.OK_CANCEL,
-            TitleText = "Quit",
-            DescriptionText = "Do you want to quit game?",
-            OkButtonText = "Quit",
-            CancelButtonText = "Cancel",
+            TitleText = "종료",
+            DescriptionText = "게임을 종료하실 건가요?",
+            OkButtonText = "예",
+            CancelButtonText = "취소",
             ActionOnClickOkButton = () => Application.Quit()
         };
         UIManager.Instance.OpenUI<ConfirmUI>(data);

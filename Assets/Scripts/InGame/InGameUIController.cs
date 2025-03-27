@@ -166,8 +166,8 @@ public class InGameUIController : MonoBehaviour
 
         while (true)
         {
-            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // Á¡Á¡ ¹à¾ÆÁü
-            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // Á¡Á¡ ¾îµÎ¿öÁü
+            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
         }
     }
 
@@ -185,7 +185,7 @@ public class InGameUIController : MonoBehaviour
             yield return null;
         }
 
-        color.a = targetAlpha; // Á¤È®ÇÑ °ª º¸Á¤
+        color.a = targetAlpha; // ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         RadiationEffect.color = color;
     }
 
@@ -220,8 +220,18 @@ public class InGameUIController : MonoBehaviour
 
     public void SetDyingReasonTextUI(DyingReason dyingReason)
     {
-        DyingReasonText.text = $"Super Tuna died by {dyingReason.ToString()}..";
+        string reasonText = dyingReason switch
+        {
+            DyingReason.Hunger => "ë°°ê³ í””",
+            DyingReason.Enemy => "ì ì—ê²Œ ì˜í•´",
+            DyingReason.Mine => "ì§€ë¢°ì— ì˜í•´",
+            DyingReason.Radiation => "ë°©ì‚¬ëŠ¥ì— ì˜í•´",
+            _ => "ì•Œ ìˆ˜ ì—†ëŠ” ì´ìœ "
+        };
+    
+        DyingReasonText.text = $"ìŠˆí¼ ì°¸ì¹˜ëŠ” {reasonText} ì£½ì—ˆìŠµë‹ˆë‹¤..";
     }
+
 
     public void OnClickGameOverLobby()
     {

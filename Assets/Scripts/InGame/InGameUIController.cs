@@ -166,8 +166,8 @@ public class InGameUIController : MonoBehaviour
 
         while (true)
         {
-            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // ���� �����
-            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // ���� ��ο���
+            yield return Fading = StartCoroutine(FadeTo(maxAlpha)); // 점점 밝아짐
+            yield return Fading = StartCoroutine(FadeTo(minAlpha)); // 점점 어두워짐
         }
     }
 
@@ -185,7 +185,7 @@ public class InGameUIController : MonoBehaviour
             yield return null;
         }
 
-        color.a = targetAlpha; // ��Ȯ�� �� ����
+        color.a = targetAlpha; // 정확한 값 보정
         RadiationEffect.color = color;
     }
 

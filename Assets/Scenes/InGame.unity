@@ -230,6 +230,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 392201024}
+    - target: {fileID: 8513090587540479738, guid: fe4d4c083625c0844bf502030bd720da, type: 3}
       propertyPath: maxActivateSpawnPoint
       value: 6
       objectReference: {fileID: 0}
@@ -405,6 +409,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+--- !u!20 &392201024 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5901956897170825103, guid: aeec544cd5f91cf44b15cc08513eab09, type: 3}
+  m_PrefabInstance: {fileID: 392201023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &451844792
 PrefabInstance:
   m_ObjectHideFlags: 0

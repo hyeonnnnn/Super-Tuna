@@ -222,11 +222,11 @@ public class InGameUIController : MonoBehaviour
     {
         string reasonText = dyingReason switch
         {
-            DyingReason.Hunger => "배고픔",
-            DyingReason.Enemy => "적에게 의해",
-            DyingReason.Mine => "지뢰에 의해",
-            DyingReason.Radiation => "방사능에 의해",
-            _ => "알 수 없는 이유"
+            DyingReason.Hunger => "배고파",
+            DyingReason.Enemy => "적에게 먹혀",
+            DyingReason.Mine => "지뢰에 터져",
+            DyingReason.Radiation => "방사능에 피폭되어",
+            _ => "알 수 없는 이유로"
         };
     
         DyingReasonText.text = $"슈퍼 참치는 {reasonText} 죽었습니다..";

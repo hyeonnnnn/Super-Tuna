@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class Enemy : MonoBehaviour
             growth = player.GetComponent<Growth>();
             LookAtPlayer();
         }
+
+        StartCoroutine(Despawn());
+
     }
 
     public bool IsPlayerDetected()
@@ -72,6 +76,18 @@ public class Enemy : MonoBehaviour
         deathEvent.Invoke(gameObject);
         Destroy(gameObject);
         //gameObject.SetActive(false);
+    }
+
+    private IEnumerator Despawn()
+    {
+        while(true)
+        {
+            if (Vector3.SqrMagnitude(transform.position - player.position) > 6400f)
+            {
+                deathEvent.Invoke(gameObject);
+            }
+            yield return new WaitForSeconds(5f);
+        }
     }
 
     private void OnDrawGizmos()

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using System.Collections;
+using System.Security.Cryptography.X509Certificates;
 
 public class Growth : MonoBehaviour
 {
@@ -61,12 +63,27 @@ public class Growth : MonoBehaviour
     {
         if(CurrentExp >= expTable[CurrentLevel])
         {
-            ApplyLevelUp();
+            StartCoroutine(ApplyLevelUp());
         }
     }
 
-    private void ApplyLevelUp()
+    private IEnumerator ApplyLevelUp()
     {
+        Animator animator = characterPrefabs[characterPrefabsInx].GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hunting"))
+            {
+                yield return null;
+            }
+
+            while (animator.GetCurrentAnimatorStateInfo(0).IsName("Hunting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                yield return null;
+            }
+        }
+
         CurrentLevel += 1;
         OnLevelChanged?.Invoke(CurrentLevel);
         ChangePrefab();

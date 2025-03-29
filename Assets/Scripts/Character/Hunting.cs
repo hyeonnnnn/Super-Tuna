@@ -37,7 +37,6 @@ public class Hunting : MonoBehaviour
         if (!isHunting)
         {
             isHunting = true;
-            Debug.Log("애니메이션");
             gameObject.GetComponent<Animator>().SetTrigger("Hunting");
             ExecuteHunt(target);
         }

@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player")?.transform;
+        //player = GameObject.FindWithTag("Player")?.transform;
         stateManager = GetComponent<EnemyStateManager>();
 
         if (player != null)
@@ -31,6 +31,11 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(Despawn());
 
+    }
+
+    public void SetPlayer(Transform player)
+    {
+        this.player = player;
     }
 
     public bool IsPlayerDetected()

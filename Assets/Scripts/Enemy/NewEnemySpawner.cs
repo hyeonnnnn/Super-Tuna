@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class NewEnemySpawner : MonoBehaviour
@@ -15,7 +14,6 @@ public class NewEnemySpawner : MonoBehaviour
         Ray,
         Shark
     }
-    readonly int fishTypeCount = Enum.GetValues(typeof(FishType)).Length;
 
     struct FishPrefabSet
     {
@@ -44,8 +42,9 @@ public class NewEnemySpawner : MonoBehaviour
     [SerializeField] GameObject[] enemyTypeList;
 
     private Vector2[] spawnArea = new Vector2[8];
-    private float spawnDistance = 15f;
+    private float spawnDistance = 12f;
     private float spawnInternalDistance = 5f;
+    private float spawnCoolTime = 1f;
 
     FishPrefabSet[] fishPrefabsArray;
     const string prefabsDitectory = "EnemyPrefabs";
@@ -71,7 +70,7 @@ public class NewEnemySpawner : MonoBehaviour
         {
             spawnArea[i] = new Vector2(MathF.Cos(Mathf.Deg2Rad * (45 * i)), MathF.Sin(Mathf.Deg2Rad * (45 * i))) * spawnDistance;
         }
-
+        
         string jsonData = Resources.Load<TextAsset>("EnemySpawnTable").text;
         enemySpawnPorbTable = JsonUtility.FromJson<AllEnemySpawnProbabilities>(jsonData);
 
@@ -88,7 +87,7 @@ public class NewEnemySpawner : MonoBehaviour
                 SpawnEnemy(GetRandomSpawnPosition());
                 currentEnemyCount++;
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(spawnCoolTime);
         }
     }
 
@@ -109,26 +108,28 @@ public class NewEnemySpawner : MonoBehaviour
 
         //利 规氢
         float randomRotate = UnityEngine.Random.Range(0, 2);
-        if (randomRotate == 0) randomRotate = 0;
-        else randomRotate = 180;
+        if (randomRotate == 0) randomRotate = 90;
+        else randomRotate = 270;
         Quaternion randomRotateDir = Quaternion.Euler(new Vector3(0, randomRotate, 0));
+        Debug.Log(randomRotate);
 
         //货肺款 利 按眉 积己
         GameObject newEnemy = Instantiate(enemyTypeList[(int)randomFishType], spawnPosition, randomRotateDir);
 
         //利 胶鸥老 汲沥
-        GameObject randomSelectedFishStyle = Instantiate(fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)],
-            spawnPosition, randomRotateDir);
+        GameObject newRandomStyle = fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)];
+        GameObject randomSelectedFishStyle = Instantiate(newRandomStyle, spawnPosition, newRandomStyle.transform.rotation);
 
         for (int i = 1; i >= 0; i--)
         {
             randomSelectedFishStyle.transform.GetChild(0).parent = newEnemy.transform;
         }
         Destroy(randomSelectedFishStyle);
-
+        
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;
         newEnemy.GetComponent<Enemy>().SetPlayer(playerTransform);
+        //newEnemy.transform.rotation = randomRotateDir;
     }
 
     private FishType GetRandomFishType(float ySpawnPos)
@@ -136,7 +137,7 @@ public class NewEnemySpawner : MonoBehaviour
         EnemySpawnData currentSpawnData = enemySpawnPorbTable.enemyProbDatas[0];
         for (int i = enemySpawnPorbTable.enemyProbDatas.Length - 1; i >= 0 ; i--)
         {
-            if(enemySpawnPorbTable.enemyProbDatas[i].depth < ySpawnPos)
+            if(enemySpawnPorbTable.enemyProbDatas[i].depth > ySpawnPos)
             {
                 currentSpawnData = enemySpawnPorbTable.enemyProbDatas[i];
                 break;
@@ -145,7 +146,7 @@ public class NewEnemySpawner : MonoBehaviour
 
         int randomType = UnityEngine.Random.Range(0, currentSpawnData.totalWeight);
         
-        int value = 0; //return Value
+        int value = 0;
         for (; value < currentSpawnData.probTable.Length; value++)
         {
             if (randomType <= currentSpawnData.probTable[value])

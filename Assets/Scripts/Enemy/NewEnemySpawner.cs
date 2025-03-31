@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class NewEnemySpawner : MonoBehaviour
@@ -13,12 +14,6 @@ public class NewEnemySpawner : MonoBehaviour
         Dolphin,
         Ray,
         Shark
-    }
-
-    struct FishPrefabSet
-    {
-        public FishType fishType;
-        public GameObject[] prefabs;
     }
     Dictionary<FishType, GameObject[]> prefabDatas = new Dictionary<FishType, GameObject[]>();
 
@@ -39,6 +34,7 @@ public class NewEnemySpawner : MonoBehaviour
     private int currentEnemyCount = 0;
 
     AllEnemySpawnProbabilities enemySpawnPorbTable;
+    //얘도 원래 Resources로 불러오는게 좋을 것 같은데 일단은 그냥 직접 넣는거로 함
     [SerializeField] GameObject[] enemyTypeList;
 
     private Vector2[] spawnArea = new Vector2[8];
@@ -46,37 +42,38 @@ public class NewEnemySpawner : MonoBehaviour
     private float spawnInternalDistance = 5f;
     private float spawnCoolTime = 1f;
 
-    FishPrefabSet[] fishPrefabsArray;
     const string prefabsDitectory = "EnemyPrefabs";
     
     private void Start()
     {
-        fishPrefabsArray = new FishPrefabSet[enemyTypeList.Length];
-        for (int i = 0; i < fishPrefabsArray.Length; i++)
-        {
-            fishPrefabsArray[i] = new FishPrefabSet();
-            fishPrefabsArray[i].fishType = (FishType)i;
-            string typeDitectory = prefabsDitectory + "/" + ((FishType)i).ToString();
-            fishPrefabsArray[i].prefabs = Resources.LoadAll<GameObject>(typeDitectory);
-        }
+        LoadFishPrefabs();
+        InitializeSpawnArea();
+        LoadEnemySpawnProbabilities();
 
+        StartCoroutine(TrySpawnEnemy());
+    }
+
+    private void LoadFishPrefabs()
+    {
         for (int i = 0; i < Enum.GetValues(typeof(FishType)).Length; i++)
         {
             string typeDitectory = prefabsDitectory + "/" + ((FishType)i).ToString();
             prefabDatas.Add((FishType)i, Resources.LoadAll<GameObject>(typeDitectory));
         }
-
+    }
+    private void InitializeSpawnArea()
+    {
         for (int i = 0; i < spawnArea.Length; i++)
         {
             spawnArea[i] = new Vector2(MathF.Cos(Mathf.Deg2Rad * (45 * i)), MathF.Sin(Mathf.Deg2Rad * (45 * i))) * spawnDistance;
         }
-        
-        string jsonData = Resources.Load<TextAsset>("EnemySpawnTable").text;
-        enemySpawnPorbTable = JsonUtility.FromJson<AllEnemySpawnProbabilities>(jsonData);
-
-        StartCoroutine(TrySpawnEnemy());
     }
 
+    private void LoadEnemySpawnProbabilities()
+    {
+        string jsonData = Resources.Load<TextAsset>("EnemySpawnTable").text;
+        enemySpawnPorbTable = JsonUtility.FromJson<AllEnemySpawnProbabilities>(jsonData);
+    }
 
     IEnumerator TrySpawnEnemy()
     {
@@ -104,32 +101,39 @@ public class NewEnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(Vector3 spawnPosition)
     {
-        FishType randomFishType = GetRandomFishType(spawnPosition.y);
+        FishType fishType = GetRandomFishType(spawnPosition.y);
 
-        //적 방향
-        float randomRotate = UnityEngine.Random.Range(0, 2);
-        if (randomRotate == 0) randomRotate = 90;
-        else randomRotate = 270;
-        Quaternion randomRotateDir = Quaternion.Euler(new Vector3(0, randomRotate, 0));
-        Debug.Log(randomRotate);
+        Quaternion randomRotate = GetRandomRotation();
 
-        //새로운 적 객체 생성
-        GameObject newEnemy = Instantiate(enemyTypeList[(int)randomFishType], spawnPosition, randomRotateDir);
+        GameObject newEnemy = Instantiate(enemyTypeList[(int)fishType], spawnPosition, randomRotate);
 
-        //적 스타일 설정
-        GameObject newRandomStyle = fishPrefabsArray[(int)randomFishType].prefabs[UnityEngine.Random.Range(0, fishPrefabsArray[(int)randomFishType].prefabs.Length)];
-        GameObject randomSelectedFishStyle = Instantiate(newRandomStyle, spawnPosition, newRandomStyle.transform.rotation);
+        SetEnemyStyle(newEnemy, fishType);
 
-        for (int i = 1; i >= 0; i--)
-        {
-            randomSelectedFishStyle.transform.GetChild(0).parent = newEnemy.transform;
-        }
-        Destroy(randomSelectedFishStyle);
-        
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;
         newEnemy.GetComponent<Enemy>().SetPlayer(playerTransform);
         //newEnemy.transform.rotation = randomRotateDir;
+    }
+
+    private Quaternion GetRandomRotation()
+    {
+        float randomRotate = UnityEngine.Random.Range(0, 2);
+        if (randomRotate == 0) randomRotate = 90;
+        else randomRotate = 270;
+        Quaternion randomRotateDir = Quaternion.Euler(new Vector3(0, randomRotate, 0));
+        return randomRotateDir;
+    }
+
+    private void SetEnemyStyle(GameObject newEnemyObject, FishType enemyFishType)
+    {
+        GameObject newRandomStyle = prefabDatas[enemyFishType][UnityEngine.Random.Range(0, prefabDatas[enemyFishType].Length)];
+        GameObject randomSelectedFishStyle = Instantiate(newRandomStyle, newEnemyObject.transform.position, newEnemyObject.transform.rotation   );
+
+        for (int i = 1; i >= 0; i--)
+        {
+            randomSelectedFishStyle.transform.GetChild(0).parent = newEnemyObject.transform;
+        }
+        Destroy(randomSelectedFishStyle);
     }
 
     private FishType GetRandomFishType(float ySpawnPos)
@@ -145,25 +149,36 @@ public class NewEnemySpawner : MonoBehaviour
         }
 
         int randomType = UnityEngine.Random.Range(0, currentSpawnData.totalWeight);
-        
-        int value = 0;
-        for (; value < currentSpawnData.probTable.Length; value++)
+
+        for (int i = 0; i < currentSpawnData.probTable.Length; i++)
         {
-            if (randomType <= currentSpawnData.probTable[value])
+            if (randomType <= currentSpawnData.probTable[i])
             {
-                break;
+                return (FishType)i;
             }
-            else
-            {
-                randomType -= currentSpawnData.probTable[value];
-            }
+            randomType -= currentSpawnData.probTable[i];
         }
-        return (FishType)value;
+        return FishType.SmallFish; // 기본값
 
     }
 
     private void ReduceEnemyCount(GameObject go)
     {
+        go.GetComponent<Enemy>().deathEvent -= ReduceEnemyCount;
         currentEnemyCount--;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color _blue = new Color(0f, 0f, 1f, 1f);
+        Color _red = new Color(1f, 0f, 0f, 1f);
+        Handles.color = _blue;
+        Handles.DrawWireArc(playerTransform.position, transform.forward, transform.right, 360, spawnDistance, 2.0f);
+        Handles.color = _red;
+        for (int i = 0; i < spawnArea.Length; i++)
+        {
+            Handles.DrawWireArc(playerTransform.position + new Vector3(spawnArea[i].x, spawnArea[i].y, 0), transform.forward, transform.right, 360, spawnInternalDistance, 2.0f);
+            //Gizmos.DrawWireSphere(playerTransform.position + new Vector3(spawnArea[i].x, spawnArea[i].y, 0), spawnInternalDistance);
+        }
     }
 }

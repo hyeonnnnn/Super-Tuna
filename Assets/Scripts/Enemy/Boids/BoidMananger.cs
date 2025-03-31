@@ -15,7 +15,9 @@ public class BoidManager : MonoBehaviour
     public List<GameObject> Boids = new List<GameObject>();
 
     [Header("MoveManage")]
-    public float cohesionWeight, alignmentWeight, separationWeight = 1.0f;
+    public float cohesionWeight = 1.0f;
+    public float alignmentWeight = 1.0f;
+    public float separationWeight = 1.0f;
     public float moveRadiusRange, boundaryForce;
     public float maxSpeed = 2.0f;
     public float neighborDistance, maxNeighbors = 50;
@@ -26,7 +28,12 @@ public class BoidManager : MonoBehaviour
 
         for (int i = 0; i < number; ++i)
         {
-            Boids.Add(Instantiate(prefab, this.transform.position + Random.insideUnitSphere * InstantiateRadius, Random.rotation));
+            Vector3 spawnPos = this.transform.position + Random.insideUnitSphere * InstantiateRadius;
+            spawnPos.z = 0f;
+
+            Quaternion rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+            GameObject boid = Instantiate(prefab, spawnPos, rotation);
+            Boids.Add(boid);
         }
     }
 }

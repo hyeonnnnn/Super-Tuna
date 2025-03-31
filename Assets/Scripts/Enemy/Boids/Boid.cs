@@ -12,10 +12,10 @@ public class Boid : MonoBehaviour
     [Header("MoveInform")]
     [SerializeField] private Vector3 velocity;
 
-    BoidManager spawner;
-
     [Header("TEST")]
     [SerializeField] private int neighborCount = 0;
+
+    BoidManager spawner;
 
     void Start()
     {
@@ -26,7 +26,9 @@ public class Boid : MonoBehaviour
     public void Init()
     {
         spawner = BoidManager.Instance;
-        velocity = transform.forward * spawner.maxSpeed;
+        
+        Vector2 dir = Random.insideUnitCircle.normalized;
+        velocity = new Vector3(dir.x, dir.y, 0f) * spawner.maxSpeed;
     }
 
 
@@ -39,10 +41,12 @@ public class Boid : MonoBehaviour
         velocity += CalculateSeparation() * spawner.separationWeight;
         LimitMoveRadius();
 
-        if (velocity.magnitude > spawner.maxSpeed) // prevent infinite accelation
+        velocity.z = 0f;
+
+        if (velocity.magnitude > spawner.maxSpeed)
             velocity = velocity.normalized * spawner.maxSpeed;
 
-        this.transform.position += velocity * Time.deltaTime; // °¡¼Óµµ
+        this.transform.position += velocity * Time.deltaTime;
         this.transform.rotation = Quaternion.LookRotation(velocity);
     }
 
@@ -50,14 +54,13 @@ public class Boid : MonoBehaviour
     {
         nearNeighbors.Clear();
 
-        foreach (GameObject neighbor in spawner.Boids) // ÀüÃ¼ ÀÌ¿ô Å½»ö
+        foreach (GameObject neighbor in spawner.Boids)
         {
             if (nearNeighbors.Count >= spawner.maxNeighbors)
                 return;
 
             if (neighbor == this.gameObject)
             {
-                Debug.Log("Pass, because neighbor is me");
                 continue;
             }
 
@@ -70,7 +73,6 @@ public class Boid : MonoBehaviour
         }
 
         neighborCount = nearNeighbors.Count;
-        Debug.Log(neighborCount);
     }
 
     private Vector3 CalculateCohesion()

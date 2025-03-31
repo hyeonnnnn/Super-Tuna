@@ -13,12 +13,15 @@ public class Growth : MonoBehaviour
     public int CurrentLevel { get; private set; } = 1;
 
     [SerializeField] private HungerSystem hungerSystem;
+    [SerializeField] private PlayerMove playerMove;
     [SerializeField] private GameObject[] characterPrefabs;
     private int characterPrefabsInx = 0;
     private Vector3 baseScale = Vector3.one;
 
     public static event Action<int, int> OnExpGaugeChanged;
     public static event Action<int> OnLevelChanged;
+
+    [SerializeField] private GameObject LevelUpEffect;
 
     public Growth()
     {
@@ -63,11 +66,11 @@ public class Growth : MonoBehaviour
     {
         if(CurrentExp >= expTable[CurrentLevel])
         {
-            StartCoroutine(ApplyLevelUp());
+            StartCoroutine(CheckHuntAnimation());
         }
     }
 
-    private IEnumerator ApplyLevelUp()
+    private IEnumerator CheckHuntAnimation()
     {
         Animator animator = characterPrefabs[characterPrefabsInx].GetComponent<Animator>();
 
@@ -84,20 +87,30 @@ public class Growth : MonoBehaviour
             }
         }
 
-        CurrentLevel += 1;
-        OnLevelChanged?.Invoke(CurrentLevel);
-        ChangePrefab();
+        StartCoroutine(ApplyLevelUp());
     }
 
-    private void ChangePrefab()
+    private IEnumerator ApplyLevelUp()
     {
-        characterPrefabs[characterPrefabsInx].SetActive(false);
-        characterPrefabsInx++;
-        characterPrefabs[characterPrefabsInx].SetActive(true);
+        LevelUpEffect.SetActive(true);
 
-        ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
-        
-        IncreaseScale();
+        yield return new WaitForSeconds(2f);
+
+        LevelUpEffect.SetActive(false);
+
+        if(!playerMove.GetPlayerIsDead())
+        {
+            CurrentLevel += 1;
+            OnLevelChanged?.Invoke(CurrentLevel);
+
+            characterPrefabs[characterPrefabsInx].SetActive(false);
+            characterPrefabsInx++;
+            characterPrefabs[characterPrefabsInx].SetActive(true);
+
+            ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
+
+            IncreaseScale();
+        }
     }
 
     private void IncreaseScale()

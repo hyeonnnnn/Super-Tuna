@@ -37,6 +37,7 @@ public class Hunting : MonoBehaviour
         if (!isHunting)
         {
             isHunting = true;
+            gameObject.GetComponent<Animator>().SetTrigger("Hunting");
             ExecuteHunt(target);
         }
     }
@@ -45,7 +46,6 @@ public class Hunting : MonoBehaviour
     {
         if (target != null)
         {
-            Debug.Log("사냥에 성공했습니다.");
             growth.AddExp(target.enemyData.exp);
             hungerSystem.IncreaseHunger(target.enemyData.hungerValue);
             target.OnTriggerDeath();

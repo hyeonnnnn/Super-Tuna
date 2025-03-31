@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform Player => player;
 
-    private bool isOutOfBoundary = false;
 
     public EnemyStateManager stateManager;
     public Growth growth;
@@ -64,32 +63,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Boundary"))
-        {
-            if (!isOutOfBoundary)
-            {
-                isOutOfBoundary = true;
-                Invoke(nameof(OnTriggerDeath), 3f);
-            }
-        }
-    }
-
     public void OnTriggerDeath()
     {
         deathEvent.Invoke(gameObject);
         Destroy(gameObject);
-        //gameObject.SetActive(false);
     }
 
     private IEnumerator Despawn()
     {
         while(true)
         {
-            if (Vector3.SqrMagnitude(transform.position - player.position) > 6400f)
+            if (Vector3.SqrMagnitude(transform.position - player.position) > 400f)
             {
-                deathEvent.Invoke(gameObject);
+                OnTriggerDeath();
+                yield break;
             }
             yield return new WaitForSeconds(5f);
         }

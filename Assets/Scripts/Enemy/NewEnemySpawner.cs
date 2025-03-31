@@ -13,7 +13,8 @@ public class NewEnemySpawner : MonoBehaviour
         Turtle,
         Dolphin,
         Ray,
-        Shark
+        Shark,
+        Mine
     }
     Dictionary<FishType, GameObject[]> prefabDatas = new Dictionary<FishType, GameObject[]>();
 
@@ -31,16 +32,16 @@ public class NewEnemySpawner : MonoBehaviour
     [SerializeField] Transform playerTransform;
 
     [SerializeField] private int maxEnemyCount;
-    private int currentEnemyCount = 0;
+    [SerializeField] private int currentEnemyCount = 0;
 
     AllEnemySpawnProbabilities enemySpawnPorbTable;
     //얘도 원래 Resources로 불러오는게 좋을 것 같은데 일단은 그냥 직접 넣는거로 함
     [SerializeField] GameObject[] enemyTypeList;
-
+    [SerializeField] GameObject mineObject;
     private Vector2[] spawnArea = new Vector2[8];
     private float spawnDistance = 12f;
     private float spawnInternalDistance = 5f;
-    private float spawnCoolTime = 1f;
+    private float spawnCoolTime = 0.5f;
 
     const string prefabsDitectory = "EnemyPrefabs";
     
@@ -82,7 +83,6 @@ public class NewEnemySpawner : MonoBehaviour
             if (currentEnemyCount < maxEnemyCount)
             {
                 SpawnEnemy(GetRandomSpawnPosition());
-                currentEnemyCount++;
             }
             yield return new WaitForSeconds(spawnCoolTime);
         }
@@ -101,8 +101,19 @@ public class NewEnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(Vector3 spawnPosition)
     {
+        if(spawnPosition.y > -11 || spawnPosition.y < -385f)
+        {
+            return;
+        }
+        currentEnemyCount++;
         FishType fishType = GetRandomFishType(spawnPosition.y);
-
+        if(fishType == FishType.Mine)
+        {
+            GameObject newMine = Instantiate(mineObject, spawnPosition, Quaternion.identity);
+            newMine.GetComponent<Mine>().ExplodeEvent += ReduceEnemyCount;
+            newMine.GetComponent<Mine>().SetPlayer(playerTransform);
+            return;
+        }
         Quaternion randomRotate = GetRandomRotation();
 
         GameObject newEnemy = Instantiate(enemyTypeList[(int)fishType], spawnPosition, randomRotate);
@@ -164,7 +175,15 @@ public class NewEnemySpawner : MonoBehaviour
 
     private void ReduceEnemyCount(GameObject go)
     {
-        go.GetComponent<Enemy>().deathEvent -= ReduceEnemyCount;
+        Enemy enemy = go.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            go.GetComponent<Enemy>().deathEvent -= ReduceEnemyCount;
+        }
+        else
+        {
+            go.GetComponent<Mine>().ExplodeEvent -= ReduceEnemyCount;
+        }
         currentEnemyCount--;
     }
 
@@ -172,13 +191,14 @@ public class NewEnemySpawner : MonoBehaviour
     {
         Color _blue = new Color(0f, 0f, 1f, 1f);
         Color _red = new Color(1f, 0f, 0f, 1f);
-        Handles.color = _blue;
+        Handles.color = Color.blue;
         Handles.DrawWireArc(playerTransform.position, transform.forward, transform.right, 360, spawnDistance, 2.0f);
-        Handles.color = _red;
+        Handles.color =  Color.red;
         for (int i = 0; i < spawnArea.Length; i++)
         {
             Handles.DrawWireArc(playerTransform.position + new Vector3(spawnArea[i].x, spawnArea[i].y, 0), transform.forward, transform.right, 360, spawnInternalDistance, 2.0f);
-            //Gizmos.DrawWireSphere(playerTransform.position + new Vector3(spawnArea[i].x, spawnArea[i].y, 0), spawnInternalDistance);
         }
+        Handles.color = Color.yellow;
+        Handles.DrawWireArc(playerTransform.position, transform.forward, transform.right, 360, 20f, 2.0f);
     }
 }

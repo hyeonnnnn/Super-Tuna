@@ -22,7 +22,6 @@ public class MineSpawner : MonoBehaviour
         {
             DisabledMinePoint.Add(mines[i]);
             mines[i].gameObject.SetActive(false);
-            mines[i].ExplodeEvent += TryMineSpawn;
         }
 
         int[] initMineSpawn = new int[maxMineCount];

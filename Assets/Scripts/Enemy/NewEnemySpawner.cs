@@ -6,6 +6,20 @@ using UnityEngine;
 
 public class NewEnemySpawner : MonoBehaviour
 {
+    public static NewEnemySpawner Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public enum FishType
     {
         SmallFish,
@@ -32,7 +46,7 @@ public class NewEnemySpawner : MonoBehaviour
     [SerializeField] Transform playerTransform;
 
     [SerializeField] private int maxEnemyCount;
-    [SerializeField] private int currentEnemyCount = 0;
+    private int currentEnemyCount = 0;
 
     AllEnemySpawnProbabilities enemySpawnPorbTable;
     //얘도 원래 Resources로 불러오는게 좋을 것 같은데 일단은 그냥 직접 넣는거로 함

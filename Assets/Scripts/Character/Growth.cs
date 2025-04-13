@@ -11,6 +11,7 @@ public class Growth : MonoBehaviour
 
     public int CurrentExp { get; private set; } = 0;
     public int CurrentLevel { get; private set; } = 1;
+    public bool doingEvolution = false;
 
     [SerializeField] private HungerSystem hungerSystem;
     [SerializeField] private PlayerMove playerMove;
@@ -50,7 +51,7 @@ public class Growth : MonoBehaviour
 
     public void AddExp(int expAmount)
     {
-        if (CurrentLevel >= MaxLevel)
+        if (CurrentExp >= expTable[MaxLevel - 1])
         {
             return;
         }
@@ -87,7 +88,11 @@ public class Growth : MonoBehaviour
             }
         }
 
-        StartCoroutine(ApplyLevelUp());
+        if(!doingEvolution)
+        {
+            doingEvolution = true;
+            StartCoroutine(ApplyLevelUp());
+        }
     }
 
     private IEnumerator ApplyLevelUp()
@@ -110,6 +115,7 @@ public class Growth : MonoBehaviour
             ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
 
             IncreaseScale();
+            doingEvolution = false;
         }
     }
 

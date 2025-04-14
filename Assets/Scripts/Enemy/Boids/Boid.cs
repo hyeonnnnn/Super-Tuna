@@ -59,6 +59,7 @@ public class Boid : MonoBehaviour
             if (nearNeighbors.Count >= spawner.maxNeighbors)
                 return;
 
+            if (neighbor == null) continue;
             if (neighbor == this.gameObject)
             {
                 continue;

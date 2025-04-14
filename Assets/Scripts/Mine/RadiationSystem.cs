@@ -6,8 +6,8 @@ using UnityEngine;
 public class RadiationSystem : MonoBehaviour
 { 
     private readonly float radiationDamage = 5f;
-    private readonly float radiationSpreadSpeed = 1f;
-    private readonly float radiationSpreadDuration = 300f;
+    private readonly float radiationSpreadSpeed = 3f;
+    private readonly float radiationSpreadDuration = 60f;
 
     public static event Action<bool> OnRadiationEnter;
 

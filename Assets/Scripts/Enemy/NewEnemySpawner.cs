@@ -153,8 +153,32 @@ public class NewEnemySpawner : MonoBehaviour
     private void SetEnemyStyle(GameObject newEnemyObject, FishType enemyFishType)
     {
         GameObject newRandomStyle = prefabDatas[enemyFishType][UnityEngine.Random.Range(0, prefabDatas[enemyFishType].Length)];
-        GameObject randomSelectedFishStyle = Instantiate(newRandomStyle, newEnemyObject.transform.position, newEnemyObject.transform.rotation   );
+        GameObject randomSelectedFishStyle = Instantiate(newRandomStyle, newEnemyObject.transform.position, newEnemyObject.transform.rotation);
 
+        float resizeScale = 1f;
+
+        switch(enemyFishType)
+        {
+            case FishType.SmallFish:
+                resizeScale = 1.5f;
+                break;
+            case FishType.SeaHorse:
+                resizeScale = 1.5f;
+                break;
+            case FishType.Turtle:
+                resizeScale = 1.5f;
+                break;
+            case FishType.Dolphin:
+                resizeScale = 1f;
+                break;
+            case FishType.Ray:
+                resizeScale = 1.6f;
+                break;
+            case FishType.Shark:
+                resizeScale = 1f;
+                break;
+        }
+        randomSelectedFishStyle.transform.localScale = randomSelectedFishStyle.transform.localScale * resizeScale;
         for (int i = 1; i >= 0; i--)
         {
             randomSelectedFishStyle.transform.GetChild(0).parent = newEnemyObject.transform;

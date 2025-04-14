@@ -5,39 +5,39 @@
             "probTable": [
                 50,
                 40,
-                30,
-                20,
-                5,
-                5,
-                10
-            ],
-            "totalWeight": 160
-        },
-        {
-            "depth": -110.0,
-            "probTable": [
-                25,
-                25,
-                30,
-                30,
                 15,
                 15,
-                40
+                2,
+                2,
+                20
             ],
-            "totalWeight": 180
+            "totalWeight": 144
         },
         {
-            "depth": -190.0,
+            "depth": -70.0,
             "probTable": [
+                40,
+                40,
+                25,
+                25,
                 10,
                 10,
-                20,
-                20,
-                30,
-                30,
                 50
             ],
-            "totalWeight": 170
+            "totalWeight": 200
+        },
+        {
+            "depth": -120.0,
+            "probTable": [
+                10,
+                10,
+                20,
+                20,
+                40,
+                40,
+                60
+            ],
+            "totalWeight": 200
         }
     ]
 }

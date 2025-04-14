@@ -61,8 +61,10 @@ public class Mine : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("trydestroyMine");
             if (Vector3.SqrMagnitude(transform.position - playerTransform.position) > 400f)
             {
+                Debug.Log("destroy");
                 ExplodeEvent?.Invoke(gameObject);
                 Destroy(gameObject);
                 yield break;

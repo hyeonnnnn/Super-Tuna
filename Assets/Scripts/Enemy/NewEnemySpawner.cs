@@ -120,9 +120,7 @@ public class NewEnemySpawner : MonoBehaviour
             return;
         }
         currentEnemyCount++;
-
         FishType fishType = GetRandomFishType(spawnPosition.y);
-
         if(fishType == FishType.Mine)
         {
             GameObject newMine = Instantiate(mineObject, spawnPosition, Quaternion.identity);
@@ -139,6 +137,7 @@ public class NewEnemySpawner : MonoBehaviour
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;
         newEnemy.GetComponent<Enemy>().SetPlayer(playerTransform);
+        //newEnemy.transform.rotation = randomRotateDir;
     }
 
     private Quaternion GetRandomRotation()
@@ -208,7 +207,7 @@ public class NewEnemySpawner : MonoBehaviour
             }
             randomType -= currentSpawnData.probTable[i];
         }
-        return FishType.Mine; // 기본값
+        return FishType.SmallFish; // 기본값
 
     }
 
@@ -228,6 +227,8 @@ public class NewEnemySpawner : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Color _blue = new Color(0f, 0f, 1f, 1f);
+        Color _red = new Color(1f, 0f, 0f, 1f);
         Handles.color = Color.blue;
         Handles.DrawWireArc(playerTransform.position, transform.forward, transform.right, 360, spawnDistance, 2.0f);
         Handles.color =  Color.red;

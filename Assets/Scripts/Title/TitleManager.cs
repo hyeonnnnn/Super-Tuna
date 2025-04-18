@@ -17,7 +17,6 @@ public class TitleManager : MonoBehaviour
         _logoAnim.gameObject.SetActive(true);
         _title.SetActive(false);
     }
-
     private void Start()
     {
         if(UserDataManager.Instance.ExistsSavedData)

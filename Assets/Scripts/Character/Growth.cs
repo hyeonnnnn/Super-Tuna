@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections;
-using System.Security.Cryptography.X509Certificates;
 
 public class Growth : MonoBehaviour
 {
@@ -11,18 +9,14 @@ public class Growth : MonoBehaviour
 
     public int CurrentExp { get; private set; } = 0;
     public int CurrentLevel { get; private set; } = 1;
-    public bool doingEvolution = false;
 
     [SerializeField] private HungerSystem hungerSystem;
-    [SerializeField] private PlayerMove playerMove;
     [SerializeField] private GameObject[] characterPrefabs;
     private int characterPrefabsInx = 0;
     private Vector3 baseScale = Vector3.one;
 
     public static event Action<int, int> OnExpGaugeChanged;
     public static event Action<int> OnLevelChanged;
-
-    [SerializeField] private GameObject LevelUpEffect;
 
     public Growth()
     {
@@ -51,7 +45,7 @@ public class Growth : MonoBehaviour
 
     public void AddExp(int expAmount)
     {
-        if (CurrentExp >= expTable[MaxLevel - 1])
+        if (CurrentLevel >= MaxLevel)
         {
             return;
         }
@@ -67,56 +61,26 @@ public class Growth : MonoBehaviour
     {
         if(CurrentExp >= expTable[CurrentLevel])
         {
-            StartCoroutine(CheckHuntAnimation());
+            ApplyLevelUp();
         }
     }
 
-    private IEnumerator CheckHuntAnimation()
+    private void ApplyLevelUp()
     {
-        Animator animator = characterPrefabs[characterPrefabsInx].GetComponent<Animator>();
-
-        if (animator != null)
-        {
-            while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hunting"))
-            {
-                yield return null;
-            }
-
-            while (animator.GetCurrentAnimatorStateInfo(0).IsName("Hunting") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
-            {
-                yield return null;
-            }
-        }
-
-        if(!doingEvolution)
-        {
-            doingEvolution = true;
-            StartCoroutine(ApplyLevelUp());
-        }
+        CurrentLevel += 1;
+        OnLevelChanged?.Invoke(CurrentLevel);
+        ChangePrefab();
     }
 
-    private IEnumerator ApplyLevelUp()
+    private void ChangePrefab()
     {
-        LevelUpEffect.SetActive(true);
+        characterPrefabs[characterPrefabsInx].SetActive(false);
+        characterPrefabsInx++;
+        characterPrefabs[characterPrefabsInx].SetActive(true);
 
-        yield return new WaitForSeconds(2f);
-
-        LevelUpEffect.SetActive(false);
-
-        if(!playerMove.GetPlayerIsDead())
-        {
-            CurrentLevel += 1;
-            OnLevelChanged?.Invoke(CurrentLevel);
-
-            characterPrefabs[characterPrefabsInx].SetActive(false);
-            characterPrefabsInx++;
-            characterPrefabs[characterPrefabsInx].SetActive(true);
-
-            ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
-
-            IncreaseScale();
-            doingEvolution = false;
-        }
+        ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
+        
+        IncreaseScale();
     }
 
     private void IncreaseScale()

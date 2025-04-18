@@ -191,9 +191,4 @@ public class PlayerMove : MonoBehaviour
         tunaPrefab.transform.localRotation = Quaternion.Euler(0f,90f, 0f);
         targetVelocity = Vector2.zero;
     }
-
-    public bool GetPlayerIsDead()
-    {
-        return isDead;
-    }
 }

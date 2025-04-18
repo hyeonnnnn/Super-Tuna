@@ -17,20 +17,14 @@ public class EnemyChase : EnemyState
     public override void OnStateUpdate()
     {
         if (enemy.Player == null) return;
-        
-        Vector3 directionToPlayer = (enemy.Player.position - enemy.transform.position).normalized;
-        directionToPlayer.z = 0;
-        
-        float sinOffset = Mathf.Sin(Time.time * 3f) * 0.3f;
-        Vector3 curvedDirection = directionToPlayer + enemy.transform.right * sinOffset;
-        curvedDirection.Normalize();
-        
-        enemy.transform.position += curvedDirection * chaseBoost * enemy.enemyData.speed * Time.deltaTime;
-        
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 3f);
-        
-        ApplyVerticalMovement();
+
+        enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, enemy.Player.position, chaseBoost * enemy.enemyData.speed * Time.deltaTime);
+
+        Vector3 direction = (enemy.Player.position - enemy.transform.position).normalized;
+        direction.z = 0;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
         if(enemy.enemyData.level <= enemy.growth.CurrentLevel)
         {
@@ -46,6 +40,7 @@ public class EnemyChase : EnemyState
 
             if (playerHungerSystem != null)
             {
+
                 playerHungerSystem.TriggerDeath(DyingReason.Enemy);
                 enemy.stateManager.ChangeState(enemy.stateManager.idleState);
                 Hunting.isPlayerDead = true;
@@ -53,7 +48,7 @@ public class EnemyChase : EnemyState
         }
     }
 
-    System.Collections.IEnumerator ChangeToIdle()
+    IEnumerator ChangeToIdle()
     {
         float timer = 0f;
 
@@ -62,7 +57,7 @@ public class EnemyChase : EnemyState
             yield return null;
             timer += Time.deltaTime;
 
-            if (enemy.IsPlayerDetected())
+            if (enemy.IsPlayerDetected()) // 플레이어를 다시 감지하면 Chase 유지
             {
                 timer = 0f;
             }

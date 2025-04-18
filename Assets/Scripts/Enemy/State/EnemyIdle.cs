@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class EnemyIdle : EnemyState
 {
-    private float randomDirectionTimer = 0f;
-    private float randomDirectionInterval = 3f;
-    private Vector3 randomDirection;
-
-    public EnemyIdle(Enemy enemy) : base(enemy) 
-    {
-        randomDirection = enemy.transform.forward;
-        randomDirectionInterval = Random.Range(2f, 5f);
-    }
+    public EnemyIdle(Enemy enemy) : base(enemy) { }
 
     public override void OnStateEnter()
     {
@@ -23,11 +15,9 @@ public class EnemyIdle : EnemyState
     public override void OnStateUpdate()
     {
         Move();
-        UpdateRandomDirection();
-        ApplyVerticalMovement();
     }
 
-    // 기본 이동
+    // �̵�
     private void Move()
     {
         Vector3 forward = enemy.transform.forward;
@@ -35,6 +25,9 @@ public class EnemyIdle : EnemyState
         forward.Normalize();
 
         enemy.transform.position += forward * enemy.enemyData.speed * Time.deltaTime;
+
+        Quaternion targetRotation = Quaternion.Euler(0, enemy.transform.rotation.eulerAngles.y, 0);
+        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
         if (enemy.IsPlayerDetected() && !Hunting.isPlayerDead)
         {
@@ -48,25 +41,10 @@ public class EnemyIdle : EnemyState
             }
         }
     }
-    
-    private void UpdateRandomDirection()
-    {
-        randomDirectionTimer += Time.deltaTime;
-        
-        if (randomDirectionTimer >= randomDirectionInterval)
-        {
-            float randomAngle = Random.Range(-30f, 30f);
-            randomDirection = Quaternion.Euler(0, randomAngle, 0) * enemy.transform.forward;
-            randomDirectionTimer = 0f;
-            randomDirectionInterval = Random.Range(2f, 5f);
-        }
-        
-        Vector3 targetDirection = Vector3.Slerp(enemy.transform.forward, randomDirection, Time.deltaTime);
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 2f);
-    }
+
 
     public override void OnStateExit()
     {
+
     }
 }

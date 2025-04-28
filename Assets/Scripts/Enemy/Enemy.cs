@@ -69,9 +69,9 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerDeath()
     {
-        deathEvent.Invoke(gameObject);
+        deathEvent?.Invoke(gameObject);
+        BoidManager.Instance.Boids.Remove(gameObject);
         Destroy(gameObject);
-        //gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos()

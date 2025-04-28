@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform Player => player;
 
-    private bool isOutOfBoundary = false;
 
     public EnemyStateManager stateManager;
     public Growth growth;
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player")?.transform;
+        //player = GameObject.FindWithTag("Player")?.transform;
         stateManager = GetComponent<EnemyStateManager>();
 
         if (player != null)
@@ -27,6 +27,14 @@ public class Enemy : MonoBehaviour
             growth = player.GetComponent<Growth>();
             LookAtPlayer();
         }
+
+        StartCoroutine(Despawn());
+
+    }
+
+    public void SetPlayer(Transform player)
+    {
+        this.player = player;
     }
 
     public bool IsPlayerDetected()
@@ -55,17 +63,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerDeath()
     {
-        if (other.CompareTag("Boundary"))
+        deathEvent.Invoke(gameObject);
+        Destroy(gameObject);
+    }
+
+    private IEnumerator Despawn()
+    {
+        while(true)
         {
-            if (!isOutOfBoundary)
+            if (Vector3.SqrMagnitude(transform.position - player.position) > 400f)
             {
-                isOutOfBoundary = true;
-                Invoke(nameof(OnTriggerDeath), 3f);
+                OnTriggerDeath();
+                yield break;
             }
+            yield return new WaitForSeconds(5f);
         }
     }
+
 
     public void OnTriggerDeath()
     {

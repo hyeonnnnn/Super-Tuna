@@ -1,0 +1,43 @@
+{
+    "enemyProbDatas": [
+        {
+            "depth": -10.0,
+            "probTable": [
+                50,
+                40,
+                15,
+                15,
+                2,
+                2,
+                20
+            ],
+            "totalWeight": 144
+        },
+        {
+            "depth": -70.0,
+            "probTable": [
+                40,
+                40,
+                25,
+                25,
+                10,
+                10,
+                50
+            ],
+            "totalWeight": 200
+        },
+        {
+            "depth": -120.0,
+            "probTable": [
+                10,
+                10,
+                20,
+                20,
+                40,
+                40,
+                60
+            ],
+            "totalWeight": 200
+        }
+    ]
+}

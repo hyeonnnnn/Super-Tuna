@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class NewEnemySpawner : MonoBehaviour
 {
-    public static NewEnemySpawner Instance { get; private set; }
+    //public static NewEnemySpawner Instance { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    //private void Awake()
+    //{
+    //    if (Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
 
     public enum FishType
     {
@@ -134,10 +134,10 @@ public class NewEnemySpawner : MonoBehaviour
 
         SetEnemyStyle(newEnemy, fishType);
 
-        if(fishType == FishType.SmallFish)
-        {
-            newEnemy.GetComponent<BoidManager>().prefab = newEnemy;
-        }
+        //if(fishType == FishType.SmallFish)
+        //{
+        //    newEnemy.GetComponent<BoidManager>().prefab = newEnemy;
+        //}
 
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;

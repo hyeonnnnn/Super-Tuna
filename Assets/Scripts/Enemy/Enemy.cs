@@ -63,12 +63,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void OnTriggerDeath()
-    {
-        deathEvent.Invoke(gameObject);
-        Destroy(gameObject);
-    }
-
     private IEnumerator Despawn()
     {
         while(true)

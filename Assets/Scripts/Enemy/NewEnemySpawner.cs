@@ -180,6 +180,7 @@ public class NewEnemySpawner : MonoBehaviour
         for (int i = 1; i >= 0; i--)
         {
             randomSelectedFishStyle.transform.GetChild(0).parent = newEnemyObject.transform;
+
         }
         Destroy(randomSelectedFishStyle);
     }

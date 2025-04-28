@@ -134,6 +134,11 @@ public class NewEnemySpawner : MonoBehaviour
 
         SetEnemyStyle(newEnemy, fishType);
 
+        if(fishType == FishType.SmallFish)
+        {
+            newEnemy.GetComponent<BoidManager>().prefab = newEnemy;
+        }
+
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;
         newEnemy.GetComponent<Enemy>().SetPlayer(playerTransform);

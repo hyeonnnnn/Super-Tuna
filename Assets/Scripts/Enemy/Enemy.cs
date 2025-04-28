@@ -80,8 +80,14 @@ public class Enemy : MonoBehaviour
     public void OnTriggerDeath()
     {
         deathEvent?.Invoke(gameObject);
-        BoidManager.Instance.Boids.Remove(gameObject);
-        Destroy(gameObject);
+        if(enemyData.enemyType == "SmallFish")
+        {
+            BoidManager.Instance.Boids.Remove(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnDrawGizmos()

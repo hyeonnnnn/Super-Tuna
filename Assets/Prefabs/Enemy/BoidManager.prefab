@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bb4b38e74f1354283ce7fa44537f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 3525981868356993055, guid: 9f2e62c10bd1ff147bc483978b6f3e3d, type: 3}
   InstantiateRadius: 10
   number: 10
   Boids: []

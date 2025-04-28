@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8348577337085017007}
   - component: {fileID: 287500813940894257}
   - component: {fileID: 2057296016710345390}
+  - component: {fileID: -5931642795712605095}
   m_Layer: 0
   m_Name: SmallFish
   m_TagString: Untagged
@@ -108,3 +109,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5931642795712605095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525981868356993055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3978e5f3e31c4724f9ab292cce5e84c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 0, z: 0}
+  neighborCount: 0

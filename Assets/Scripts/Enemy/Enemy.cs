@@ -82,6 +82,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    public void OnTriggerDeath()
+    {
+        deathEvent?.Invoke(gameObject);
+        BoidManager.Instance.Boids.Remove(gameObject);
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmos()
     {
         Color _blue = new Color(0f, 0f, 1f, 0.2f);

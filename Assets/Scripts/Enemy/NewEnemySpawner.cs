@@ -160,7 +160,12 @@ public class NewEnemySpawner : MonoBehaviour
         GameObject folder = new GameObject("SmallFishBoidGroup");
         folder.transform.position = smallFishPrefab.transform.position;
         BoidManager bm = folder.AddComponent<BoidManager>();
-        
+
+        bm.onAllBoidsDead += (BoidManager b) =>
+        {
+            currentEnemyCount--;
+        };
+
         bm.Setup(smallFishPrefab, boidCount, instantiateRadius);
         bm.SpawnBoids();
         Destroy(smallFishPrefab);

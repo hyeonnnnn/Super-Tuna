@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ public class BoidManager : MonoBehaviour
     [HideInInspector]
     public List<Boid> Boids = new List<Boid>();
 
+    public Action<BoidManager> onAllBoidsDead;
+
     private void Start()
     {
         if (prefab != null && boidCount > 0)
@@ -36,12 +39,7 @@ public class BoidManager : MonoBehaviour
         Boids.RemoveAll(b => b == null);
         if (Boids.Count == 0)
         {
-            NewEnemySpawner spawner = FindObjectOfType<NewEnemySpawner>();
-            if (spawner != null)
-            {
-                spawner.currentEnemyCount--;
-            }
-
+            onAllBoidsDead?.Invoke(this);
             Destroy(gameObject);
         }
     }
@@ -57,9 +55,9 @@ public class BoidManager : MonoBehaviour
     {
         for (int i = 0; i < boidCount; i++)
         {
-            Vector3 offset = Random.insideUnitCircle * InstantiateRadius;
+            Vector3 offset = UnityEngine.Random.insideUnitCircle * InstantiateRadius;
             Vector3 spawnPos = prefab.transform.position + new Vector3(offset.x, offset.y, 0f);
-            Quaternion spawnRot = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+            Quaternion spawnRot = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
             GameObject go = Instantiate(prefab, spawnPos, spawnRot, transform);
 
             if (!go.GetComponent<Boid>().enabled)

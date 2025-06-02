@@ -11,15 +11,14 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public Transform Player => player;
 
-
+    private BoidManager boidManager;
     public EnemyStateManager stateManager;
     public Growth growth;
-
     public event Action<GameObject> deathEvent;
 
     private void Start()
     {
-        //player = GameObject.FindWithTag("Player")?.transform;
+        player = GameObject.FindWithTag("Player")?.transform;
         stateManager = GetComponent<EnemyStateManager>();
 
         if (player != null)
@@ -80,9 +79,13 @@ public class Enemy : MonoBehaviour
     public void OnTriggerDeath()
     {
         deathEvent?.Invoke(gameObject);
-        if(enemyData.enemyType == "SmallFish")
+
+        if (enemyData.enemyType == "SmallFish" && boidManager != null)
         {
-            BoidManager.Instance.Boids.Remove(gameObject);
+            Boid boidComp = GetComponent<Boid>();
+            if (boidComp != null)
+                boidManager.Boids.Remove(boidComp);
+            Destroy(gameObject);
         }
         else
         {

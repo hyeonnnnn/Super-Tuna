@@ -31,18 +31,6 @@ public class Growth : MonoBehaviour
         OnLevelChanged?.Invoke(CurrentLevel);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            AddExp(40);
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            AddExp(80);
-        }
-    }
-
     public void AddExp(int expAmount)
     {
         if (CurrentLevel >= MaxLevel)

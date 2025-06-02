@@ -127,9 +127,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: number
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: maxSpeed
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: boidCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: maxNeighbors
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: boundaryForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: cohesionWeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: moveRadiusRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: neighborDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: separationWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1698785644539232647, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: InstantiateRadius
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2718741498549132338, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
       propertyPath: m_Name
       value: BoidManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2718741498549132338, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4423979383599709653, guid: 53024cc6ce6fa6740b7009cef04b2537, type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 479642302}
   maxEnemyCount: 25
+  currentEnemyCount: 0
   enemyTypeList:
   - {fileID: 3525981868356993055, guid: 9f2e62c10bd1ff147bc483978b6f3e3d, type: 3}
   - {fileID: 4586149939554205162, guid: 21c015dfa734fd14c9f3d00ebaef034c, type: 3}
@@ -846,15 +895,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5961789367745264376, guid: 52b8423ef2cf08342b6a960ea2bca679, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.4689941
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5961789367745264376, guid: 52b8423ef2cf08342b6a960ea2bca679, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.90645695
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5961789367745264376, guid: 52b8423ef2cf08342b6a960ea2bca679, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.206561
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5961789367745264376, guid: 52b8423ef2cf08342b6a960ea2bca679, type: 3}
       propertyPath: m_LocalRotation.w
@@ -904,6 +953,10 @@ PrefabInstance:
     - target: {fileID: 283326663367322277, guid: 478f8bec5575270429653f5b3a8679a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 371526870271056912, guid: 478f8bec5575270429653f5b3a8679a7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1655049460417104489, guid: 478f8bec5575270429653f5b3a8679a7, type: 3}
       propertyPath: m_AnchorMax.x

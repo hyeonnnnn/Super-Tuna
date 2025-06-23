@@ -1,141 +1,119 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class Boid : MonoBehaviour
 {
-    [Header("Neighbor")]
-    List<GameObject> nearNeighbors = new List<GameObject>();
+    private BoidManager spawner;
+    private Vector3 velocity;
+    private List<Boid> nearNeighbors = new List<Boid>();
+    
+    [SerializeField, HideInInspector]
+    private int neighborCount;
 
-    [Header("MoveInform")]
-    [SerializeField] private Vector3 velocity;
-
-    [Header("TEST")]
-    [SerializeField] private int neighborCount = 0;
-
-    BoidManager spawner;
-
-    void Start()
+    public void Initialize(BoidManager manager)
     {
-        Init();
-    }
-
-
-    public void Init()
-    {
-        spawner = BoidManager.Instance;
-        
+        spawner = manager;
         Vector2 dir = Random.insideUnitCircle.normalized;
         velocity = new Vector3(dir.x, dir.y, 0f) * spawner.maxSpeed;
     }
 
-
-    void Update()
+    private void Awake()
     {
-        FindNeighbors();
+        if (spawner == null)
+        {
+            BoidManager parentMgr = GetComponentInParent<BoidManager>();
+            if (parentMgr != null)
+            {
+                Initialize(parentMgr);
+            }
+        }
+    }
 
+    private void Update()
+    {
+        if (spawner == null)
+        {
+            Debug.LogError($"[{name}] spawner is not assigned.");
+            return;
+        }
+
+        FindNeighbors();
         velocity += CalculateCohesion() * spawner.cohesionWeight;
         velocity += CalculateAlignment() * spawner.alignmentWeight;
         velocity += CalculateSeparation() * spawner.separationWeight;
         LimitMoveRadius();
 
         velocity.z = 0f;
-
-        if (velocity.magnitude > spawner.maxSpeed)
+        if (velocity.sqrMagnitude > spawner.maxSpeed * spawner.maxSpeed)
             velocity = velocity.normalized * spawner.maxSpeed;
 
-        this.transform.position += velocity * Time.deltaTime;
-        this.transform.rotation = Quaternion.LookRotation(velocity);
+        transform.position += velocity * Time.deltaTime;
+        if (velocity.sqrMagnitude > 0.0001f)
+            transform.rotation = Quaternion.LookRotation(velocity);
     }
 
     private void FindNeighbors()
     {
+        if (spawner?.Boids == null) return;
+
         nearNeighbors.Clear();
-
-        foreach (GameObject neighbor in spawner.Boids)
+        foreach (var other in spawner.Boids)
         {
-            if (nearNeighbors.Count >= spawner.maxNeighbors)
-                return;
+            if (other == null) continue;
+            if (other == this) continue;
 
-            if (neighbor == null) continue;
-            if (neighbor == this.gameObject)
+            Vector3 diff = other.transform.position - transform.position;
+            if (diff.sqrMagnitude < spawner.neighborDistance * spawner.neighborDistance)
             {
-                continue;
-            }
-
-            Vector3 diff = neighbor.transform.position - this.transform.position;
-
-            if (diff.sqrMagnitude < spawner.neighborDistance * spawner.neighborDistance) // 범위 내 이웃만 남기기
-            {
-                nearNeighbors.Add(neighbor);
+                nearNeighbors.Add(other);
+                if (nearNeighbors.Count >= spawner.maxNeighbors)
+                    break;
             }
         }
-
         neighborCount = nearNeighbors.Count;
     }
 
     private Vector3 CalculateCohesion()
     {
-        Vector3 cohesionDirection = Vector3.zero;
-
-        if (nearNeighbors.Count > 0)
-        {
-            for (int i = 0; i < nearNeighbors.Count; ++i)
-            {
-                cohesionDirection += nearNeighbors[i].transform.position - this.transform.position;
-            }
-            cohesionDirection /= nearNeighbors.Count;
-            cohesionDirection.Normalize();
-        }
-        return cohesionDirection;
+        if (nearNeighbors.Count == 0) return Vector3.zero;
+        Vector3 center = Vector3.zero;
+        foreach (var n in nearNeighbors)
+            center += n.transform.position;
+        center /= nearNeighbors.Count;
+        return (center - transform.position).normalized;
     }
-
 
     private Vector3 CalculateAlignment()
     {
-        Vector3 alignmentDirection = transform.forward;
-
-        if (nearNeighbors.Count > 0)
-        {
-            for (int i = 0; i < nearNeighbors.Count; ++i)
-            {
-                alignmentDirection += nearNeighbors[i].transform.forward;
-            }
-            alignmentDirection /= nearNeighbors.Count;
-            alignmentDirection.Normalize();
-        }
-        return alignmentDirection;
+        Vector3 avg = transform.forward;
+        foreach (var n in nearNeighbors)
+            avg += n.transform.forward;
+        avg /= (nearNeighbors.Count + 1);
+        return avg.normalized;
     }
 
     private Vector3 CalculateSeparation()
     {
-        Vector3 separationDirection = Vector3.zero;
-
-        if (nearNeighbors.Count > 0)
-        {
-            for (int i = 0; i < nearNeighbors.Count; ++i)
-            {
-                separationDirection += (this.transform.position - nearNeighbors[i].transform.position);
-            }
-
-            separationDirection /= nearNeighbors.Count;
-            separationDirection.Normalize();
-        }
-
-        return separationDirection;
+        if (nearNeighbors.Count == 0) return Vector3.zero;
+        Vector3 sum = Vector3.zero;
+        foreach (var n in nearNeighbors)
+            sum += transform.position - n.transform.position;
+        sum /= nearNeighbors.Count;
+        return sum.normalized;
     }
 
     private void LimitMoveRadius()
     {
-        if (spawner.moveRadiusRange < this.transform.position.magnitude)
+        Vector3 offset = transform.position - spawner.transform.position;
+        float dist = offset.magnitude;
+
+        if (dist > spawner.moveRadiusRange)
         {
-            velocity +=
-                (this.transform.position - Vector3.zero).normalized *
-                (spawner.moveRadiusRange - (this.transform.position - Vector3.zero).magnitude) *
-                spawner.boundaryForce *
-                Time.deltaTime;
+            Vector3 dirToCenter = -offset.normalized;
+            velocity += dirToCenter
+                      * (dist - spawner.moveRadiusRange)
+                      * spawner.boundaryForce
+                      * Time.deltaTime;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class HungerSystem : MonoBehaviour
 {
     private const int MaxHunger = 100;
-    private const int BaseHungerDecreaseAmount = 5;
+    private const int BaseHungerDecreaseAmount = 3;
     private const float HungerDecreaseInterval = 1f;
 
     [SerializeField] private Animator fishAnimator;

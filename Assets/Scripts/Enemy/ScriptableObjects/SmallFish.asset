@@ -15,6 +15,6 @@ MonoBehaviour:
   enemyType: SmallFish
   level: 1
   sightRange: 1
-  speed: 1.5
-  exp: 305
-  hungerValue: 5
+  speed: 0.5
+  exp: 25
+  hungerValue: 15

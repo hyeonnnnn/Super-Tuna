@@ -46,9 +46,10 @@ public class NewEnemySpawner : MonoBehaviour
     [SerializeField] Transform playerTransform;
 
     [SerializeField] private int maxEnemyCount;
-    private int currentEnemyCount = 0;
+    public int currentEnemyCount = 0;
 
     AllEnemySpawnProbabilities enemySpawnPorbTable;
+    
     //얘도 원래 Resources로 불러오는게 좋을 것 같은데 일단은 그냥 직접 넣는거로 함
     [SerializeField] GameObject[] enemyTypeList;
     [SerializeField] GameObject mineObject;
@@ -58,7 +59,7 @@ public class NewEnemySpawner : MonoBehaviour
     private float spawnCoolTime = 0.5f;
 
     const string prefabsDitectory = "EnemyPrefabs";
-    
+
     private void Start()
     {
         LoadFishPrefabs();
@@ -121,6 +122,7 @@ public class NewEnemySpawner : MonoBehaviour
         }
         currentEnemyCount++;
         FishType fishType = GetRandomFishType(spawnPosition.y);
+        
         if(fishType == FishType.Mine)
         {
             GameObject newMine = Instantiate(mineObject, spawnPosition, Quaternion.identity);
@@ -128,20 +130,46 @@ public class NewEnemySpawner : MonoBehaviour
             newMine.GetComponent<Mine>().SetPlayer(playerTransform);
             return;
         }
-        Quaternion randomRotate = GetRandomRotation();
 
-        GameObject newEnemy = Instantiate(enemyTypeList[(int)fishType], spawnPosition, randomRotate);
+        Quaternion randomRotate = GetRandomRotation();
+        GameObject newEnemy = Instantiate(
+            enemyTypeList[(int)fishType],
+            spawnPosition,
+            randomRotate
+        );
 
         SetEnemyStyle(newEnemy, fishType);
 
-        //if(fishType == FishType.SmallFish)
-        //{
-        //    newEnemy.GetComponent<BoidManager>().prefab = newEnemy;
-        //}
+        // small fish만 군집으로 생성
+        if (fishType == FishType.SmallFish)
+        {
+            SpawnSmallFishBoids(newEnemy);
+            return;
+        }
 
         newEnemy.GetComponent<Animator>().Rebind();
         newEnemy.GetComponent<Enemy>().deathEvent += ReduceEnemyCount;
         newEnemy.GetComponent<Enemy>().SetPlayer(playerTransform);
+    }
+
+    private void SpawnSmallFishBoids(GameObject smallFishPrefab)
+    {
+        int boidCount = 5;
+        float instantiateRadius = 3f;
+
+        GameObject folder = new GameObject("SmallFishBoidGroup");
+        folder.transform.position = smallFishPrefab.transform.position;
+        BoidManager bm = folder.AddComponent<BoidManager>();
+
+        bm.onAllBoidsDead += (BoidManager b) =>
+        {
+            currentEnemyCount--;
+        };
+
+        bm.Setup(smallFishPrefab, boidCount, instantiateRadius);
+        bm.SpawnBoids();
+        Destroy(smallFishPrefab);
+
     }
 
     private Quaternion GetRandomRotation()

@@ -37,6 +37,18 @@ public class Growth : MonoBehaviour
         OnLevelChanged?.Invoke(CurrentLevel);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            AddExp(40);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            AddExp(80);
+        }
+    }
+
     public void AddExp(int expAmount)
     {
         if (CurrentExp >= expTable[MaxLevel - 1])
@@ -53,7 +65,7 @@ public class Growth : MonoBehaviour
 
     private void CheckLevelUp()
     {
-        if(CurrentExp >= expTable[CurrentLevel])
+        if (CurrentExp >= expTable[CurrentLevel])
         {
             StartCoroutine(CheckHuntAnimation());
         }
@@ -99,7 +111,6 @@ public class Growth : MonoBehaviour
             characterPrefabs[characterPrefabsInx].SetActive(false);
             characterPrefabsInx++;
             characterPrefabs[characterPrefabsInx].SetActive(true);
-
             ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
 
             IncreaseScale();

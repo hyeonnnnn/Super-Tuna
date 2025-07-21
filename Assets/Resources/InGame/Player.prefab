@@ -440,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e14cc1ecb779d745b6f10cfbab2a65d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingEvolution: 0
   hungerSystem: {fileID: 4124532231889154411}
   playerMove: {fileID: 496048766579610441}
   characterPrefabs:

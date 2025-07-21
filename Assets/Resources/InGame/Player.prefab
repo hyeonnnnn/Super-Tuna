@@ -439,11 +439,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e14cc1ecb779d745b6f10cfbab2a65d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingEvolution: 0
   hungerSystem: {fileID: 4124532231889154411}
+  playerMove: {fileID: 496048766579610441}
   characterPrefabs:
   - {fileID: 5222204196629840904}
   - {fileID: 9032118540485017731}
   - {fileID: 7343538423427597899}
+  LevelUpEffect: {fileID: 4593184484909914552, guid: 2e1e9506f5904a64b81744324fb7cd50, type: 3}
 --- !u!136 &8246367597763273007
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 283326663367322277}
   - component: {fileID: 7902147385502327544}
   - component: {fileID: 8402855751633342013}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3148363337874168608}
   - component: {fileID: 6380433061519824759}
   - component: {fileID: 2540421182603734920}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InGameCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 7174236454718386545}
   - component: {fileID: 4425887793440970250}
   - component: {fileID: 5524396814445512575}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Setting Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 5463838066365303807}
   - component: {fileID: 888771711751472332}
   - component: {fileID: 7296329447636435549}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Map Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7573653259507129951}
   - component: {fileID: 1388497392580928139}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InGameUICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 32
@@ -543,7 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7819944760073752280}
   - component: {fileID: 4275949316430318341}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Health Gauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3974251643881660157}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 6307237466601635608}
   - component: {fileID: 4118173361095101713}
   - component: {fileID: 4511075585441549420}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UpLeft Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 8666043487722754571}
   - component: {fileID: 9112247195296861671}
   - component: {fileID: 8852238500037341273}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 6156941716665361166}
   - component: {fileID: 5563154018002457680}
   - component: {fileID: 1888796727131954630}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Survived Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -956,7 +956,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8529114602276126465}
   - component: {fileID: 2071583579618250462}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Exp Gauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 6414234575553151415}
   - component: {fileID: 1195889016474000370}
   - component: {fileID: 3998849612052392360}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoToLobbyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 9019838237136472235}
   - component: {fileID: 6340967161551298958}
   - component: {fileID: 477646933184656693}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOver Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1318,7 +1318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8645000815693861200}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1432,7 +1432,7 @@ GameObject:
   - component: {fileID: 4863963242373153690}
   - component: {fileID: 7312445658427475793}
   - component: {fileID: 3643603441308846365}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameOver Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1588,7 +1588,7 @@ GameObject:
   - component: {fileID: 6802626599981720971}
   - component: {fileID: 626408680832275974}
   - component: {fileID: 4178140853523837617}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoToLobbyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1718,7 +1718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190572920722104396}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Down Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1755,7 +1755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371526870271056912}
   - component: {fileID: 6026349414217236242}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dash Gauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1846,7 +1846,7 @@ GameObject:
   - component: {fileID: 6439726929656528477}
   - component: {fileID: 8517906059786334328}
   - component: {fileID: 6217716413679520736}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RetryButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1978,7 +1978,7 @@ GameObject:
   - component: {fileID: 8850576959390088150}
   - component: {fileID: 5748970608214560831}
   - component: {fileID: 7528123553080836078}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Timer text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2115,7 @@ GameObject:
   - component: {fileID: 51360283679874859}
   - component: {fileID: 5012709988135426994}
   - component: {fileID: 7792968924940773377}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Map Info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2345,7 +2345,7 @@ GameObject:
   - component: {fileID: 7067641142380269064}
   - component: {fileID: 9161947335912762173}
   - component: {fileID: 2289776680302433660}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2494,7 +2494,7 @@ GameObject:
   - component: {fileID: 7990137735529496911}
   - component: {fileID: 6457106621780210309}
   - component: {fileID: 2291839870576004855}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SuperTunaDieImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2569,7 +2569,7 @@ GameObject:
   - component: {fileID: 5195974057133163240}
   - component: {fileID: 8097784198118063662}
   - component: {fileID: 1361103670687439397}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2644,7 +2644,7 @@ GameObject:
   - component: {fileID: 1655049460417104489}
   - component: {fileID: 5557507864478943895}
   - component: {fileID: 1963283722727666536}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2753,7 +2753,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 497518113659695979}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2791,7 +2791,7 @@ GameObject:
   - component: {fileID: 8276542690483676833}
   - component: {fileID: 7649195948313700852}
   - component: {fileID: 552303628366513347}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Level Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3214,7 +3214,7 @@ GameObject:
   - component: {fileID: 3344247761468185976}
   - component: {fileID: 1846796487521931604}
   - component: {fileID: 332579695020428686}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RetryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

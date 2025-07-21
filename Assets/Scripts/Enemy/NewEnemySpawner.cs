@@ -116,7 +116,7 @@ public class NewEnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(Vector3 spawnPosition)
     {
-        if(spawnPosition.y > -11 || spawnPosition.y < -385f)
+        if(spawnPosition.y > -11 || spawnPosition.y < -200f)
         {
             return;
         }

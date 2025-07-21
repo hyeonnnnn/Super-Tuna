@@ -88,7 +88,7 @@ public class Growth : MonoBehaviour
             }
         }
 
-        if (!doingEvolution)
+        if(!doingEvolution)
         {
             doingEvolution = true;
             StartCoroutine(ApplyLevelUp());
@@ -103,7 +103,7 @@ public class Growth : MonoBehaviour
 
         LevelUpEffect.SetActive(false);
 
-        if (!playerMove.GetPlayerIsDead())
+        if(!playerMove.GetPlayerIsDead())
         {
             CurrentLevel += 1;
             OnLevelChanged?.Invoke(CurrentLevel);
@@ -111,7 +111,6 @@ public class Growth : MonoBehaviour
             characterPrefabs[characterPrefabsInx].SetActive(false);
             characterPrefabsInx++;
             characterPrefabs[characterPrefabsInx].SetActive(true);
-
             ChangePrefabAnimator(characterPrefabs[characterPrefabsInx]);
 
             IncreaseScale();
